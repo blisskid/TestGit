@@ -31,4 +31,6 @@ delete_option('revslider-code');
 delete_option('revslider-valid');
 delete_option('revslider-valid-notice');
 */
+?>revslider-valid-notice');
+*/
 ?>

@@ -551,4 +551,29 @@
 		
  }
  
+ ?>($message,$arrData = null){
+			
+			self::ajaxResponse(false,$message,$arrData,true);
+		}
+		
+		/**
+		 * echo ajax success response
+		 */
+		protected static function ajaxResponseSuccess($message,$arrData = null){
+			
+			self::ajaxResponse(true,$message,$arrData,true);
+			
+		}
+		
+		/**
+		 * echo ajax success response
+		 */
+		protected static function ajaxResponseSuccessRedirect($message,$url){
+			$arrData = array("is_redirect"=>true,"redirect_url"=>$url);
+			
+			self::ajaxResponse(true,$message,$arrData,true);
+		}
+		
+ }
+ 
  ?>

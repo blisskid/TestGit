@@ -6288,3 +6288,191 @@ function revslider_showDoubleJqueryError(sliderID) {
 }
 
 
+ion Slider - THUMBNAIL MODULE
+		 * @version: 1.0 (03.06.2013)
+		 * @author ThemePunch
+		**************************************************************************/
+
+
+		////////////////////////////////
+		//	-	CREATE THE BULLETS -  //
+		////////////////////////////////
+		var createThumbs = function(container,opt) {
+
+			var cap=container.parent();
+
+
+
+			if (opt.navigationType=="thumb" || opt.navsecond=="both") {
+						cap.append('<div class="tp-bullets tp-thumbs '+opt.navigationStyle+'"><div class="tp-mask"><div class="tp-thumbcontainer"></div></div></div>');
+			}
+			var bullets = cap.find('.tp-bullets.tp-thumbs .tp-mask .tp-thumbcontainer');
+			var bup = bullets.parent();
+
+			bup.width(opt.thumbWidth*opt.thumbAmount);
+			bup.height(opt.thumbHeight);
+			bup.parent().width(opt.thumbWidth*opt.thumbAmount);
+			bup.parent().height(opt.thumbHeight);
+
+			container.find('>ul:first >li').each(function(i) {
+							var li= container.find(">ul:first >li:eq("+i+")");
+							var bgcolor = li.find(".defaultimg").css("backgroundColor");
+							if (li.data('thumb') !=undefined)
+								var src= li.data('thumb')
+							else
+								var src=li.find("img:first").attr('src');
+
+
+							bullets.append('<div class="bullet thumb" style="background-color:'+bgcolor+';position:relative;width:'+opt.thumbWidth+'px;height:'+opt.thumbHeight+'px;background-image:url('+src+') !important;background-size:cover;background-position:center center;"></div>');
+							var bullet= bullets.find('.bullet:first');
+				});
+			//bullets.append('<div style="clear:both"></div>');
+			var minwidth=10;
+
+
+			// ADD THE BULLET CLICK FUNCTION HERE
+			bullets.find('.bullet').each(function(i) {
+				var bul = jQuery(this);
+
+				if (i==opt.slideamount-1) bul.addClass('last');
+				if (i==0) bul.addClass('first');
+				bul.width(opt.thumbWidth);
+				bul.height(opt.thumbHeight);
+
+				if (minwidth<bul.outerWidth(true)) minwidth=bul.outerWidth(true);
+				bul.click(function() {
+					if (opt.transition==0 && bul.index() != opt.act) {
+						opt.next = bul.index();
+						callingNewSlide(opt,container);
+					}
+				});
+			});
+
+
+			var max=minwidth*container.find('>ul:first >li').length;
+
+			var thumbconwidth=bullets.parent().width();
+			opt.thumbWidth = minwidth;
+
+
+
+			////////////////////////
+			// SLIDE TO POSITION  //
+			////////////////////////
+			if (thumbconwidth<max) {
+				jQuery(document).mousemove(function(e) {
+					jQuery('body').data('mousex',e.pageX);
+				});
+
+
+
+				// ON MOUSE MOVE ON THE THUMBNAILS EVERYTHING SHOULD MOVE :)
+
+				bullets.parent().mouseenter(function() {
+						var $this=jQuery(this);
+
+						var offset = $this.offset(),
+							x = jQuery('body').data('mousex')-offset.left,
+							thumbconwidth=$this.width(),
+							minwidth=$this.find('.bullet:first').outerWidth(true),
+							max=minwidth*container.find('>ul:first >li').length,
+							diff=(max- thumbconwidth)+15,
+							steps = diff / thumbconwidth;
+
+						$this.addClass("over");
+						x=x-30;
+
+						//ANIMATE TO POSITION
+						var pos=(0-((x)*steps));
+						if (pos>0) pos =0;
+						if (pos<0-max+thumbconwidth) pos=0-max+thumbconwidth;
+						moveThumbSliderToPosition($this,pos,200);
+				});
+
+				bullets.parent().mousemove(function() {
+
+								var $this=jQuery(this),
+									offset = $this.offset(),
+									x = jQuery('body').data('mousex')-offset.left,
+									thumbconwidth=$this.width(),
+									minwidth=$this.find('.bullet:first').outerWidth(true),
+									max=minwidth*container.find('>ul:first >li').length-1,
+									diff=(max- thumbconwidth)+15,
+									steps = diff / thumbconwidth;
+
+								x=x-3;
+								if (x<6) x=0;
+								if (x+3>thumbconwidth-6) x=thumbconwidth;
+
+								//ANIMATE TO POSITION
+								var pos=(0-((x)*steps));
+								if (pos>0) pos =0;
+								if (pos<0-max+thumbconwidth) pos=0-max+thumbconwidth;
+								moveThumbSliderToPosition($this,pos,0);
+
+				});
+
+				bullets.parent().mouseleave(function() {
+								var $this=jQuery(this);
+								$this.removeClass("over");
+								moveSelectedThumb(container);
+				});
+			}
+
+
+		}
+
+
+		///////////////////////////////
+		//	SelectedThumbInPosition //
+		//////////////////////////////
+		var moveSelectedThumb = function(container) {
+
+									var bullets=container.parent().find('.tp-bullets.tp-thumbs .tp-mask .tp-thumbcontainer'),
+										$this=bullets.parent(),
+										offset = $this.offset(),
+										minwidth=$this.find('.bullet:first').outerWidth(true),
+										x = $this.find('.bullet.selected').index() * minwidth,
+										thumbconwidth=$this.width(),
+										minwidth=$this.find('.bullet:first').outerWidth(true),
+										max=minwidth*container.find('>ul:first >li').length,
+										diff=(max- thumbconwidth),
+										steps = diff / thumbconwidth,
+										pos=0-x;
+
+									if (pos>0) pos =0;
+									if (pos<0-max+thumbconwidth) pos=0-max+thumbconwidth;
+									if (!$this.hasClass("over")) {
+										moveThumbSliderToPosition($this,pos,200);
+									}
+		}
+
+
+		////////////////////////////////////
+		//	MOVE THUMB SLIDER TO POSITION //
+		///////////////////////////////////
+		var moveThumbSliderToPosition = function($this,pos,speed) {
+			punchgs.TweenLite.to($this.find('.tp-thumbcontainer'),0.2,{force3D:"auto",left:pos,ease:punchgs.Power3.easeOut,overwrite:"auto"});
+		}
+})(jQuery);
+
+
+
+/// END OF THUMBNAIL EXTNESIONS
+
+
+
+
+
+
+// SOME ERROR MESSAGES IN CASE THE PLUGIN CAN NOT BE LOADED
+function revslider_showDoubleJqueryError(sliderID) {
+	var errorMessage = "Revolution Slider Error: You have some jquery.js library include that comes after the revolution files js include.";
+	errorMessage += "<br> This includes make eliminates the revolution slider libraries, and make it not work.";
+	errorMessage += "<br><br> To fix it you can:<br>&nbsp;&nbsp;&nbsp; 1. In the Slider Settings -> Troubleshooting set option:  <strong><b>Put JS Includes To Body</b></strong> option to true.";
+	errorMessage += "<br>&nbsp;&nbsp;&nbsp; 2. Find the double jquery.js include and remove it.";
+	errorMessage = "<span style='font-size:16px;color:#BC0C06;'>" + errorMessage + "</span>"
+		jQuery(sliderID).show().html(errorMessage);
+}
+
+

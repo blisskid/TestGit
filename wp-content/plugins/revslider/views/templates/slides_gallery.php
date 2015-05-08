@@ -82,4 +82,9 @@
 		});
 		
 	</script>
+	erAdmin.initSlidesListView("<?php echo $sliderID?>");
+			
+		});
+		
+	</script>
 	

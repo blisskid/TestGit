@@ -60,4 +60,8 @@
 	
 	self::storeSettings("general", $generalSettings);
 
+?>;
+	
+	self::storeSettings("general", $generalSettings);
+
 ?>

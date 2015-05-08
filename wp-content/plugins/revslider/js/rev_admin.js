@@ -1693,3 +1693,61 @@ var RevSliderAdmin = new function(){
 		}
 		
 }
+setCodeMirrorDynamicEditor()',500);
+					}
+				});
+				
+				jQuery("#css_static_editor_wrap").dialog({
+					modal:true,
+					resizable:false,
+					title:'Global Styles Editor',
+					minWidth:700,
+					minHeight:500,
+					closeOnEscape:true,
+					open:function () {
+						jQuery(this).closest(".ui-dialog")
+						.find(".ui-button").each(function(i) {
+						   var cl;
+						   if (i==0) cl="revgray";
+						   if (i==1) cl="revgreen";
+						   if (i==2) cl="revred";
+						   jQuery(this).addClass(cl).addClass("button-primary").addClass("rev-uibuttons");						   						   
+					   })
+					},
+					buttons:{
+						Save:function(){
+							if(!confirm("Really update global styles?")){
+								return false;
+							}
+							
+							UniteAdminRev.setErrorMessageID("dialog_error_message");						
+							var data;
+							if(g_codemirrorCssStatic != null)
+								data = g_codemirrorCssStatic.getValue();
+							else
+								data = jQuery("#textarea_edit_static").val();
+							
+							UniteAdminRev.ajaxRequest("update_static_css",data,function(response){
+								jQuery("#dialog_success_message").show().html(response.message);
+								
+								if(g_codemirrorCssStatic != null)
+									g_codemirrorCssStatic.setValue(response.css);
+								else
+									jQuery("#textarea_edit_static").val(css);
+								
+							});
+							
+							//if(urlStaticCssCaptions)
+							//	setTimeout('UniteAdminRev.loadCssFile(RevSliderAdmin.getUrlStaticCssCaptions(),"rs-plugin-static-css");',1000);
+								
+							jQuery(this).dialog("close");
+						},
+						"Cancel":function(){
+							jQuery(this).dialog("close");
+						}
+					}
+				});
+			});
+		}
+		
+}

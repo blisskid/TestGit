@@ -72,3 +72,8 @@
 		});
 	</script>
 
+liderAdmin.initSliderViewTemplate();
+			<?php } ?>
+		});
+	</script>
+

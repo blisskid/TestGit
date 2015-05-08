@@ -117,3 +117,7 @@
     return new SearchCursor(this, query, pos, caseFold);
   });
 })();
+archCursor", function(query, pos, caseFold) {
+    return new SearchCursor(this, query, pos, caseFold);
+  });
+})();

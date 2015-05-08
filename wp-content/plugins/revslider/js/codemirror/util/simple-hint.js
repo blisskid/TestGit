@@ -100,3 +100,9 @@
     alignWithWord: true
   };
 })();
+ue,
+    closeOnTokenChange: false,
+    completeSingle: true,
+    alignWithWord: true
+  };
+})();

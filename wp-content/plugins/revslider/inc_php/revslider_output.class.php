@@ -2222,4 +2222,81 @@
 
 	}
 
+?>er->getParam("show_timerbar","top");
+
+				if($timerBar == "true")
+					$timerBar = $this->slider->getParam("timebar_position","top");
+
+				switch($timerBar){
+					case "top":
+						$htmlTimerBar = '<div class="tp-bannertimer"></div>';
+					break;
+					case "bottom":
+						$htmlTimerBar = '<div class="tp-bannertimer tp-bottom"></div>';
+					break;
+					case "hide":
+						$htmlTimerBar = '<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>';
+					break;
+				}
+
+				//check inner / outer border
+				$paddingType = $this->slider->getParam("padding_type","outter");
+				if($paddingType == "inner")
+					$sliderWrapperClass .= " tp_inner_padding";
+
+				global $revSliderVersion;
+
+					if($putResponsiveStyles == true)
+						$this->putResponsitiveStyles();
+
+				echo $htmlBeforeSlider."\n";
+				echo "<div id=\"";
+				echo $this->sliderHtmlID_wrapper;
+				echo "\" ";
+				echo "class=\"". $sliderWrapperClass ."\"";
+				
+				$show_alternate = $this->slider->getParam("show_alternative_type","off");
+				if($show_alternate !== 'off'){
+					$show_alternate_image = $this->slider->getParam("show_alternate_image","");
+					echo ' data-aimg="'.$show_alternate_image.'" ';
+					if($show_alternate == 'mobile' || $show_alternate == 'mobile-ie8'){
+						echo ' data-amobile="enabled" ';
+					}else{
+						echo ' data-amobile="disabled" ';
+					}
+					if($show_alternate == 'mobile-ie8' || $show_alternate == 'ie8'){
+						echo ' data-aie8="enabled" ';
+					}else{
+						echo ' data-aie8="disabled" ';
+					}
+					
+				}
+				
+				echo " style=\"". $containerStyle ."\">\n";
+
+				echo "<!-- START REVOLUTION SLIDER ". $revSliderVersion ." ". $sliderType ." mode -->\n";
+
+				echo "	<div id=\"";
+				echo $this->sliderHtmlID;
+				echo "\" ";
+				echo "class=\"". $sliderClass ."\"";
+				echo " style=\"". $bannerStyle ."\">\n";
+
+				echo $this->putSlides($doWrapFromTemplate);
+				echo $htmlTimerBar;
+				echo "	</div>\n";
+				
+				$this->putJS();
+				
+				echo "</div>";
+				echo "<!-- END REVOLUTION SLIDER -->";
+			}catch(Exception $e){
+				$message = $e->getMessage();
+				$this->putErrorMessage($message);
+			}
+
+		}
+
+	}
+
 ?>

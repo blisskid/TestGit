@@ -149,4 +149,9 @@
 															clearInterval(html5vid.data('interval'));
 													}
 												}),100); // END OF SET INTERVAL
+																										}
+	
+															clearInterval(html5vid.data('interval'));
+													}
+												}),100); // END OF SET INTERVAL
 													

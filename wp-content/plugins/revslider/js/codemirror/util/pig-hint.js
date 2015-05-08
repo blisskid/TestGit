@@ -121,3 +121,9 @@
     return found;
   }
 })();
+ase = base[context.pop().string];
+      if (base != null) gatherCompletions(base);
+    }
+    return found;
+  }
+})();

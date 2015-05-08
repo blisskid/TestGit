@@ -1963,4 +1963,78 @@
 		
 	}
 
+?>	}
+			
+			$arrPosts = UniteFunctionsWPRev::getPostsByCategory($catIDs,$sortBy,$sortDir,$maxPosts,$postTypes,$taxonomies,$arrAddition);
+			
+			return($arrPosts);
+		}  
+		
+		
+		/**
+		 * 
+		 * get posts from specific posts list
+		 */
+		private function getPostsFromSpecificList(){
+			
+			$strPosts = $this->getParam("posts_list","");
+			
+			$strPosts = apply_filters('revslider_set_posts_list', $strPosts);
+			
+			$arrPosts = UniteFunctionsWPRev::getPostsByIDs($strPosts);
+			
+			return($arrPosts);
+		}
+		
+		/**
+		 * update sortby option
+		 */
+		public function updatePostsSortbyFromData($data){
+			
+			$sliderID = UniteFunctionsRev::getVal($data, "sliderID");
+			$sortBy = UniteFunctionsRev::getVal($data, "sortby");
+			UniteFunctionsRev::validateNotEmpty($sortBy,"sortby");
+			
+			$this->initByID($sliderID);
+			$arrUpdate = array();
+			$arrUpdate["post_sortby"] = $sortBy;
+			
+			$this->updateParam($arrUpdate); 
+		}
+
+		/**
+		 * 
+		 * replace image urls
+		 */
+		public function replaceImageUrlsFromData($data){
+			
+			$sliderID = UniteFunctionsRev::getVal($data, "sliderid");
+			$urlFrom = UniteFunctionsRev::getVal($data, "url_from");
+			UniteFunctionsRev::validateNotEmpty($urlFrom,"url from");
+			$urlTo = UniteFunctionsRev::getVal($data, "url_to");
+			
+			$this->initByID($sliderID);
+			
+			$arrSildes = $this->getSlides();
+			foreach($arrSildes as $slide){
+				$slide->replaceImageUrls($urlFrom, $urlTo);
+			}
+		}
+		
+		public function resetSlideSettings($data){
+			$sliderID = UniteFunctionsRev::getVal($data, "sliderid");
+			
+			$this->initByID($sliderID);
+			
+			$arrSildes = $this->getSlides();
+			foreach($arrSildes as $slide){
+				
+				if(trim($data['reset_transitions']) != '') $slide->changeTransition($data['reset_transitions']);
+				if(intval($data['reset_transition_duration']) > 0) $slide->changeTransitionDuration($data['reset_transition_duration']);
+				
+			}
+		}
+		
+	}
+
 ?>

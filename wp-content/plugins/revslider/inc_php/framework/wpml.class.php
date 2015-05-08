@@ -179,4 +179,13 @@
 			
 			return($lang);
 		}
+	}= new SitePress();
+
+			if(is_admin())
+				$lang = $wpml->get_default_language();
+			else
+				$lang = UniteFunctionsWPRev::getCurrentLangCode();
+			
+			return($lang);
+		}
 	}

@@ -119,3 +119,9 @@
 			RevSliderAdmin.initEditSlideView();
 		});
 	</script>
+text/javascript">
+		jQuery(document).ready(function(){
+			
+			RevSliderAdmin.initEditSlideView();
+		});
+	</script>

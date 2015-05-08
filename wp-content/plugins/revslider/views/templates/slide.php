@@ -225,3 +225,10 @@
 	</script>
 	
 
+g_messageDeleteSlide = "<?php _e("Delete this slide?",REVSLIDER_TEXTDOMAIN)?>";
+		jQuery(document).ready(function(){
+			RevSliderAdmin.initEditSlideView(<?php echo $slideID?>,<?php echo $sliderID?>);
+		});
+	</script>
+	
+

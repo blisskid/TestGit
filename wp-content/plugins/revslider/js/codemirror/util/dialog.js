@@ -67,4 +67,7 @@
       CodeMirror.connect(b, "focus", function() { ++blurring; });
     }
   });
+})();connect(b, "focus", function() { ++blurring; });
+    }
+  });
 })();

@@ -132,4 +132,12 @@
 		
 	}
 	
+?>eInOutExpo"] = "EaseInOut - Expo";
+			
+			$this->addSelect($name,$arrItems,$text,$defaultValue,$arrParams);
+			
+		}
+		
+	}
+	
 ?>

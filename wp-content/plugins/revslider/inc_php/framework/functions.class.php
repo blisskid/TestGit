@@ -811,4 +811,43 @@
 	
 	}
 	
+?>$path_dest);
+				}
+				else{		//if directory - recursive copy directory
+					if(empty($rel_path))
+						$rel_path_new = $file;
+					else
+						$rel_path_new = $rel_path."/".$file;
+					
+					self::copyDir($source,$dest,$rel_path_new,$blackList);
+				}
+			}
+		}
+		
+		
+		/**
+		 * 
+		 * get text intro, limit by number of words
+		 */
+		public static function getTextIntro($text, $limit){
+			 
+			 $arrIntro = explode(' ', $text, $limit);
+			 
+			 if (count($arrIntro)>=$limit) {
+			 	 array_pop($arrIntro);
+			  	$intro = implode(" ",$arrIntro);
+			  	$intro = trim($intro);
+			  	if(!empty($intro))
+			  		$intro .= '...';
+			 } else {
+			  	$intro = implode(" ",$arrIntro);
+			 }
+			  
+			 $intro = preg_replace('`\[[^\]]*\]`','',$intro);
+			 return($intro);
+		}
+		
+	
+	}
+	
 ?>

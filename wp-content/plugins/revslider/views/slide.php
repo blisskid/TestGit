@@ -182,4 +182,11 @@
 		}
 	}
 	require self::getPathTemplate("slide");
+?>){
+			$wpmlActive = true;
+			$parentSlide = $slide->getParentSlide();
+			$arrChildLangs = $parentSlide->getArrChildrenLangs();
+		}
+	}
+	require self::getPathTemplate("slide");
 ?>

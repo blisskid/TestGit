@@ -176,3 +176,12 @@ $enable_logs = $generalSettings->getSettingValue("enable_logs",'off');
 -->
 
 </div>
+N); ?></a>
+<span id="loader_general_settings" class="loader_round mleft_10" style="display: none;"></span>
+
+<!-- 
+&nbsp;
+<a class="button-primary">Close</a>
+-->
+
+</div>

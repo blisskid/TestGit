@@ -15,19 +15,19 @@
 
 // ** MySQL 设置 - 具体信息来自您正在使用的主机 ** //
 /** WordPress数据库的名称 */
-define('DB_NAME', 'wordpress');
+define('DB_NAME', 'qdm155063659_db');
 
 /** MySQL数据库用户名 */
-define('DB_USER', 'root');
+define('DB_USER', 'qdm155063659');
 
 /** MySQL数据库密码 */
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'Caringyou2015');
 
 /** MySQL主机 */
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'qdm155063659.my3w.com:3306');
 
 /** 创建数据表时默认的文字编码 */
-define('DB_CHARSET', 'utf8mb4');
+define('DB_CHARSET', 'utf8');
 
 /** 数据库整理类型。如不确定请勿更改 */
 define('DB_COLLATE', '');
@@ -42,14 +42,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '2N@63@H$:h`z(LkWK,M*[DPPEORD+dp{h[guiY/Kk8$h5s&gV*Hpf2Yq?B{+Lw7u');
-define('SECURE_AUTH_KEY',  '-YNh,Un:_;0ulf$@A+yS_~K6Ra6}D+}~e1ugSi;-)LB]M-|%Z(zlH#l-xvYo=Mh@');
-define('LOGGED_IN_KEY',    'jhcT]l&<{7Q^mx[3A_b9-}Kv92)7r*d&r2c/I.G%?rQ9IGfKA<-62N+/ZY18Ug{<');
-define('NONCE_KEY',        ')C5wg+~5%t0~ohqtgB@*Z9gCeCX.C8LNxM+~Je+!mWnPHi3JQ}8uR}LRBW{7U&+h');
-define('AUTH_SALT',        'm-uY?P3yR-hxZK;#W3|}::>Ie+&tvx;{ut.;FHi8~F_b.wk_|!`pB2rZhccC0eu[');
-define('SECURE_AUTH_SALT', 'G/,PmdMeS44S/^:pSII|+m-<x*z&O/q }J8WiIC >%T]]dBp/<#_4]Rz-xM,*eee');
-define('LOGGED_IN_SALT',   '&9|km8:<FndUa!6cV_7[F;gcL+g,l<<YQ_2VDXSC;q:#`Av=T3wNoyz5Bw(O#+93');
-define('NONCE_SALT',       'S3-3qfG[s `;)voV5Rleaj5rH< Z1|^O,C|zdRc8?%fIdNhR]|;8O?TGE.I;lK0d');
+define('AUTH_KEY',         't+,K,m?V&5cDmcRb6xfrH%K@O;b29R*T$kJ6w!!u/3|>%<pORBP|a bF/k.Ex&kU');
+define('SECURE_AUTH_KEY',  '+9$s5GL(Y(%UI$.lQFCA$iF(&TN8SMPM{h}?:O,pJ+fu7W3)wIHWFh:A[C=+( kz');
+define('LOGGED_IN_KEY',    'Y*l^1`W3zOux_HH4vUMa1eh]J(TwWxO8[HPyMFTr)|d`|Osf@ `Y,<Uzi<(hsRN$');
+define('NONCE_KEY',        'w]_B+KXw#{B,6[w731{*12y|b5L@f@0QTTz2x$%nQ@KCR:-J&NZ+wAvvA3-%#Wv}');
+define('AUTH_SALT',        '+{!,W;cy35V9iY_!K-SAvI1n:GOQyjq3+.hV,x;*;wX{IDcx/K[|jRwQT@-A-;YY');
+define('SECURE_AUTH_SALT', 'p+ZsNg}0feXL#dw5-voB1rIePyavWO=O4P#.*0vn6#C!* }OrO;nNekf7+B25~ K');
+define('LOGGED_IN_SALT',   'e!j6w0iE|(SroU1:N({GC/zwdQnzFIS}RCaJ2CtKuRI:+)7yW?9*wniyB} ;.8MY');
+define('NONCE_SALT',       'H*IO>rIrd+zn^fm uq6gxNQY>4saAFrb1-Ro3FGwEZ;3^zazIc.RZ_R[VQN75nBh');
 
 /**#@-*/
 
@@ -67,7 +67,7 @@ $table_prefix  = 'wp_';
  * 将这个值改为true，WordPress将显示所有用于开发的提示。
  * 强烈建议插件开发者在开发环境中启用WP_DEBUG。
  */
-define('WP_DEBUG', true);
+define('WP_DEBUG', false);
 
 /**
  * zh_CN本地化设置：启用ICP备案号显示

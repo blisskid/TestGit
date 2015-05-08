@@ -99,3 +99,10 @@ $latest_version = get_option('revslider-latest-version', GlobalsRevSlider::SLIDE
 }
 ?>
 
+mium Support and Auto Updates",REVSLIDER_TEXTDOMAIN); ?></strong><br />
+
+	</p> 
+	<?php 
+}
+?>
+

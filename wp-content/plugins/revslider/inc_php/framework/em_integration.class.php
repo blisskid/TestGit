@@ -159,4 +159,10 @@
 		}
 		
 	}
+?>vent Start Date",REVSLIDER_TEXTDOMAIN);
+			$arrSortBy["event_end_date"] = __("Event End Date",REVSLIDER_TEXTDOMAIN);
+			return($arrSortBy);			
+		}
+		
+	}
 ?>

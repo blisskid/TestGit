@@ -18,4 +18,6 @@ $styles = $db->fetch(GlobalsRevSlider::$table_css);
 
 echo UniteCssParserRev::parseDbArrayToCss($styles, "\n");
 
+?>styles, "\n");
+
 ?>

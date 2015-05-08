@@ -113,4 +113,10 @@
 		
 	}
 	
+?>ch.revolution.min.js?rev=<?php echo  GlobalsRevSlider::SLIDER_REVISION; ?>'></script>
+			<?php
+		}
+		
+	}
+	
 ?>

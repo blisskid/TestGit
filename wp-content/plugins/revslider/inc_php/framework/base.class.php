@@ -339,4 +339,18 @@
 		
 	}
 
+?>s for the .mo and .po creation
+		 */
+		protected static function updateSettingsText(){
+			
+			$filelist = UniteFunctionsRev::getFileList(self::$path_settings,"xml");
+			foreach($filelist as $file){
+				$filepath = self::$path_settings.$file;
+				UniteFunctionsWPRev::writeSettingLanguageFile($filepath);
+			}
+			
+		} 
+		
+	}
+
 ?>

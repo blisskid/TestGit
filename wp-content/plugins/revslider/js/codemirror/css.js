@@ -446,3 +446,20 @@ CodeMirror.defineMode("css", function(config) {
 });
 
 CodeMirror.defineMIME("text/css", "css");
+rtyValue");
+      else if (context == "propertyValue" && type == ";") state.stack.pop();
+      return style;
+    },
+
+    indent: function(state, textAfter) {
+      var n = state.stack.length;
+      if (/^\}/.test(textAfter))
+        n -= state.stack[state.stack.length-1] == "propertyValue" ? 2 : 1;
+      return state.baseIndent + n * indentUnit;
+    },
+
+    electricChars: "}"
+  };
+});
+
+CodeMirror.defineMIME("text/css", "css");

@@ -344,3 +344,24 @@ var UniteSettingsRev = new function(){
 } // UniteSettings class end
 
 
+t.parent().find('input').each(function() {
+				var option = jQuery(this);
+
+				for (var i=0;i<20;i++) 
+					if (option.val()=="notselectable"+i) option.parent().addClass("dropdowntitleoption");
+			})
+
+		});
+		
+	}
+	
+	
+	
+	//call "constructor"
+	jQuery(document).ready(function(){
+		init();
+	});
+	
+} // UniteSettings class end
+
+

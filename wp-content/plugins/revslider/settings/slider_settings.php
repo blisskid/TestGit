@@ -134,4 +134,10 @@
 				self::storeSettings("slider_params",$sliderParamsSettings);
 				 
 				?>
+				pe", $settingFirstType);
+				
+				//store params
+				self::storeSettings("slider_params",$sliderParamsSettings);
+				 
+				?>
 				

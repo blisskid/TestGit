@@ -963,4 +963,46 @@
 	}
 
 
+?>ype="text/css">'.$custom_css.'</style>';
+							$html .= '<style type="text/css">'.$styles.'</style>';
+							
+							ob_clean();
+							ob_end_clean();
+							
+							$result = (!empty($slider_class) && $html !== '') ? true : false;
+							
+							if(!$result){
+								$error = __('Slider not found', REVSLIDER_TEXTDOMAIN);
+							}else{
+								
+								if($html !== false){
+									self::ajaxResponseData($html);
+								}else{
+									$error = __('Slider not found', REVSLIDER_TEXTDOMAIN);
+								}
+							}
+						}else{
+							$error = __('No Data Received', REVSLIDER_TEXTDOMAIN);
+						}
+					break;
+				}
+				
+			}else{
+				$error = true;
+			}
+			
+			if($error !== false){
+				$showError = __('Loading Error', REVSLIDER_TEXTDOMAIN);
+				if($error !== true)
+					$showError = __('Loading Error: ', REVSLIDER_TEXTDOMAIN).$error;
+				
+				self::ajaxResponseError($showError, false);
+			}
+			exit();
+		}
+		
+
+	}
+
+
 ?>

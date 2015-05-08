@@ -1147,4 +1147,52 @@
 	//init the static vars
 	UniteFunctionsWPRev::initStaticVars();
 	
+?>nameOutput = "{$filename}_{$ext}_lang.php";
+			$filepathOutput = $path.$filenameOutput;
+			
+			//load settings
+			$settings = new UniteSettingsAdvancedRev();	
+			$settings->loadXMLFile($filepath);
+			$arrText = $settings->getArrTextFromAllSettings();
+			
+			$str = "";
+			$str .= "<?php \n";
+			foreach($arrText as $text){
+				$text = str_replace('"', '\\"', $text);
+				$str .= "_e(\"$text\",\"".REVSLIDER_TEXTDOMAIN."\"); \n";				
+			}
+			$str .= "?>";
+			
+			UniteFunctionsRev::writeFile($str, $filepathOutput);
+		}
+
+		
+		/**
+		 * 
+		 * check the current post for the existence of a short code
+		 */  
+		public static function hasShortcode($shortcode = '') {  
+		
+			if(!is_singular())
+				return false;
+				
+		    $post = get_post(get_the_ID());  
+		      
+		    if (empty($shortcode))   
+		        return $found;
+				
+		    $found = false; 
+		        
+		    if (stripos($post->post_content, '[' . $shortcode) !== false )    
+		        $found = true;  
+		       
+		    return $found;  
+		}  		
+		
+		
+	}	//end of the class
+						
+	//init the static vars
+	UniteFunctionsWPRev::initStaticVars();
+	
 ?>

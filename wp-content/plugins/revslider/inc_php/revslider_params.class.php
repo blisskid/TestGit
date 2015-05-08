@@ -57,4 +57,11 @@
 		
 	}
 
+?>e = $arr[$name];
+			return($value);
+		}
+		
+		
+	}
+
 ?>

@@ -171,4 +171,19 @@ if(!class_exists('ThemePunch_Fonts')) {
 		
 	}
 }
+?>];
+				}
+				
+				update_option('tp-google-fonts', $fonts);
+				*/
+			}else{
+				
+				update_option('tp-google-fonts', $default);
+				
+			}
+			
+		}
+		
+	}
+}
 ?>

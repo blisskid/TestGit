@@ -8,3 +8,4 @@
 		<input type="hidden" id="preview_slider_nonce" name="nonce" value="">
 		<input type="hidden" id="preview_slider_markup" name="only_markup" value="">
 	</form>
+	</form>

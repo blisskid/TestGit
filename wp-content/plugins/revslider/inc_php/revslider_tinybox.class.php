@@ -53,4 +53,11 @@ class RevSlider_TinyBox {
 }
 
 
+?>ons, 'revslider');
+		return $buttons;
+	}
+
+}
+
+
 ?>

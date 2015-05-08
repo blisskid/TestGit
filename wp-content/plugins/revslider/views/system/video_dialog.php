@@ -295,3 +295,13 @@
 	<div id="video_content" class="video_right" style="display:none"></div>		
 	
 </div>
+ _e("Add This Video",REVSLIDER_TEXTDOMAIN)?>" data-textupdate="<?php _e("Update Video",REVSLIDER_TEXTDOMAIN)?>" ><?php _e("Add This Video",REVSLIDER_TEXTDOMAIN)?></a>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<div id="video_content" class="video_right" style="display:none"></div>		
+	
+</div>

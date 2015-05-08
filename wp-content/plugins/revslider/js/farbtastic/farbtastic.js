@@ -345,4 +345,20 @@ jQuery._farbtastic = function (container, callback) {
   if (callback) {
     fb.linkTo(callback);
   }
+}&& max != r) h += (4 + (r - g) / delta);
+      h /= 6;
+    }
+    return [h, s, l];
+  }
+
+  // Install mousedown handler (the others are set on the document on-demand)
+  $('*', e).mousedown(fb.mousedown);
+
+    // Init color
+  fb.setColor('#000000');
+
+  // Set linked elements/callback
+  if (callback) {
+    fb.linkTo(callback);
+  }
 }

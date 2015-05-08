@@ -18,4 +18,6 @@ $folderIncludes = dirname(__FILE__)."/";
 	require_once $folderIncludes . 'em_integration.class.php';
 	require_once $folderIncludes . 'aq_resizer.class.php';
 	
+?>r.class.php';
+	
 ?>

@@ -1187,4 +1187,44 @@ var UniteCssEditorRev = new function(){
 	//	End of Codemirror Functions
 	//======================================================
 	
+}les.length;
+		
+		if(id === false){
+			id = initCssStyles.length;
+			initCssStyles[key] = new Object;
+			initCssStyles[key]['id'] = id;
+			initCssStyles[key]['handle'] = cssPreClass+'.'+handle;
+			initCssStyles[key]['params'] = [];
+			initCssStyles[key]['hover'] = [];
+			initCssStyles[key]['settings'] = [];
+		}
+		
+		initCssStyles[key]['params'] = curFullClass['params'];
+		initCssStyles[key]['hover'] = curFullClass['hover'];
+		initCssStyles[key]['settings'] = new Object;
+		initCssStyles[key]['settings']['hover'] = isHoverActive;
+		
+		return initCssStyles[key];
+	}
+	
+	
+	//======================================================
+	//	Codemirror Functions
+	//======================================================
+	
+	/**
+	 * set code mirror editor
+	 */
+	t.setCodeMirrorEditor = function(){
+		g_codemirrorCssExpert = CodeMirror.fromTextArea(document.getElementById("textarea_edit_expert"), {
+			onChange: function(){ if(cssExpertEditor){ t.setCssPreviewLive(); }},
+			lineNumbers: true
+		});
+		
+	}
+	
+	//======================================================
+	//	End of Codemirror Functions
+	//======================================================
+	
 }

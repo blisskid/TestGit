@@ -268,4 +268,16 @@
 		
 	}
 
+?>;
+			$buffer = str_replace($arr, $rep, $buffer);
+			/* remove whitespaces around {}:, */
+			$buffer = preg_replace("/\s*([\{\}:,])\s*/", "$1", $buffer);
+			/* remove last ; */
+			$buffer = str_replace(';}', "}", $buffer);
+			
+			return $buffer;
+		}
+		
+	}
+
 ?>

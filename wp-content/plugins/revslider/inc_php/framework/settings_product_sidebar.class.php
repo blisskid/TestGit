@@ -1046,3 +1046,32 @@
 		}
 	}
 ?>
+		}
+		
+		
+		/**
+		 * 
+		 * draw css editor
+		 */
+		public function drawGlobalCssEditor(){
+			?>
+			<div id="css_static_editor_wrap" title="<?php _e("Global Style Editor",REVSLIDER_TEXTDOMAIN) ?>" style="display:none;">
+				<div id="css-static-accordion">
+					<h3><?php _e("Dynamic Styles (Not Editable):",REVSLIDER_TEXTDOMAIN)?></h3>
+					<div class="css_editor_novice_wrap">
+						<textarea id="textarea_show_dynamic_styles" rows="20" cols="81"></textarea>
+					</div>
+					<h3 class="notopradius" style="margin-top:20px"><?php _e("Static Styles:",REVSLIDER_TEXTDOMAIN)?></h3>
+					<div>
+						<textarea id="textarea_edit_static" rows="20" cols="81"></textarea>
+					</div>
+				</div>
+			</div>
+			
+			<div id="dialog-change-css-static" title="<?php _e("Save Static Styles",REVSLIDER_TEXTDOMAIN) ?>" style="display:none;">
+				<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span><?php _e('Overwrite current static styles?',REVSLIDER_TEXTDOMAIN)?></p>
+			</div>
+			<?php
+		}
+	}
+?>

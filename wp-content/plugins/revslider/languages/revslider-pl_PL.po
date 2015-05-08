@@ -4247,3 +4247,194 @@ msgstr ""
 msgid "Copy the Google Font Family from <a href=\"http://www.google.com/fonts\" target=\"_blank\">http://www.google.com/fonts</a><br/>i.e.:<strong>Open+Sans:400,600,700</strong>"
 msgstr ""
 
+w Template Slider"
+msgstr ""
+
+#: views/templates/sliders_list.php:162
+#@ revslider
+msgid "&laquo;"
+msgstr ""
+
+#: views/templates/sliders_list.php:163
+#@ revslider
+msgid "&raquo;"
+msgstr ""
+
+#: views/templates/sliders_list.php:182
+#: views/templates/sliders_list.php:193
+#@ default
+msgid "All"
+msgstr ""
+
+#: views/templates/slides.php:18
+#: views/templates/slides.php:38
+#: views/templates/slides_gallery.php:18
+#: views/templates/slides_gallery.php:36
+#@ revslider
+msgid "New Transparent Slide"
+msgstr ""
+
+#: views/templates/slides.php:19
+#: views/templates/slides.php:39
+#: views/templates/slides_gallery.php:19
+#: views/templates/slides_gallery.php:37
+#@ revslider
+msgid "Adding Slide..."
+msgstr ""
+
+#: views/templates/slides.php:36
+#: views/templates/slides_gallery.php:35
+#@ revslider
+msgid "Select image or multiple images to add slide or slides"
+msgstr ""
+
+#: views/templates/slides.php:44
+#: views/templates/slides_gallery.php:41
+#@ revslider
+msgid "Edit Static Layers"
+msgstr ""
+
+#: views/templates/slides.php:56
+#: views/templates/slides_gallery.php:51
+#@ revslider
+msgid "Do It!"
+msgstr ""
+
+#: views/templates/slides.php:56
+#: views/templates/slides_gallery.php:51
+#@ revslider
+msgid "Copy / move slide"
+msgstr ""
+
+#: views/templates/slides.php:65
+#: views/templates/slides_gallery.php:60
+#@ revslider
+msgid "Choose Operation"
+msgstr ""
+
+#: views/templates/slides.php:68
+#: views/templates/slides_gallery.php:63
+#@ revslider
+msgid "Copy"
+msgstr ""
+
+#: views/templates/slides.php:71
+#: views/templates/slides_gallery.php:66
+#@ revslider
+msgid "Move"
+msgstr ""
+
+#: views/templates/slides_gallery.php:46
+#: views/templates/slides_posts.php:1
+#@ revslider
+msgid "Slider Settings"
+msgstr ""
+
+#: views/templates/slides_gallery.php:76
+#: views/templates/slides_posts.php:1
+#@ revslider
+msgid "Select Slide Image"
+msgstr ""
+
+#: views/templates/slides_list.php:127
+#@ revslider
+msgid "Deleting Slide..."
+msgstr ""
+
+#: views/templates/slides_list.php:131
+#@ revslider
+msgid "Open copy / move dialog"
+msgstr ""
+
+#: views/templates/slides_list.php:138
+#@ revslider
+msgid "Copy / Move"
+msgstr ""
+
+#: views/templates/slides_list.php:139
+#@ revslider
+msgid "Working..."
+msgstr ""
+
+#: views/templates/slides_list_posts.php:60
+#@ revslider
+msgid "Unpublish Post"
+msgstr ""
+
+#: views/templates/slides_list_posts.php:62
+#@ revslider
+msgid "Publish Post"
+msgstr ""
+
+#: views/templates/slides_list_posts.php:67
+#@ revslider
+msgid "Edit Post"
+msgstr ""
+
+#: views/templates/slides_posts.php:1
+#@ revslider
+msgid "The slides are posts that taken from multiple sources."
+msgstr ""
+
+#: views/templates/slides_posts.php:1
+#@ revslider
+msgid "Sort by"
+msgstr ""
+
+#: views/templates/slides_posts.php:1
+#@ revslider
+msgid "Updating Sorting..."
+msgstr ""
+
+#: views/templates/slides_posts.php:1
+#@ revslider
+msgid "Warning! Removing this entry will cause the original wordpress post to be deleted."
+msgstr ""
+
+#: views/themepunch-google-fonts.php:30
+#@ revslider
+msgid "Font Family:"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:33
+#: views/themepunch-google-fonts.php:55
+#@ revslider
+msgid "Handle:"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:34
+#: views/themepunch-google-fonts.php:59
+#@ revslider
+msgid "Parameter:"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:37
+#@ revslider
+msgid "Edit"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:47
+#@ revslider
+msgid "Copy the Google Font Family from <a href=\"http://www.google.com/fonts\" target=\"_blank\">http://www.google.com/fonts</a> like: <strong>Open+Sans:400,700,600</strong>"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:51
+#@ revslider
+msgid "Add New Font"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:53
+#@ revslider
+msgid "Add Font"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:57
+#@ revslider
+msgid "Unique WordPress handle (Internal use only)"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:61
+#@ revslider
+msgid "Copy the Google Font Family from <a href=\"http://www.google.com/fonts\" target=\"_blank\">http://www.google.com/fonts</a><br/>i.e.:<strong>Open+Sans:400,600,700</strong>"
+msgstr ""
+

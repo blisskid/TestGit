@@ -35,4 +35,10 @@
 ?>
 
 
+	Template("sliders");
+	
+	
+?>
+
+
 	

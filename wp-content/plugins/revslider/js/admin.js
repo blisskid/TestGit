@@ -1439,3 +1439,62 @@ function debug(data){
 	UniteAdminRev.debug(data);
 }
 
+ '.eg-font-delete', function(){
+			if(confirm('Really delete font?')){
+				var data = {};
+				var el = jQuery(this);
+				
+				data.handle = el.closest('.inside').find('input[name="esg-font-handle[]"]').val();
+				
+				UniteAdminRev.ajaxRequest("remove_google_fonts", data, function(response){ //'#eg-font-add, .eg-font-edit, .eg-font-delete',
+					if(response.success == true){
+						el.closest('.postbox.eg-postbox').remove();
+					}
+				});
+			}
+		});
+		
+	}
+	
+	t.sanitize_input = function(raw){
+		return raw.toLowerCase().replace(/ /g, '-').replace(/[^-0-9a-z]/g,'');
+	}
+	
+	t.initAccordion = function(){
+		jQuery(".postbox-arrow").each(function(i) {
+
+			jQuery(this).closest('h3').click(function(){
+				var handle = jQuery(this);
+
+				//open
+				if(!handle.hasClass("box-closed")){
+					handle.closest('.postbox').find('.inside').slideUp("fast");
+					handle.addClass("box-closed");
+
+				}else{	//close
+					jQuery('.postbox-arrow').each(function() {
+						var handle = jQuery(this).closest('h3');
+						handle.closest('.postbox').find('.inside').slideUp("fast");
+						handle.addClass("box-closed");
+					})
+					handle.closest('.postbox').find('.inside').slideDown("fast");
+					handle.removeClass("box-closed");
+
+				}
+			});
+
+		});
+	}
+}
+
+
+//user functions:
+
+function trace(data,clear){
+	UniteAdminRev.trace(data,clear);
+}
+
+function debug(data){
+	UniteAdminRev.debug(data);
+}
+

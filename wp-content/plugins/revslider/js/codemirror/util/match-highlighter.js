@@ -42,3 +42,6 @@
     markDocument(this, className, minChars);
   });
 })();
+(this, className, minChars);
+  });
+})();

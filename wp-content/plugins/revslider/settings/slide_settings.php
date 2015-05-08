@@ -155,3 +155,8 @@
 	self::storeSettings("slide_settings",$slideSettings);
 
 ?>
+deSettings->addTextArea("data_attr","",__("Custom Fields",REVSLIDER_TEXTDOMAIN), $params);
+	
+	self::storeSettings("slide_settings",$slideSettings);
+
+?>

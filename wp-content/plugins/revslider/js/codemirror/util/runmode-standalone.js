@@ -88,3 +88,8 @@ exports.runMode = function(string, modespec, callback) {
     }
   }
 };
+am.current(), style, i, stream.start);
+      stream.start = stream.pos;
+    }
+  }
+};

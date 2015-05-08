@@ -626,4 +626,35 @@
 		
 	}
 
+?>UniteFunctionsRev::getPathInfo($filepath);
+				$ext = $info["extension"];
+				$mimeType = "image/$ext";
+			}
+			
+			header("Content-Type: $mimeType");	
+			header("Content-Disposition: attachment; filename=\"$filename\"");
+			header("Content-Length: $filesize");		
+			echo $contents;
+			exit();
+		}
+		
+		
+		/**
+		 * 
+		 * validate type
+		 * @param unknown_type $type
+		 */
+		public function validateType($type){
+			switch($type){
+				case self::TYPE_EXACT:
+				case self::TYPE_EXACT_TOP:					
+				break;
+				default:
+					$this->throwError("Wrong image type: ".$type);
+				break;
+			}
+		}
+		
+	}
+
 ?>

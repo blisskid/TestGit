@@ -6272,7 +6272,7 @@ msgstr "Jabber或Google Talk"
 msgid "Sidebar %d"
 msgstr "边栏%d"
 
-#: wp-includes/wp-db.php:2835
+#: wp-includes/wp-db.php:2949
 msgid "<strong>ERROR</strong>: WordPress %1$s requires MySQL %2$s or higher"
 msgstr "<strong>错误</strong>：WordPress %1$s需要MySQL %2$s以上版本"
 

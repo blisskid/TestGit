@@ -208,4 +208,13 @@ if(!$no_sliders){
 	<?php require_once self::getPathTemplate("dialog_preview_slider");?>
 
 
+	php _e("Import Slider",REVSLIDER_TEXTDOMAIN)?> </a></div>
+			<?php
+		}
+		?>
+		<div style="clear:both; height:10px"></div>
+	</p>
+	<?php require_once self::getPathTemplate("dialog_preview_slider");?>
+
+
 	

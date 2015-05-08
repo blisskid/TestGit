@@ -69,4 +69,7 @@
 			UniteAdminRev.initGoogleFonts();
 			UniteAdminRev.initAccordion();
 		});
+	</script>nitGoogleFonts();
+			UniteAdminRev.initAccordion();
+		});
 	</script>

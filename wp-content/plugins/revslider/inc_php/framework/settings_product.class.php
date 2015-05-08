@@ -663,4 +663,37 @@
 		}
 		
 	}
+?>n_afterSections);
+		}
+		
+		/**
+		 * 
+		 * draw settings function
+		 * @param $drawForm draw the form yes / no
+		 */
+		public function draw($formID=null,$drawForm = false){
+			if(empty($formID))
+				UniteFunctionsRev::throwError("The form ID can't be empty. you must provide it");
+				
+				$this->formID = $formID;
+				
+			?>
+				<div class="settings_wrapper unite_settings_wide">
+			<?php
+			
+			if($drawForm == true){
+				?>
+				<form name="<?php echo $formID?>" id="<?php echo $formID?>">
+					<?php $this->drawSettings() ?>
+				</form>
+				<?php 				
+			}else
+				$this->drawSettings();
+			
+			?>
+			</div>
+			<?php 
+		}
+		
+	}
 ?>

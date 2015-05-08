@@ -98,4 +98,11 @@
 	require self::getPathTemplate($templateName);
 	
 ?>
+	rtBy,"id='select_sortby'",true);
+	}
+	
+	
+	require self::getPathTemplate($templateName);
+	
+?>
 	

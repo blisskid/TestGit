@@ -4247,3 +4247,197 @@ msgstr ""
 msgid "Copy the Google Font Family from <a href=\"http://www.google.com/fonts\" target=\"_blank\">http://www.google.com/fonts</a><br/>i.e.:<strong>Open+Sans:400,600,700</strong>"
 msgstr ""
 
+1
+#@ revslider
+msgid "Static Options"
+msgstr ""
+
+#: views/templates/edit_layers.php:359
+#@ revslider
+msgid "Static Layers will be shown on every slide in template sliders"
+msgstr ""
+
+#: views/templates/edit_layers.php:366
+#@ revslider
+msgid "Start on Slide"
+msgstr ""
+
+#: views/templates/edit_layers.php:391
+#@ revslider
+msgid "End on Slide"
+msgstr ""
+
+#: views/templates/edit_layers.php:492
+#@ revslider
+msgid "Reset Size"
+msgstr ""
+
+#: views/templates/edit_layers.php:505
+#@ revslider
+msgid "Final Rotation"
+msgstr ""
+
+#: views/templates/edit_layers.php:518
+#@ revslider
+msgid "Parallax Setting"
+msgstr ""
+
+#: views/templates/edit_layers.php:592
+#@ revslider
+msgid "Loop Animation"
+msgstr ""
+
+#: views/templates/slide.php:31
+#@ revslider
+msgid "Slider:"
+msgstr ""
+
+#: views/templates/slide.php:38
+#@ revslider
+msgid "Title:"
+msgstr ""
+
+#: views/templates/slide.php:54
+#@ revslider
+msgid "Static Layer"
+msgstr ""
+
+#: views/templates/slide.php:168
+#@ revslider
+msgid "Update Static Layers"
+msgstr ""
+
+#: views/templates/slider_api.php:69
+#@ revslider
+msgid "is the index of the li container in this Slider"
+msgstr ""
+
+#: views/templates/slider_api.php:71
+#@ revslider
+msgid "is the current slide jQuery object (the li element)"
+msgstr ""
+
+#: views/templates/slider_css_js.php:10
+#@ revslider
+msgid "CSS / JavaScript"
+msgstr ""
+
+#: views/templates/slider_css_js.php:13
+#@ revslider
+msgid "Custom CSS"
+msgstr ""
+
+#: views/templates/slider_css_js.php:18
+#@ revslider
+msgid "Custom JavaScript"
+msgstr ""
+
+#: views/templates/sliders.php:95
+#@ revslider
+msgid "Version Information"
+msgstr ""
+
+#: views/templates/sliders.php:100
+#@ revslider
+msgid "Installed Version"
+msgstr ""
+
+#: views/templates/sliders.php:101
+#@ revslider
+msgid "Latest Available Version"
+msgstr ""
+
+#: views/templates/sliders.php:102
+#@ revslider
+msgid "Check Version"
+msgstr ""
+
+#: views/templates/sliders.php:114
+#@ revslider
+msgid "Need Premium Support and Auto Updates ?"
+msgstr ""
+
+#: views/templates/sliders.php:140
+#@ revslider
+msgid "Information"
+msgstr ""
+
+#: views/templates/sliders.php:145
+#@ revslider
+msgid "Please note that this plugin came bundled with a theme. The use of the Revolution Slider is limited to this theme only.<br>If you need support from the Slider author ThemePunch or you want to use the Revolution slider with an other theme you will need an extra single license available at CodeCanyon."
+msgstr ""
+
+#: views/templates/sliders_list.php:115
+#@ revslider
+msgid "HTML &LT;/&GT;"
+msgstr ""
+
+#: views/templates/sliders_list.php:162
+#@ revslider
+msgid "&laquo;"
+msgstr ""
+
+#: views/templates/sliders_list.php:163
+#@ revslider
+msgid "&raquo;"
+msgstr ""
+
+#: views/templates/sliders_list.php:182
+#: views/templates/sliders_list.php:193
+#@ default
+msgid "All"
+msgstr ""
+
+#: views/templates/slides.php:44
+#: views/templates/slides_gallery.php:41
+#@ revslider
+msgid "Edit Static Layers"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:30
+#@ revslider
+msgid "Font Family:"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:33
+#: views/themepunch-google-fonts.php:55
+#@ revslider
+msgid "Handle:"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:34
+#: views/themepunch-google-fonts.php:59
+#@ revslider
+msgid "Parameter:"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:37
+#@ revslider
+msgid "Edit"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:47
+#@ revslider
+msgid "Copy the Google Font Family from <a href=\"http://www.google.com/fonts\" target=\"_blank\">http://www.google.com/fonts</a> like: <strong>Open+Sans:400,700,600</strong>"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:51
+#@ revslider
+msgid "Add New Font"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:53
+#@ revslider
+msgid "Add Font"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:57
+#@ revslider
+msgid "Unique WordPress handle (Internal use only)"
+msgstr ""
+
+#: views/themepunch-google-fonts.php:61
+#@ revslider
+msgid "Copy the Google Font Family from <a href=\"http://www.google.com/fonts\" target=\"_blank\">http://www.google.com/fonts</a><br/>i.e.:<strong>Open+Sans:400,600,700</strong>"
+msgstr ""
+

@@ -85,4 +85,9 @@
 		});
 		
 	</script>
+	liderAdmin.initSlidesListView("<?php echo $sliderID?>");
+			
+		});
+		
+	</script>
 	

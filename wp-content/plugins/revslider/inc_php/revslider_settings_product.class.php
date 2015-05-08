@@ -343,3 +343,20 @@
 	}
 
 ?>
+			$settingCategory["items"] = $arrCats;
+			$settings->updateArrSettingByName($nameCat, $settingCategory);
+
+			//update value to first category
+			$value = $settings->getSettingValue($nameCat);
+			if(empty($value)){
+				
+				$settings->updateSettingValue($nameCat, $firstValue);
+			}
+			
+			return($settings);
+		}
+		
+		
+	}
+
+?>

@@ -191,3 +191,12 @@
     });
   });
 })();
+nt;
+        }
+      }
+      for (var cur = from.line + 1; cur <= end; ++cur)
+        cm.indentLine(cur, "smart");
+      cm.setSelection(from, cm.getCursor(false));
+    });
+  });
+})();

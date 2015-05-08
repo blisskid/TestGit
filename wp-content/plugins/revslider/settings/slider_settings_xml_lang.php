@@ -144,4 +144,7 @@ _e("Output Filters Protection","revslider");
 _e("Activate a protection against wordpress output filters that adds html blocks to the shortcode output like P and BR","revslider"); 
 _e("By Compressing Output","revslider"); 
 _e("By Echo Output","revslider"); 
+?>ml blocks to the shortcode output like P and BR","revslider"); 
+_e("By Compressing Output","revslider"); 
+_e("By Echo Output","revslider"); 
 ?>

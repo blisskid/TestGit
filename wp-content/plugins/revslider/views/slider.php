@@ -68,4 +68,11 @@
 ?>
 
 
+			
+		require self::getPathTemplate("slider_new");		
+	}
+	
+?>
+
+
 	

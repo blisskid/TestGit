@@ -180,4 +180,16 @@ class UniteUpdateClassRev {
 	
 }
 
+?>t-version', $version_info->version);
+			}
+			
+			if(isset($version_info->notices)){
+				update_option('revslider-notices', $version_info->notices);
+			}
+		}
+		
+	}
+	
+}
+
 ?>

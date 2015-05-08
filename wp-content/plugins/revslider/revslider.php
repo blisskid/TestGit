@@ -193,4 +193,14 @@ try{
 	echo _e("Revolution Slider Error:",REVSLIDER_TEXTDOMAIN)."<b>".$message."</b>";
 }
 
+?>ile);
+	}
+	
+	
+}catch(Exception $e){
+	$message = $e->getMessage();
+	$trace = $e->getTraceAsString();
+	echo _e("Revolution Slider Error:",REVSLIDER_TEXTDOMAIN)."<b>".$message."</b>";
+}
+
 ?>

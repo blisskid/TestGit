@@ -57,3 +57,7 @@ CodeMirror.overlayMode = CodeMirror.overlayParser = function(base, overlay, comb
     }
   };
 };
+kLine) overlay.blankLine(state.overlay);
+    }
+  };
+};

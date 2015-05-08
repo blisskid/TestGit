@@ -124,4 +124,14 @@ class RevSlider_Widget extends WP_Widget {
 }
 
 
+?>itle.$afterTitle;
+		
+		RevSliderOutput::putSlider($sliderID,$homepage);
+		
+		echo $afterWidget;						
+    }
+ 
+}
+
+
 ?>

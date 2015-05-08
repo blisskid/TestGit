@@ -194,3 +194,11 @@ CodeMirror.newFoldFunction = function(rangeFinder, markText, hideEnd) {
     });
   };
 };
+e, markText);
+        var region = {start: first, hidden: hidden};
+        cm.onDeleteLine(first, function() { expand(cm, region); });
+        folded.push(region);
+      }
+    });
+  };
+};

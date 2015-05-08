@@ -1077,4 +1077,54 @@
 		
 	}
 	
+?>r_replace("#","0x",$value);
+					break;
+					case self::TYPE_CHECKBOX:
+						if($value == true) $value = "true";
+						else $value = "false";
+					break;
+				}
+				
+				//remove lf
+				if(isset($setting["remove_lf"])){
+					$value = str_replace("\n","",$value);
+					$value = str_replace("\r\n","",$value);
+				}
+				
+				$arrSettingsOutput[$setting["name"]] = $value;
+			}
+			
+			return($arrSettingsOutput);
+		}
+
+		
+		/**
+		* Update values from post meta
+		 */
+		public function updateValuesFromPostMeta($postID){
+
+			//update setting values array from meta
+			$arrNames = $this->getArrSettingNames();
+			$arrValues = array();
+			$arrMeta = get_post_meta($postID);
+
+			if(!empty($arrMeta) && is_array($arrMeta)){
+				foreach($arrNames as $name){
+					if(array_key_exists($name, $arrMeta) == false)
+						continue;
+					
+					$value = get_post_meta($postID, $name,true);
+					$arrValues[$name] = $value;				
+				}
+			}
+			
+			//dmp($postID);dmp($arrValues);exit();
+			
+			$this->setStoredValues($arrValues);
+			
+		}
+		
+		
+	}
+	
 ?>

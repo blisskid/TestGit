@@ -5443,3 +5443,189 @@ var UniteLayersRev = new function(){
 
 
 
+).show();
+				jQuery('#bg-start-position-wrapper-kb').children().appendTo(jQuery('#bg-start-position-wrapper'));
+				jQuery('#bg-setting-wrap').show();
+
+				jQuery('#slide_bg_repeat').change();
+				jQuery('#slide_bg_position').change();
+				jQuery('#slide_bg_fit').change();
+
+				if(jQuery('#slide_bg_fit').val() == 'contain'){
+					jQuery('#divLayers-wrapper').css('maxWidth', jQuery('#divbgholder').css('minWidth'));
+				}else{
+					jQuery('#divLayers-wrapper').css('maxWidth', '100%');
+				}
+
+
+			}
+		});
+		jQuery('input[name="kenburn_effect"]:checked').change();
+
+
+		jQuery('#slide_bg_end_position').change(function(){
+			if(jQuery(this).val() == 'percentage'){
+				jQuery('input[name="bg_end_position_x"]').show();
+				jQuery('input[name="bg_end_position_y"]').show();
+			}else{
+				jQuery('input[name="bg_end_position_x"]').hide();
+				jQuery('input[name="bg_end_position_y"]').hide();
+			}
+		});
+
+
+		jQuery('input[name="kb_start_fit"]').change(function(){
+			var fitVal = parseInt(jQuery(this).val());
+			var limg = new Image();
+			limg.onload = function() {
+				calculateKenBurnScales(fitVal, limg.width, limg.height, jQuery('#divbgholder'));
+			}
+
+			var urlImage = '';
+			if(jQuery('#radio_back_image').is(':checked'))
+				urlImage = jQuery("#image_url").val();
+			else if(jQuery('#radio_back_external').is(':checked'))
+				urlImage = jQuery("#slide_bg_external").val();
+
+			if(urlImage != ''){
+				limg.src = urlImage;
+			}
+
+		});
+
+		var calculateKenBurnScales = function(proc,owidth,oheight,opt) {
+		   var ow = owidth;
+		   var oh = oheight;
+
+
+		   var factor = (opt.width() /ow);
+		   var factorh = (opt.height() / oh);
+
+		 //  if (factor>=1) {
+
+				var nheight = oh * factor;
+				proc = proc + "%";
+				var hfactor = "auto"; //(nheight / opt.height())*proc;
+			/*} else {
+
+				var nwidth = "auto" //ow * factorh;
+				var hfactor = proc+"%";
+				proc = "auto";
+				//proc = (nwidth / opt.width()) * proc;
+
+			}*/
+
+		   jQuery('#divbgholder').css('background-size', proc+" "+hfactor);
+		}
+
+
+		jQuery(window).resize(function(){
+			if(jQuery('input[name="kenburn_effect"]:checked').val() == 'on'){
+				var fitVal = parseInt(jQuery('input[name="kb_start_fit"]').val());
+				var limg = new Image();
+				limg.onload = function() {
+					calculateKenBurnScales(fitVal, limg.width, limg.height, jQuery('#divbgholder'));
+				}
+
+				var urlImage = '';
+				if(jQuery('#radio_back_image').is(':checked'))
+					urlImage = jQuery("#image_url").val();
+				else if(jQuery('#radio_back_external').is(':checked'))
+					urlImage = jQuery("#slide_bg_external").val();
+
+				if(urlImage != ''){
+					limg.src = urlImage;
+				}
+
+			}
+		});
+	}
+
+	//======================================================
+	//	Main Background Image Functions End
+	//======================================================
+
+	var initLoopFunctions = function(){
+
+		jQuery('select[name="layer_loop_animation"]').change(function(){
+			showHideLoopFunctions();
+		});
+
+		jQuery('#layer_static_start').change(function(){
+			changeEndStaticFunctions();
+		});
+	}
+
+	var showHideLoopFunctions = function(){
+
+		jQuery('select[name="layer_loop_animation"]').each(function(){
+			jQuery("#layer_easing_wrapper").hide();
+			jQuery("#layer_speed_wrapper").hide();
+			jQuery("#layer_degree_wrapper").hide();
+			jQuery("#layer_origin_wrapper").hide();
+			jQuery("#layer_x_wrapper").hide();
+			jQuery("#layer_y_wrapper").hide();
+			jQuery("#layer_zoom_wrapper").hide();
+			jQuery("#layer_angle_wrapper").hide();
+			jQuery("#layer_radius_wrapper").hide();
+
+			switch(jQuery(this).val()){
+				case 'none':
+				break;
+				case 'rs-pendulum':
+					jQuery("#layer_easing_wrapper").show();
+					jQuery("#layer_speed_wrapper").show();
+					jQuery("#layer_degree_wrapper").show();
+					jQuery("#layer_origin_wrapper").show();
+				break;
+				case 'rs-rotate':
+					jQuery("#layer_easing_wrapper").show();
+					jQuery("#layer_speed_wrapper").show();
+					jQuery("#layer_degree_wrapper").show();
+					jQuery("#layer_origin_wrapper").show();
+				break;
+				
+				case 'rs-slideloop':
+					jQuery("#layer_easing_wrapper").show();
+					jQuery("#layer_speed_wrapper").show();
+					jQuery("#layer_x_wrapper").show();
+					jQuery("#layer_y_wrapper").show();
+				break;
+				case 'rs-pulse':
+					jQuery("#layer_easing_wrapper").show();
+					jQuery("#layer_speed_wrapper").show();
+					jQuery("#layer_zoom_wrapper").show();
+				break;
+				case 'rs-wave':
+					jQuery("#layer_speed_wrapper").show();
+					jQuery("#layer_angle_wrapper").show();
+					jQuery("#layer_radius_wrapper").show();
+					jQuery("#layer_origin_wrapper").show();
+				break;
+			}
+		});
+	}
+
+	var changeEndStaticFunctions = function(){
+
+		jQuery('#layer_static_start').each(function(){
+			var cur_att = parseInt(jQuery(this).val());
+			var cur_end = jQuery('#layer_static_end option:selected').val();
+			var go_max_up_to = parseInt(jQuery('#layer_static_end option:last-child').val());
+			var go_up_to = parseInt(jQuery('#layer_static_start option:last-child').val()) + 1;
+
+			jQuery('#layer_static_end').empty();
+
+			for(var cur=cur_att+ 1; cur<=go_max_up_to; cur++){
+				jQuery("#layer_static_end").append('<option value="'+cur+'">'+cur+'</option>');
+			}
+
+			jQuery("#layer_static_end option[value='"+cur_end+"']").attr('selected', 'selected');
+		});
+	}
+
+}
+
+
+
+

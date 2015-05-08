@@ -173,4 +173,9 @@
 	//store settings of content css for editing on the client.
 	self::storeSettings("css_captions_content",$contentCSS);
 
+?>storeSettings("layer_settings",$layerSettings);
+
+	//store settings of content css for editing on the client.
+	self::storeSettings("css_captions_content",$contentCSS);
+
 ?>

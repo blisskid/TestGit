@@ -50,3 +50,6 @@
 	<a id="button_update_text" class="button-primary revpurple" href="javascript:void(0)">Update Text</a>
 	
 <?php endif?>
+ascript:void(0)">Update Text</a>
+	
+<?php endif?>

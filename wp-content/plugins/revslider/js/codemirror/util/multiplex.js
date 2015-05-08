@@ -75,3 +75,7 @@ CodeMirror.multiplexingMode = function(outer /*, others */) {
     }
   };
 };
+ate.innerActive.mode} : {state: state.outer, mode: outer};
+    }
+  };
+};

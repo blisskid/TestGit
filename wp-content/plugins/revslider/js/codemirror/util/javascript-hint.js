@@ -132,3 +132,10 @@
     return found;
   }
 })();
+.next) maybeAdd(v.name);
+      gatherCompletions(window);
+      forEach(keywords, maybeAdd);
+    }
+    return found;
+  }
+})();

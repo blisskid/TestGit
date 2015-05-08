@@ -169,3 +169,11 @@ var jvideo = jQuery(this);
 													}
 												}),100);
 
+vid.data('hh')*opt.bh);
+															} catch(e) {}
+														}
+
+														clearInterval(html5vid.data('interval'));
+													}
+												}),100);
+

@@ -1312,4 +1312,57 @@
 		}
 	}
 	
+?> !== false){
+				$imageNew = str_replace($urlFrom, $urlTo, $urlImage);
+				$this->params["image"] = $imageNew; 
+				$this->updateParamsInDB();
+			}
+			
+			
+			// update image url in layers
+			$isUpdated = false;
+			foreach($this->arrLayers as $key=>$layer){
+				$type =  UniteFunctionsRev::getVal($layer, "type");
+				if($type == "image"){
+					$urlImage = UniteFunctionsRev::getVal($layer, "image_url");
+					if(strpos($urlImage, $urlFrom) !== false){
+						$newUrlImage = str_replace($urlFrom, $urlTo, $urlImage);
+						$this->arrLayers[$key]["image_url"] = $newUrlImage;
+						$isUpdated = true;
+					}
+				}
+			}
+			
+			if($isUpdated == true)
+				$this->updateLayersInDB();
+			
+		}
+		
+		/**
+		 * 
+		 * replace transition styles on all slides
+		 */
+		public function changeTransition($transition){
+			$this->validateInited();
+			
+			$this->params["slide_transition"] = $transition;
+			$this->updateParamsInDB();
+		}
+		
+		/**
+		 * 
+		 * replace transition duration on all slides
+		 */
+		public function changeTransitionDuration($transitionDuration){
+			$this->validateInited();
+			
+			$this->params["transition_duration"] = $transitionDuration;
+			$this->updateParamsInDB();
+		}
+		
+		public function isStaticSlide(){
+			return $this->static_slide;
+		}
+	}
+	
 ?>

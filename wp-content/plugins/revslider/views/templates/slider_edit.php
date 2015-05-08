@@ -98,3 +98,11 @@
 		
 		
 	</script>
+te){ ?>
+			RevSliderAdmin.initSliderViewTemplate();
+			<?php } ?>
+		});
+		
+		
+		
+	</script>

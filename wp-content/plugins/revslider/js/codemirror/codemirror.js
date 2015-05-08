@@ -3163,3 +3163,81 @@ window.CodeMirror = (function() {
 
   return CodeMirror;
 })();
+
+  // Used to position the cursor after an undo/redo by finding the
+  // last edited character.
+  function editEnd(from, to) {
+    if (!to) return 0;
+    if (!from) return to.length;
+    for (var i = from.length, j = to.length; i >= 0 && j >= 0; --i, --j)
+      if (from.charAt(i) != to.charAt(j)) break;
+    return j + 1;
+  }
+
+  function indexOf(collection, elt) {
+    if (collection.indexOf) return collection.indexOf(elt);
+    for (var i = 0, e = collection.length; i < e; ++i)
+      if (collection[i] == elt) return i;
+    return -1;
+  }
+  function isWordChar(ch) {
+    return /\w/.test(ch) || ch.toUpperCase() != ch.toLowerCase() || /[\u4E00-\u9FA5]/.test(ch);
+  }
+
+  // See if "".split is the broken IE version, if so, provide an
+  // alternative way to split lines.
+  var splitLines = "\n\nb".split(/\n/).length != 3 ? function(string) {
+    var pos = 0, result = [], l = string.length;
+    while (pos <= l) {
+      var nl = string.indexOf("\n", pos);
+      if (nl == -1) nl = string.length;
+      var line = string.slice(pos, string.charAt(nl - 1) == "\r" ? nl - 1 : nl);
+      var rt = line.indexOf("\r");
+      if (rt != -1) {
+        result.push(line.slice(0, rt));
+        pos += rt + 1;
+      } else {
+        result.push(line);
+        pos = nl + 1;
+      }
+    }
+    return result;
+  } : function(string){return string.split(/\r\n?|\n/);};
+  CodeMirror.splitLines = splitLines;
+
+  var hasSelection = window.getSelection ? function(te) {
+    try { return te.selectionStart != te.selectionEnd; }
+    catch(e) { return false; }
+  } : function(te) {
+    try {var range = te.ownerDocument.selection.createRange();}
+    catch(e) {}
+    if (!range || range.parentElement() != te) return false;
+    return range.compareEndPoints("StartToEnd", range) != 0;
+  };
+
+  CodeMirror.defineMode("null", function() {
+    return {token: function(stream) {stream.skipToEnd();}};
+  });
+  CodeMirror.defineMIME("text/plain", "null");
+
+  var keyNames = {3: "Enter", 8: "Backspace", 9: "Tab", 13: "Enter", 16: "Shift", 17: "Ctrl", 18: "Alt",
+                  19: "Pause", 20: "CapsLock", 27: "Esc", 32: "Space", 33: "PageUp", 34: "PageDown", 35: "End",
+                  36: "Home", 37: "Left", 38: "Up", 39: "Right", 40: "Down", 44: "PrintScrn", 45: "Insert",
+                  46: "Delete", 59: ";", 91: "Mod", 92: "Mod", 93: "Mod", 109: "-", 107: "=", 127: "Delete",
+                  186: ";", 187: "=", 188: ",", 189: "-", 190: ".", 191: "/", 192: "`", 219: "[", 220: "\\",
+                  221: "]", 222: "'", 63276: "PageUp", 63277: "PageDown", 63275: "End", 63273: "Home",
+                  63234: "Left", 63232: "Up", 63235: "Right", 63233: "Down", 63302: "Insert", 63272: "Delete"};
+  CodeMirror.keyNames = keyNames;
+  (function() {
+    // Number keys
+    for (var i = 0; i < 10; i++) keyNames[i + 48] = String(i);
+    // Alphabetic keys
+    for (var i = 65; i <= 90; i++) keyNames[i] = String.fromCharCode(i);
+    // Function keys
+    for (var i = 1; i <= 12; i++) keyNames[i + 111] = keyNames[i + 63235] = "F" + i;
+  })();
+
+  CodeMirror.version = "2.35";
+
+  return CodeMirror;
+})();

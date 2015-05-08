@@ -154,4 +154,13 @@
 		
 	}
 	
+?>data to avoid sql errors and injections.
+		 */
+		public function escape($string){
+			$string = esc_sql($string);
+			return($string);
+		}
+		
+	}
+	
 ?>

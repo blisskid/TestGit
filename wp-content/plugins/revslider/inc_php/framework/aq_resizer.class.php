@@ -205,3 +205,10 @@ if(!function_exists('rev_aq_resize')) {
 }
 
 
+ $crop = null, $single = true, $upscale = false ) {
+        $aq_resize = Rev_Aq_Resize::getInstance();
+        return $aq_resize->process( $url, $width, $height, $crop, $single, $upscale );
+    }
+}
+
+

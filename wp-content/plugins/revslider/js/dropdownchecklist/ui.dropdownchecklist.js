@@ -915,3 +915,31 @@
     });
 
 })(jQuery);
+        disable: function() {
+            this.controlSelector.addClass("ui-state-disabled");
+            this.disabled = true;
+        },
+        // External command to destroy all traces of the ddcl control
+        destroy: function() {
+            $.Widget.prototype.destroy.apply(this, arguments);
+            this.sourceSelect.css("display", this.initialDisplay);
+            this.sourceSelect.prop("multiple", this.initialMultiple);
+            this.controlWrapper.unbind().remove();
+            this.dropWrapper.remove();
+        }
+    });
+
+    $.extend($.ui.dropdownchecklist, {
+        defaults: {
+            width: null
+        ,   maxDropHeight: null
+        ,   firstItemChecksAll: false
+        ,   closeRadioOnClick: false
+        ,   minWidth: 50
+        ,   positionHow: 'absolute'
+        ,   bgiframe: false
+        ,	explicitClose: null
+        }
+    });
+
+})(jQuery);

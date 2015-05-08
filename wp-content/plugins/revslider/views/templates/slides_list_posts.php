@@ -86,4 +86,9 @@
 				<?php endforeach;?>	
 			</ul>
 		</div>
+	</div> class="clear"></div>
+					</li>
+				<?php endforeach;?>	
+			</ul>
+		</div>
 	</div>

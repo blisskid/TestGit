@@ -47,3 +47,9 @@ if(!empty($sliderID)){
 	</script>
 	
 
+m_js.refresh();
+			});
+		});
+	</script>
+	
+

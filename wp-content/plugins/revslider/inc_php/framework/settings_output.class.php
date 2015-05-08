@@ -242,4 +242,24 @@
 		
 	}
 
+?>	<?php
+					break;
+				}
+			}
+		}
+				
+		
+		/**
+		 * 
+		 * do some operation before drawing the settings.
+		 */
+		protected function prepareToDraw(){
+			
+			$this->settings->setSettingsStateByControls();
+			
+		}
+		
+		
+	}
+
 ?>

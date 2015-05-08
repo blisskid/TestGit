@@ -1461,4 +1461,58 @@
 
 	}
 
+?>rue');
+				update_option('revslider-api-key', $data['api_key']);
+				update_option('revslider-username', $data['username']);
+				update_option('revslider-code', $data['code']);
+
+				return true;
+			}elseif($version_info == 'exist'){
+				UniteFunctionsRev::throwError(__('Purchase Code already registered!', REVSLIDER_TEXTDOMAIN));
+			}else{
+				return false;
+			}
+
+		}
+
+		public function doPurchaseDeactivation($data){
+			global $wp_version;
+
+			$key = get_option('revslider-api-key', '');
+			$name = get_option('revslider-username', '');
+			$code = get_option('revslider-code', '');
+
+			$response = wp_remote_post('http://updates.themepunch.com/deactivate.php', array(
+				'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
+				'body' => array(
+					'name' => urlencode($name),
+					'api' => urlencode($key),
+					'code' => urlencode($code),
+					'product' => urlencode('revslider')
+				)
+			));
+
+			$response_code = wp_remote_retrieve_response_code( $response );
+			$version_info = wp_remote_retrieve_body( $response );
+
+			if ( $response_code != 200 || is_wp_error( $version_info ) ) {
+				return false;
+			}
+
+			if($version_info == 'valid'){
+				//update_option('revslider-api-key', '');
+				//update_option('revslider-username', '');
+				//update_option('revslider-code', '');
+				update_option('revslider-valid', 'false');
+
+				return true;
+			}else{
+				return false;
+			}
+
+		}
+
+
+	}
+
 ?>

@@ -1082,3 +1082,42 @@
 		});
 
 	</script>
+<?php endif?>
+
+			<?php if(!empty($arrCustomAnim)):?>
+			UniteLayersRev.setInitLayerAnim(<?php echo $arrCustomAnim?>);
+			<?php endif?>
+
+			<?php if(!empty($jsonFontFamilys)):?>
+			UniteLayersRev.setInitFontTypes(<?php echo $jsonFontFamilys?>);
+			<?php endif?>
+
+			<?php if(!empty($arrCssStyles)):?>
+			UniteCssEditorRev.setInitCssStyles(<?php echo $arrCssStyles?>);
+			<?php endif?>
+
+			UniteCssEditorRev.setCssCaptionsUrl('<?php echo $urlCaptionsCSS?>');
+
+			UniteLayersRev.init("<?php echo $slideDelay?>");
+			UniteCssEditorRev.init();
+
+			RevSliderAdmin.initGlobalStyles();
+			
+			RevSliderAdmin.initLayerPreview();
+
+			RevSliderAdmin.setStaticCssCaptionsUrl('<?php echo GlobalsRevSlider::$urlStaticCaptionsCSS; ?>');
+
+/*			var reproduce;
+			jQuery(window).resize(function() {
+				clearTimeout(reproduce);
+				reproduce = setTimeout(function() {
+					UniteLayersRev.refreshGridSize();
+				},100);
+			});*/
+
+			<?php if($kenburn_effect == 'on'){ ?>
+			jQuery('input[name="kenburn_effect"]:checked').change();
+			<?php } ?>
+		});
+
+	</script>

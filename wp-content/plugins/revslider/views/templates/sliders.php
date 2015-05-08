@@ -247,3 +247,12 @@
 		});
 	</script>
 	
+				jQuery(this).css({cursor:"default"});
+				if (jQuery('#rs-validation-wrapper').css('display')=="none") {
+					jQuery('#tp-before-validation').hide();
+					jQuery('#rs-validation-wrapper').slideDown(200);
+				}
+			});
+		});
+	</script>
+	
