@@ -80,32 +80,78 @@ function xuanqi_add_product_callback() {
 		<table align="center">
 		    <tr>
 		        <td>
-		            Input the camera's name:
+		            输入产品名称：
 		        </td>
 		        <td>
-		            <input style="width:300px" type="text" value="" id="room" name="room"></input>
-		            <input type="hidden" id="cameraId" name="cameraId" value="">
-		        </td>
-		    </tr>
-		    <tr>
-		        <td>
-		            Input the camera's ip:
-		        </td>
-		        <td>
-		            <input style="width:300px" type="text" value="" id="ip" name="ip"></input>
+		            <input style="width:300px" type="text" value="" id="product_name" name="product_name"></input>
+		            <input type="hidden" id="ID" name="ID" value="">
 		        </td>
 		    </tr>
 		    <tr>
 		        <td>
-		            Input the camera's record time:
+		            输入产品价格：
 		        </td>
 		        <td>
-		            <input style="width:300px" type="text" value="" id="recordTime" name="recordTime"></input>
+		            <input style="width:300px" type="text" value="" id="product_price" name="product_price">（元）</input>
 		        </td>
 		    </tr>
 		    <tr>
 		        <td>
-		            <input type="submit" value="Save">
+		            输入经销商产品价格：
+		        </td>
+		        <td>
+		            <input style="width:300px" type="text" value="" id="product_dealer_price" name="product_dealer_price">（元）</input>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            输入产品描述：
+		        </td>
+		    </tr>
+		    <tr>
+		        <td colspan="2">
+		        	<?php 
+					wp_editor("", "product_description");
+		        	?>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            输入产品优势：
+		        </td>
+		    </tr>
+		    <tr>
+		        <td colspan="2">
+		        	<?php 
+					wp_editor("", "product_advantage");
+		        	?>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            选择产品类别：
+		        </td>
+		        <td>
+					<select id="product_type" name="product_type">
+					  <option value="0" selected>疫苗类产品</option>
+					  <option value="1">其他产品</option>
+					</select>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            选择产品支付流程：
+		        </td>
+		        <td>
+					<select id="product_paytype" name="product_paytype">
+					  <option value="0" selected>支付流程一</option>
+					  <option value="1">支付流程二</option>
+					</select>
+		        </td>
+		    </tr>		    		    		    		    
+		    <tr>
+		        <td>
+		            <input type="submit" value="保存产品">
 		        </td>
 		    </tr>
 		</table>
