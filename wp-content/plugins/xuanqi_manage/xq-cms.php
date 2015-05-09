@@ -29,6 +29,7 @@ add_action('init', 'add_styles');
 function add_scripts() {
 	wp_register_script('plugin_script', plugins_url('js/xuanqi.js', __FILE__), array('jquery'), '1.0', true);
 	wp_enqueue_script('plugin_script');
+	wp_enqueue_script('angularjs', plugins_url('js/angular.min.js', __FILE__));
 }
 
 add_action('init', 'add_scripts');
@@ -45,35 +46,42 @@ function register_my_custom_menu_page() {
 }
 
 function xuanqi_products_config_callback() {
-
-	echo "<table>";
-	echo "<th>产品名称</th>";
-	echo "<th>产品价格（元）</th>";
-	echo "<th>经销商产品价格（元）</th>";
-	echo "<th>产品描述</th>";
-	echo "<th>产品优势</th>";
-	echo "<th>产品类别</th>";
-	echo "<th>支付流程</th>";
-	global $wpdb;
-	$productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_description`, `product_advantage`, `product_type`, `product_paytype`, `reserved_text` FROM `xq_products`");
-	foreach ($productArray as $product) {
-		echo "<tr>";
-		echo "<td>$product->product_name</td>";
-		echo "<td>$product->product_price</td>";
-		echo "<td>$product->product_dealer_price</td>";
-		echo "<td>$product->product_description</td>";
-		echo "<td>$product->product_advantage</td>";
-		echo "<td>$product->product_type</td>";
-		echo "<td>$product->product_paytype</td>";
-		echo "</tr>";
-	}
-	//echo '<tr><button onclick="saveCamera()">新建产品</button></tr>';
-	echo "</table>";
+	?>
+<div ng-app="myApp" ng-controller="customersCtrl" class="xqgrid">
+	<table>
+        <th>产品名称</th>
+        <th>产品价格（元）</th>
+        <th>经销商产品价格（元）</th>
+        <th>产品类别</th>
+        <th>支付流程</th>
+        <th>是否在首页显示</th>
+        <th>产品描述</th>
+        <tr ng-repeat="x in names">
+            <td>{{ x.product_name }}</td>
+            <td>{{ x.product_price }}</td>
+            <td>{{ x.product_dealer_price }}</td>
+            <td>{{ x.product_type }}</td>
+            <td>{{ x.product_paytype }}</td>
+            <td>{{ x.product_show }}</td>
+            <td>{{ x.product_description }}</td>
+        </tr>
+    </table>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+    $http.get('<?php echo get_bloginfo('wpurl') . "/show-product";?>').success(function(response) {
+        $scope.names = response.records;
+    });
+});
+</script>
+<?php
 
 }
 
 function xuanqi_add_product_callback() {
 	$url = get_bloginfo('wpurl') . "/xuanqi-save-product";
+	echo "<div class=\"xqform\">";
 	echo "<form action='$url' method='post'>";
 	?>
 
@@ -105,34 +113,10 @@ function xuanqi_add_product_callback() {
 		    </tr>
 		    <tr>
 		        <td>
-		            输入产品描述：
-		        </td>
-		    </tr>
-		    <tr>
-		        <td colspan="2">
-		        	<?php 
-					wp_editor("", "product_description");
-		        	?>
-		        </td>
-		    </tr>
-		    <tr>
-		        <td>
-		            输入产品优势：
-		        </td>
-		    </tr>
-		    <tr>
-		        <td colspan="2">
-		        	<?php 
-					wp_editor("", "product_advantage");
-		        	?>
-		        </td>
-		    </tr>
-		    <tr>
-		        <td>
 		            选择产品类别：
 		        </td>
 		        <td>
-					<select id="product_type" name="product_type">
+					<select style="width:300px" id="product_type" name="product_type">
 					  <option value="0" selected>疫苗类产品</option>
 					  <option value="1">其他产品</option>
 					</select>
@@ -143,19 +127,43 @@ function xuanqi_add_product_callback() {
 		            选择产品支付流程：
 		        </td>
 		        <td>
-					<select id="product_paytype" name="product_paytype">
+					<select style="width:300px" id="product_paytype" name="product_paytype">
 					  <option value="0" selected>支付流程一</option>
 					  <option value="1">支付流程二</option>
 					</select>
 		        </td>
-		    </tr>		    		    		    		    
+		    </tr>
 		    <tr>
 		        <td>
-		            <input type="submit" value="保存产品">
+		            产品是否在首页展示：
+		        </td>
+		        <td>
+					<select style="width:300px" id="product_show" name="product_show">
+					  <option value="0">不在首页显示</option>
+					  <option value="1" selected>在首页显示</option>
+					</select>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            输入产品介绍：
+		        </td>
+		    </tr>
+		    <tr>
+		        <td colspan="2">
+		        	<?php
+wp_editor("", "product_description");
+	?>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            <input type="submit" value="保存产品"></input>
 		        </td>
 		    </tr>
 		</table>
 	</form>
+</div>
 <?php
 
 }
