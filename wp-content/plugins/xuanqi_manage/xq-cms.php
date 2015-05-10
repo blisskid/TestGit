@@ -122,7 +122,7 @@ function xuanqi_products_config_callback() {
 <?php xuanqi_save_product();?>
 	<button onclick="window.location.href='<?php echo get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_add_product";?>'">新增产品</button>
 	<button ng-click="deleteProducts()">删除产品</button>
-	<button onclick="updateProduct()">修改产品</button>
+	<button ng-onclick="updateProduct()">修改产品</button>
 	<br/>
 	<br/>
 	<table>
@@ -169,6 +169,45 @@ app.controller('showProductCtrl', function($scope, $http) {
 	        return;
 	    }
 
+	    if (confirm("确认要删除吗？")) {
+	        checkBoxs.each(function() {
+	            //alert(jQuery(this).attr('id'));
+	            //jQuery(this).prop('checked', obj.checked);
+	            count++;
+	            if (count < checkBoxsLength) {
+	                ids += jQuery(this).attr('id') + ",";
+	            } else if (count = checkBoxsLength) {
+	                ids += jQuery(this).attr('id');
+	            }
+
+	        });
+	        //alert(ids);
+	        var Obj = {
+	            ids: ids
+	        }
+	        jQuery.post('<?php echo get_bloginfo('wpurl') . "/delete-product";?>', Obj,
+	            function(data) {
+	                alert(data);
+				    $http.get('<?php echo get_bloginfo('wpurl') . "/show-product";?>').success(function(response) {
+				        $scope.names = response.records;
+				    });
+	            });
+	    }
+    }
+
+    $scope.updateProduct = function() {
+	    var ids = "";
+	    var count = 0;
+	    var checkBoxs = jQuery('input:checkbox[name=xq_checkbox]:checked');
+	    var checkBoxsLength = checkBoxs.length;
+	    if (checkBoxsLength == 0) {
+	        alert("请选择要修改的记录");
+	        return;
+	    }
+	    if (checkBoxsLength > 1) {
+	        alert("无法同时修改多条记录");
+	        return;
+	    }
 	    if (confirm("确认要删除吗？")) {
 	        checkBoxs.each(function() {
 	            //alert(jQuery(this).attr('id'));
