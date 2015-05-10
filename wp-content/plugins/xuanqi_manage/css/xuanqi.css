@@ -357,32 +357,35 @@ textarea {
 */
 
 table {
-	border-bottom: 1px solid #ededed;
-	border-collapse: collapse;
-	border-spacing: 0;
-	font-size: 14px;
-	line-height: 2;
-	width: 100%;
+    border-bottom: 1px solid #ededed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+    line-height: 2;
+    width: 100%;
 }
 
 th {
-	font-weight: bold;
-	text-transform: uppercase;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 td {
-	border-top: 1px solid #ededed;
-	padding: 6px 10px 6px 0;
+    border-top: 1px solid #ededed;
+    padding: 6px 10px 6px 0;
 }
 
-.xqform {
+button {
+    margin-right: 10px;
 }
+
+.xqform {}
 
 .xqform table {
     padding: 5px;
     width: 100%;
     font-size: 14px;
-	line-height: 2;
+    line-height: 2;
 }
 
 .xqform th {
@@ -394,20 +397,12 @@ td {
     padding: 5px;
 }
 
-.xqform table tr:nth-child(odd) {
-    background-color: #f1f1f1;
-}
-
-.xqform table tr:nth-child(even) {
-    background-color: #ffffff;
-}	
-
 .xqgrid table {
     border: 1px solid grey;
     padding: 5px;
     width: 100%;
     font-size: 14px;
-	line-height: 2;
+    line-height: 2;
 }
 
 .xqgrid {
@@ -422,7 +417,6 @@ td {
     text-align: left;
 }
 
-
 .xqgrid td {
     border: 1px solid grey;
     border-collapse: collapse;
@@ -436,7 +430,6 @@ td {
 .xqgrid table tr:nth-child(even) {
     background-color: #ffffff;
 }
-
 /*
 caption,
 th,
