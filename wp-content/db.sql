@@ -3,7 +3,7 @@
 --
 -- 表的结构 `xq_airlines`
 --
-
+DROP TABLE IF EXISTS `xq_airlines`;
 CREATE TABLE IF NOT EXISTS `xq_airlines` (
   `ID` bigint(20) unsigned NOT NULL,
   `start_airport_id` bigint(20) unsigned NOT NULL COMMENT '出发航站楼ID',
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `xq_airlines` (
 --
 -- 表的结构 `xq_airports`
 --
-
+DROP TABLE IF EXISTS `xq_airports`;
 CREATE TABLE IF NOT EXISTS `xq_airports` (
   `ID` bigint(20) unsigned NOT NULL,
   `airport_icao` varchar(20) NOT NULL DEFAULT '',
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `xq_airports` (
 --
 -- 表的结构 `xq_cities`
 --
-
+DROP TABLE IF EXISTS `xq_cities`;
 CREATE TABLE IF NOT EXISTS `xq_cities` (
   `city_code` varchar(60) NOT NULL DEFAULT '' COMMENT '城市拼音',
   `city_name` varchar(60) NOT NULL DEFAULT '' COMMENT '城市中文名称',
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `xq_cities` (
 --
 -- 表的结构 `xq_discount_airlines`
 --
-
+DROP TABLE IF EXISTS `xq_discount_airlines`;
 CREATE TABLE IF NOT EXISTS `xq_discount_airlines` (
   `ID` bigint(20) unsigned NOT NULL,
   `start_airport_id` bigint(20) unsigned NOT NULL COMMENT '出发航站ID',
@@ -61,16 +61,16 @@ CREATE TABLE IF NOT EXISTS `xq_discount_airlines` (
 --
 -- 表的结构 `xq_products`
 --
-
+DROP TABLE IF EXISTS `xq_products`;
 CREATE TABLE IF NOT EXISTS `xq_products` (
   `ID` bigint(20) unsigned NOT NULL,
   `product_name` varchar(60) NOT NULL DEFAULT '' COMMENT '产品名称',
   `product_price` double NOT NULL COMMENT '产品价格（元）',
   `product_dealer_price` double NOT NULL COMMENT '经销商产品价格',
-  `product_description` text NOT NULL COMMENT '产品描述',
-  `product_advantage` text NOT NULL COMMENT '产品优势',
   `product_type` int(11) NOT NULL DEFAULT '0' COMMENT '产品类别。0：疫苗类产品；1:其他。',
   `product_paytype` int(11) NOT NULL DEFAULT '0' COMMENT '0:对应流程一，1:对应流程2',
+  `product_show` int(11) NOT NULL DEFAULT '1' COMMENT '0:不在首页显示，1:在首页显示',
+  `product_description` longtext NOT NULL COMMENT '产品描述',
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `xq_products` (
 --
 -- 表的结构 `xq_sets`
 --
-
+DROP TABLE IF EXISTS `xq_sets`;
 CREATE TABLE IF NOT EXISTS `xq_sets` (
   `ID` bigint(20) unsigned NOT NULL,
   `set_name` varchar(60) NOT NULL DEFAULT '' COMMENT '套餐名称',
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `xq_sets` (
 --
 -- 表的结构 `xq_set_product`
 --
-
+DROP TABLE IF EXISTS `xq_set_product`;
 CREATE TABLE IF NOT EXISTS `xq_set_product` (
   `ID` bigint(20) unsigned NOT NULL,
   `set_id` bigint(20) unsigned NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `xq_set_product` (
 --
 -- 表的结构 `xq_users`
 --
-
+DROP TABLE IF EXISTS `xq_users`;
 CREATE TABLE IF NOT EXISTS `xq_users` (
   `user_id` bigint(20) unsigned NOT NULL,
   `user_login` varchar(60) NOT NULL DEFAULT '',
@@ -208,10 +208,3 @@ ALTER TABLE `xq_sets`
 --
 ALTER TABLE `xq_set_product`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-INSERT INTO `xq_products` (`ID`, `product_name`, `product_price`, `product_dealer_price`, `product_description`, `product_advantage`, `product_type`, `product_paytype`, `reserved_text`) VALUES
-(3, '产品测试', 1000, 800, '非颠三倒四v 发多少财产', '反对是非得失出差 到达地 到达 ', 0, 0, '');
