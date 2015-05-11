@@ -356,6 +356,11 @@ textarea {
 }
 */
 
+.xqPage {
+
+    font-family: arial, 'Microsoft Yahei', 'Hiragino Sans GB', sans-serif;
+}
+
 table {
     border-bottom: 1px solid #ededed;
     border-collapse: collapse;

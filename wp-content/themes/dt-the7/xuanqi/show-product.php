@@ -19,9 +19,24 @@ if (0 == $current_user->ID) {
 		$outp .= '"product_name":"' . $product->product_name . '",';
 		$outp .= '"product_price":"' . $product->product_price . '",';
 		$outp .= '"product_dealer_price":"' . $product->product_dealer_price . '",';
-		$outp .= '"product_type":"' . $product->product_type . '",';
-		$outp .= '"product_paytype":"' . $product->product_paytype . '",';
-		$outp .= '"product_show":"' . $product->product_show . '"}';
+
+		if ("0" == $product->product_type) {
+			$outp .= '"product_type":"疫苗类产品",';
+		} else if ("1" == $product->product_type) {
+			$outp .= '"product_type":"其他",';
+		}
+
+		if ("0" == $product->product_paytype) {
+			$outp .= '"product_paytype":"支付流程一",';
+		} else if ("1" == $product->product_paytype) {
+			$outp .= '"product_paytype":"支付流程二",';
+		}
+
+		if ("0" == $product->product_show) {
+			$outp .= '"product_show":"不在首页显示"}';
+		} else if ("1" == $product->product_show) {
+			$outp .= '"product_show":"在首页显示"}';
+		}
 	}
 
 	$outp = '{"records":[' . $outp . ']}';
