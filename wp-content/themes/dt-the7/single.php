@@ -7,34 +7,34 @@
  */
 
 // File Security Check
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if (!defined('ABSPATH')) {exit;}
 
 $config = Presscore_Config::get_instance();
 presscore_config_base_init();
 
-get_header( 'single' ); ?>
+get_header('single');?>
 
-<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+<?php if (have_posts()): while (have_posts()): the_post();?>
 
-		<?php get_template_part( 'header-main' ); ?>
+				<?php get_template_part('header-main');?>
 
-		<?php if ( presscore_is_content_visible() ): ?>
+				<?php if (presscore_is_content_visible()): ?>
 
-			<?php do_action( 'presscore_before_loop' ); ?>
+					<?php do_action('presscore_before_loop');?>
 
-			<!-- !- Content -->
-			<div id="content" class="content" role="main">
+					<!-- !- Content -->
+					<div id="content" class="content" role="main">
 
-				<?php get_template_part( 'content-single', str_replace( 'dt_', '', get_post_type() ) ); ?>
+						<?php get_template_part('content-single', str_replace('dt_', '', get_post_type()));?>
 
-				<?php comments_template( '', true ); ?>
+						<?php comments_template('', true);?>
 
-			</div><!-- #content .wf-cell -->
+					</div><!-- #content .wf-cell -->
 
-			<?php do_action('presscore_after_content'); ?>
+					<?php do_action('presscore_after_content');?>
 
-		<?php endif; // content is visible ?>
+				<?php endif; // content is visible ?>
 
-<?php endwhile; endif; // end of the loop. ?>
+	<?php endwhile;endif; // end of the loop. ?>
 
-<?php get_footer(); ?>
+<?php get_footer();?>

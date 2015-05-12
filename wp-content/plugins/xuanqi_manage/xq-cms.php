@@ -41,16 +41,9 @@ function register_my_custom_menu_page() {
 	add_submenu_page('xuanqi_products_config', '新增产品', '新增产品', 'manage_options', 'xuanqi_add_product', 'xuanqi_add_product_callback');
 
 	//airport config
-	add_menu_page('机场配置', '机场配置', 'manage_options', 'xuanqi_aiports_config', 'xuanqi_aiports_config_callback', '', 7);
-	add_submenu_page('xuanqi_aiports_config', '新增机场', '新增机场', 'manage_options', 'xuanqi_add_airport', 'xuanqi_add_airport_callback');
-}
-
-function jumpPage() {
 	/*
-sleep(2);
-echo "<script type='text/javascript'>";
-echo "window.location.href='$wpurl'";
-echo "</script>";
+add_menu_page('机场配置', '机场配置', 'manage_options', 'xuanqi_aiports_config', 'xuanqi_aiports_config_callback', '', 7);
+add_submenu_page('xuanqi_aiports_config', '新增机场', '新增机场', 'manage_options', 'xuanqi_add_airport', 'xuanqi_add_airport_callback');
  */
 }
 
@@ -60,7 +53,7 @@ function xuanqi_save_product() {
 
 	if (0 == $current_user->ID) {
 
-		echo "Please <a href=\"" . $wpurl . "/wp-login.php\">login</a>.";
+		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
 		return;
 
 	} else {
@@ -100,7 +93,68 @@ function xuanqi_save_product() {
 			$product_description = trim($_POST["product_description"]);
 
 			$sql = "INSERT INTO `xq_products`(`product_name`, `product_price`, `product_dealer_price`, `product_type`, `product_paytype`, `product_show`, `product_description`)
-		VALUES ('$product_name',$product_price,$product_dealer_price,$product_type,$product_paytype,$product_show,'$product_description')";
+			VALUES ('$product_name',$product_price,$product_dealer_price,$product_type,$product_paytype,$product_show,'$product_description')";
+
+			//var_dump($sql);
+			$result = $wpdb->query($sql);
+			//var_dump($result);
+			if (0 < $result) {
+				//echo "Success! Insert " . $result . " rows";
+			} else {
+				echo "<font color='red'>数据插入错误，信息为："+$result+"</font><br><br>";
+			}
+
+		}
+	}
+}
+
+function xuanqi_update_product() {
+	$current_user = wp_get_current_user();
+	$wpurl = get_bloginfo('wpurl');
+
+	if (0 == $current_user->ID) {
+
+		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+		return;
+
+	} else {
+
+		//var_dump($_POST);
+
+		if (isset($_POST["product_id"]) && isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_description"])
+			&& isset($_POST["product_type"]) && isset($_POST["product_paytype"]) && isset($_POST["product_show"])) {
+
+			if ("" == trim($_POST["product_name"])) {
+				echo "<font color='red'>产品代号不能为空</font><br><br>";
+				return;
+			}
+
+			if ("" == trim($_POST["product_price"])) {
+				echo "<font color='red'>产品价格不能为空</font><br><br>";
+				return;
+			}
+
+			if ("" == trim($_POST["product_dealer_price"])) {
+				echo "<font color='red'>经销商产品价格不能为空</font><br><br>";
+				return;
+			}
+
+			if ("" == trim($_POST["product_description"])) {
+				echo "<font color='red'>产品描述不能为空</font><br><br>";
+				return;
+			}
+
+			global $wpdb;
+			$product_id = trim($_POST["product_id"]);
+			$product_name = trim($_POST["product_name"]);
+			$product_price = trim($_POST["product_price"]);
+			$product_dealer_price = trim($_POST["product_dealer_price"]);
+			$product_type = trim($_POST["product_type"]);
+			$product_paytype = trim($_POST["product_paytype"]);
+			$product_show = trim($_POST["product_show"]);
+			$product_description = trim($_POST["product_description"]);
+
+			$sql = "UPDATE `xq_products` SET `product_name`='$product_name',`product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_type`='$product_type',`product_paytype`='$product_paytype',`product_show`='$product_show',`product_description`='$product_description' WHERE ID=$product_id";
 			//var_dump($sql);
 			$result = $wpdb->query($sql);
 			//var_dump($result);
@@ -119,10 +173,20 @@ function xuanqi_products_config_callback() {
 	?>
 <div ng-app="showProductApp" ng-controller="showProductCtrl" class="xqgrid">
 
-<?php xuanqi_save_product();?>
+<?php
+
+	if (isset($_GET["method"]) && "" != trim($_GET["method"])) {
+		if ("add" == trim($_GET["method"])) {
+			xuanqi_save_product();
+		} else if ("update" == trim($_GET["method"])) {
+			xuanqi_update_product();
+		}
+	}
+
+	?>
 	<button onclick="window.location.href='<?php echo get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_add_product";?>'">新增产品</button>
 	<button ng-click="deleteProducts()">删除产品</button>
-	<button ng-onclick="updateProduct()">修改产品</button>
+	<button ng-click="updateProduct()">修改产品</button>
 	<br/>
 	<br/>
 	<table>
@@ -208,30 +272,7 @@ app.controller('showProductCtrl', function($scope, $http) {
 	        alert("无法同时修改多条记录");
 	        return;
 	    }
-	    if (confirm("确认要删除吗？")) {
-	        checkBoxs.each(function() {
-	            //alert(jQuery(this).attr('id'));
-	            //jQuery(this).prop('checked', obj.checked);
-	            count++;
-	            if (count < checkBoxsLength) {
-	                ids += jQuery(this).attr('id') + ",";
-	            } else if (count = checkBoxsLength) {
-	                ids += jQuery(this).attr('id');
-	            }
-
-	        });
-	        //alert(ids);
-	        var Obj = {
-	            ids: ids
-	        }
-	        jQuery.post('<?php echo get_bloginfo('wpurl') . "/delete-product";?>', Obj,
-	            function(data) {
-	                alert(data);
-				    $http.get('<?php echo get_bloginfo('wpurl') . "/show-product";?>').success(function(response) {
-				        $scope.names = response.records;
-				    });
-	            });
-	    }
+	    window.location.href='<?php echo get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_add_product&id=";?>' + checkBoxs[0].id;
     }
 });
 </script>
@@ -241,7 +282,30 @@ app.controller('showProductCtrl', function($scope, $http) {
 
 function xuanqi_add_product_callback() {
 
-	$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_products_config";
+	/*判断是否是修改，如果是修改需要往控件中填值*/
+	$current_user = wp_get_current_user();
+	$wpurl = get_bloginfo('wpurl');
+
+	if (0 == $current_user->ID) {
+
+		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+		return;
+
+	} else {
+
+		//var_dump($_POST);
+
+		if (isset($_GET["id"]) && "" != trim($_GET["id"])) {
+
+			global $wpdb;
+
+			$productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_type`, `product_paytype`, `product_show`, `product_description` FROM `xq_products` WHERE ID=" . trim($_GET["id"]));
+			//var_dump($productArray);
+		}
+	}
+
+	$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_products_config&method=";
+	$url .= isset($productArray) ? "update" : "add";
 	echo "<div class=\"xqform\">";
 	echo "<form action=\"$url\" method=\"post\" ng-app=\"addProductApp\"  ng-controller=\"addProductCtrl\" name=\"addProductForm\" novalidate>";
 	?>
@@ -252,6 +316,7 @@ function xuanqi_add_product_callback() {
             输入产品名称：
             <br>
             <input style="width:300px" type="text" value="" name="product_name" ng-model="product_name" required></input>
+            <input type="hidden" name="product_id" value="<?php echo isset($productArray) ? $productArray[0]->ID : ""?>"/>
             <span style="color:red" ng-show="addProductForm.product_name.$dirty && addProductForm.product_name.$invalid">
 				 		<span ng-show="addProductForm.product_name.$error.required">请输入产品名称.</span>
             </span>
@@ -312,7 +377,7 @@ function xuanqi_add_product_callback() {
     <tr>
         <td>
             输入产品介绍：
-            <?php wp_editor("", "product_description");?>
+            <?php wp_editor(isset($productArray) ? $productArray[0]->product_description : "请输入产品描述", "product_description");?>
         </td>
     </tr>
     <tr>
@@ -329,32 +394,12 @@ function xuanqi_add_product_callback() {
 <script>
 var app = angular.module('addProductApp', []);
 app.controller('addProductCtrl', function($scope, $http) {
-
-    /*
-    $scope.submit = function() {
-    	var desc = jQuery("#product_description").val();
-    	alert(desc);
-
-		var productObj = {
-			product_name : $scope.product_name,
-			product_price : $scope.product_price,
-			product_dealer_price : $scope.product_dealer_price,
-			product_type : $scope.product_type,
-			product_paytype : $scope.product_paytype,
-			product_show : $scope.product_show,
-			product_description : desc
-		}
-
-		var res = $http.post('<?php echo get_bloginfo('wpurl') . "/save-product";?>', productObj);
-		res.success(function(data, status, headers, config) {
-			$scope.message = data;
-			//需要加上跳转的代码
-		});
-		res.error(function(data, status, headers, config) {
-			$scope.message = data;
-		});
-    };
-    */
+	$scope.product_name = "<?php echo isset($productArray) ? $productArray[0]->product_name : "请输入产品名称"?>";
+	$scope.product_price = <?php echo isset($productArray) ? $productArray[0]->product_price : 10000?>;
+	$scope.product_dealer_price = <?php echo isset($productArray) ? $productArray[0]->product_dealer_price : 10000?>;
+	$scope.product_type = "<?php echo isset($productArray) ? $productArray[0]->product_type : "0"?>";
+	$scope.product_paytype = "<?php echo isset($productArray) ? $productArray[0]->product_paytype : "0"?>";
+	$scope.product_show = "<?php echo isset($productArray) ? $productArray[0]->product_show : "1"?>";
 
 });
 </script>

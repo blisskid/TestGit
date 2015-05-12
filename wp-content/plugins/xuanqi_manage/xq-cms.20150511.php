@@ -1,18 +1,5 @@
 <?php
 
-/**
- * Plugin Name: 1xuanqi
- * Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
- * Description: xuanqi plugin.
- * Version: 1.0.0
- * Author: Lei Yu
- * Author URI: http://URI_Of_The_Plugin_Author
- * Text Domain: mytextdomain
- * Domain Path: Example: /locale/
- * Network: false
- * License: GPL2
- */
-
 //add menu
 add_action('admin_menu', 'register_my_custom_menu_page');
 
