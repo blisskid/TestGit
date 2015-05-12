@@ -356,9 +356,16 @@ textarea {
 }
 */
 
+.xqProductList {
+    margin-top: 30px;
+}
+
 .xqPage {
 
     font-family: arial, 'Microsoft Yahei', 'Hiragino Sans GB', sans-serif;
+    /*
+    padding: 40px 0px 0px 0px;
+    */
 }
 
 table {
