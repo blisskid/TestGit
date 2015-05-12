@@ -356,6 +356,10 @@ textarea {
 }
 */
 
+.productDiv {
+    width: 100%;
+}
+
 .xqProductList {
     margin-top: 30px;
 }
