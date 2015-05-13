@@ -1,4 +1,4 @@
 var cbAnimStart = function(data) { 
     jQuery(".productDiv").hide();
-    jQuery("#product_" + data.curLayerIndex).show(350);
+    jQuery("#product_" + data.curLayerIndex).show(1000);
 };
