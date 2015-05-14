@@ -1,9 +1,10 @@
-[layerslider id="1"]
+[layerslider id="4"]
 <div class="xqPage">
     <?php
 global $wpdb;
 $productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_type`, `product_paytype`, `product_show`, `product_description` FROM `xq_products` WHERE product_show='1'");
 ?>
+    <!--
     <div class="xqProductList">
         <table>
             <tr>
@@ -21,6 +22,8 @@ $productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`
             </tr>
         </table>
     </div>
+-->
+    [vc_row margin_top="0" margin_bottom="0" full_width="" padding_left="0" padding_right="0" animation="" type="" bg_color="" bg_position="top" bg_repeat="no-repeat" bg_cover="false" bg_attachment="false" padding_top="0" padding_bottom="0" enable_parallax="" parallax_speed="0.1" bg_video_src_mp4="" bg_video_src_ogv="" bg_video_src_webm="" bg_type="" parallax_style="" bg_image_new="" layer_image="" bg_image_repeat="" bg_image_size="" bg_cstm_size="" bg_img_attach="" parallax_sense="" bg_image_posiiton="" animation_direction="" animation_repeat="" video_url="" video_url_2="" u_video_url="" video_opts="" video_poster="" u_start_time="" u_stop_time="" viewport_vdo="" enable_controls="" bg_override="" disable_on_mobile_img_parallax="" parallax_content="" parallax_content_sense="" fadeout_row="" fadeout_start_effect="" enable_overlay="" overlay_color="" overlay_pattern="" overlay_pattern_opacity="" overlay_pattern_size="" overlay_pattern_attachment="" multi_color_overlay="" multi_color_overlay_opacity="" seperator_enable="" seperator_type="" seperator_position="" seperator_shape_size="" seperator_svg_height="" seperator_shape_background="" seperator_shape_border="" seperator_shape_border_color="" seperator_shape_border_width="" icon_type="" icon="" icon_size="" icon_color="" icon_style="" icon_color_bg="" icon_border_style="" icon_color_border="" icon_border_size="" icon_border_radius="" icon_border_spacing="" icon_img="" img_width="" ult_hide_row="" ult_hide_row_large_screen="" ult_hide_row_desktop="" ult_hide_row_tablet="" ult_hide_row_tablet_small="" ult_hide_row_mobile="" ult_hide_row_mobile_large=""][vc_column width="1/1" animation=""][dt_portfolio_slider height="190" width="240" padding="0" arrows="light" appearance="on_hover_centered" hover_animation="fade" hover_bg_color="accent" bg_under_projects="disabled" content_aligment="center" hover_content_visibility="on_hover" show_title="true" show_excerpt="" show_categories="" show_date="" show_author="" show_comments="" show_details="" show_link="" show_zoom="" number="12" loop="" orderby="date" order="desc"][/vc_column][/vc_row]
     <div class="xqProductList">
         <table>
             <tr>
@@ -37,7 +40,7 @@ $productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`
                 </td>
                 <td style="width: 0.5%;"></td>
                 <td style="width: 33%;padding: 20px;">
-                    第三块使用shortcodes里的blog mini，样式选择“post with rectangular images”
+                    [vc_row margin_top="0" margin_bottom="0" full_width="" padding_left="0" padding_right="0" animation="" type="" bg_color="" bg_position="top" bg_repeat="no-repeat" bg_cover="false" bg_attachment="false" padding_top="0" padding_bottom="0" enable_parallax="" parallax_speed="0.1" bg_video_src_mp4="" bg_video_src_ogv="" bg_video_src_webm="" bg_type="" parallax_style="" bg_image_new="" layer_image="" bg_image_repeat="" bg_image_size="" bg_cstm_size="" bg_img_attach="" parallax_sense="" bg_image_posiiton="" animation_direction="" animation_repeat="" video_url="" video_url_2="" u_video_url="" video_opts="" video_poster="" u_start_time="" u_stop_time="" viewport_vdo="" enable_controls="" bg_override="" disable_on_mobile_img_parallax="" parallax_content="" parallax_content_sense="" fadeout_row="" fadeout_start_effect="" enable_overlay="" overlay_color="" overlay_pattern="" overlay_pattern_opacity="" overlay_pattern_size="" overlay_pattern_attachment="" multi_color_overlay="" multi_color_overlay_opacity="" seperator_enable="" seperator_type="" seperator_position="" seperator_shape_size="" seperator_svg_height="" seperator_shape_background="" seperator_shape_border="" seperator_shape_border_color="" seperator_shape_border_width="" icon_type="" icon="" icon_size="" icon_color="" icon_style="" icon_color_bg="" icon_border_style="" icon_color_border="" icon_border_size="" icon_border_radius="" icon_border_spacing="" icon_img="" img_width="" ult_hide_row="" ult_hide_row_large_screen="" ult_hide_row_desktop="" ult_hide_row_tablet="" ult_hide_row_tablet_small="" ult_hide_row_mobile="" ult_hide_row_mobile_large=""][vc_column width="1/1" animation=""][dt_blog_posts_small columns="2" featured_images="true" round_images="" images_width="70" images_height="50" number="4" orderby="date" order="desc"][/vc_column][/vc_row]
                 </td>
             </tr>
         </table>
