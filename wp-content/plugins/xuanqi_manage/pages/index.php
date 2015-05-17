@@ -1,4 +1,4 @@
-[layerslider id="4"]
+[layerslider id="1"]
 <div class="xqPage">
     <?php
 global $wpdb;

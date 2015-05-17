@@ -21,6 +21,8 @@ function add_styles() {
 	//var_dump(plugins_url('css/xuanqi.css', __FILE__));
 	wp_register_style('plugin_stylesheet', plugins_url('css/xuanqi.css', __FILE__));
 	wp_enqueue_style('plugin_stylesheet');
+	wp_register_style('date_stylesheet', plugins_url('css/datepicker.css', __FILE__));
+	wp_enqueue_style('date_stylesheet');
 }
 
 add_action('init', 'add_styles');
@@ -28,6 +30,7 @@ add_action('init', 'add_styles');
 //add js
 function add_scripts() {
 	wp_enqueue_script('angularjs', plugins_url('js/angular.min.js', __FILE__));
+	wp_enqueue_script('datejs', plugins_url('js/zlDate.js', __FILE__));
 	wp_register_script('plugin_script', plugins_url('js/xuanqi.js', __FILE__), array('jquery'), '1.0', true);
 	wp_enqueue_script('plugin_script');
 }

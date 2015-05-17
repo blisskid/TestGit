@@ -1,3 +1,26 @@
+/*
+#calendar {
+    margin-top: 100px;
+    padding: 0px 5px;
+    width: 250px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+}
+*/
+
+.xqFormPage {
+    margin-top: 80px;
+    width: 826px;
+}
+
+.xqFormPage tr {
+    margin: 20px;
+}
+
 .productDiv {
     width: 100%;
 }
@@ -12,16 +35,11 @@
 
     padding: 40px 0px 0px 0px;
     */
+    
     margin-bottom: 40px;
 }
-
+/*
 table {
-    border-bottom: 1px solid #ededed;
-    border-collapse: collapse;
-    border-spacing: 0;
-    /*
-    font-size: 14px;
-    */
     line-height: 2;
     width: 100%;
 }
@@ -35,6 +53,7 @@ td {
     border-top: 1px solid #ededed;
     padding: 6px 10px 6px 0;
 }
+*/
 
 button {
     margin-right: 10px;
@@ -48,6 +67,7 @@ button {
     /*
     font-size: 14px;
     */
+    
     line-height: 2;
 }
 
@@ -61,12 +81,16 @@ button {
 }
 
 .xqgrid table {
+    /*
     border: 1px solid grey;
+    */
+    
     padding: 5px;
     width: 100%;
     /*
     font-size: 14px;
     */
+    
     line-height: 2;
 }
 
@@ -75,17 +99,24 @@ button {
 }
 
 .xqgrid table th {
+    /*
     border: 1px solid grey;
     border-collapse: collapse;
+    */
+    
     padding: 5px;
     font-weight: bold;
     text-align: left;
 }
 
 .xqgrid td {
+    /*
     border: 1px solid grey;
     border-collapse: collapse;
+    */
+    
     padding: 5px;
+    text-align: left;
 }
 
 .xqgrid table tr:nth-child(odd) {
