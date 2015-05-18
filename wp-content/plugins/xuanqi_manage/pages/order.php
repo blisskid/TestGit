@@ -42,11 +42,11 @@ foreach ($airportArray as $airport) {
 		            </select>
 		            <br>
 		        	<label>是否选择特惠机票？（仅限于特定日期）</label>
-					<input type="radio" name="airline_discount" value="NO" checked onclick="showOrderDate(this.value, '<?php echo get_bloginfo('wpurl') . "/show-discount-airline";?>')">否
-					<input type="radio" name="airline_discount" value="YES" onclick="showOrderDate(this.value)">是
+					<input type="radio" name="airline_discount" value="NO" checked>否
+					<input type="radio" name="airline_discount" value="YES">是
 					<br>
 					<label>请选择出发日期：</label>
-					<input type="text" style="width:80%" id="calendar" name="order_date" readonly="readonly" onclick="ajaxTime();" placeholder="点击选择时间"/>
+					<input type="text" style="width:80%" id="order_date" name="order_date" readonly="readonly" onclick="ajaxTime('<?php echo get_bloginfo('wpurl');?>');" placeholder="点击选择时间"/>
 					<br>
 					<button type="submit">费用结算</button>
 				</div>

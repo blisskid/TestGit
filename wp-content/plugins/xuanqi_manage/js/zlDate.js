@@ -239,8 +239,8 @@ var commonUtil = {
         var el = document.getElementById(elemId);
         if (el != null) {
             el.value = date;
-			alert("日期是："+date);
-			alert("价格是：￥"+price);
+			//alert("日期是："+date);
+			//alert("价格是：￥"+price);
             pickerEvent.remove();
         }
     }

@@ -23,6 +23,7 @@ function showProcessDiv(value, airportUrl) {
 
 }
 
+/*
 function showOrderDate(value, disCountUrl) {
     if ("YES" == value) {
         jQuery('#allOrderDate').hide();
@@ -44,11 +45,26 @@ function showOrderDate(value, disCountUrl) {
         jQuery('#allOrderDate').show(200);
     }
 }
+*/
 
 
-function ajaxTime(){
-    jQuery.get("http://www.caringyou.com.cn/date",function(data) {
-        pickerEvent.setPriceArr(eval("("+data+")"));
-        pickerEvent.Init("calendar");
+function ajaxTime(wpUrl) {
+    var ifDiscount = jQuery("input[name='airline_discount'][checked]").val();
+    var disCountUrl = wpUrl;
+    if ("NO" = ifDiscount) {
+        disCountUrl += "/show-airline";
+    } else if ("YES" == value) {
+        disCountUrl += "/show-discount-airline";
+    }
+    var fromAirport = jQuery('#from_airport').val();
+    var toAirport = jQuery('#to_airport').val();
+    var Obj = {
+        fromAirport: fromAirport,
+        toAirport: toAirport
+    }
+    jQuery.post(disCountUrl, Obj, function(data) {
+        pickerEvent.setPriceArr(eval("(" + data + ")"));
+        pickerEvent.Init("order_date");
     });
+
 }
