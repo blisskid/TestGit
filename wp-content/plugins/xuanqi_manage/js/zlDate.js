@@ -97,7 +97,6 @@ var pickerEvent = {
         }
     }
 }
-console.log("\u767e\u5ea6\u641c\u7d22\u3010\u7d20\u6750\u5bb6\u56ed\u3011\u4e0b\u8f7d\u66f4\u591aJS\u7279\u6548\u4ee3\u7801");
 var pickerHtml = {
     getHead: function () {
         var head = '<ul class="calendar_num basefix"><li class="bold">六</li><li>五</li><li>四</li><li>三</li><li>二</li><li>一</li><li class="bold">日</li><li class="picker_today bold" id="picker_today">回到今天</li></ul>';
@@ -245,7 +244,7 @@ var commonUtil = {
         }
     }
 }
-/*本代码由素材家园原创，转载请保留网址：www.sucaijiayuan.com*/
+
 jQuery(document).bind("click", function (event) {
     var e = event || window.event;
     var elem = e.srcElement || e.target;

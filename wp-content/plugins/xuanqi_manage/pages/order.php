@@ -24,7 +24,6 @@ foreach ($productArray as $product) {
 				<div style="margin-left:50%;display: none" id="yimiaoDiv">
 					<label>请选择出发地：</label>
 		            <select style="width:80%" name="from_airport" id="from_airport" required>
-		            	<option selected value="" id="makeYourChoice" >请选择</option>
 <?php
 foreach ($airportArray as $airport) {
 	$text = $airport->airport_name;
@@ -41,13 +40,22 @@ foreach ($airportArray as $airport) {
 		                <option value="ZGSZ_SZX">深圳宝安国际机场</option>
 		            </select>
 		            <br>
+		            <!--
 		        	<label>是否选择特惠机票？（仅限于特定日期）</label>
-					<input type="radio" name="airline_discount" value="NO" checked>否
-					<input type="radio" name="airline_discount" value="YES">是
+					<input type="radio" name="airline_discount" value="NO" checked onclick="showOrderDate(this.value)">否
+					<input type="radio" name="airline_discount" value="YES" onclick="showOrderDate(this.value)">是
 					<br>
-					<label>请选择出发日期：</label>
-					<input type="text" style="width:80%" id="order_date" name="order_date" readonly="readonly" onclick="ajaxTime('<?php echo get_bloginfo('wpurl');?>');" placeholder="点击选择时间"/>
-					<br>
+
+					<div style="display: none" id="discountDate">
+						-->
+					<div>
+						<label>请选择出发日期：</label>
+						<input type="text" style="width:80%" id="start_date" name="start_date" readonly="readonly" onclick="getStartDate('<?php echo get_bloginfo('wpurl');?>');" placeholder="点击选择时间"/>
+						<br>
+						<label>请选择返程日期：</label>
+						<input type="text" style="width:80%" id="back_date" name="back_date" readonly="readonly" onclick="getBackDate('<?php echo get_bloginfo('wpurl');?>');" placeholder="点击选择时间"/>
+						<br>
+					</div>
 					<button type="submit">费用结算</button>
 				</div>
 

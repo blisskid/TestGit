@@ -11,7 +11,7 @@ if (0 == $current_user->ID) {
 	header("Content-Type: application/json; charset=UTF-8");
 
 	global $wpdb;
-	$searchSql = "SELECT `ID`, `start_airport_code`, `arrive_airport_code`, `discount_price`, `discount_date`, `reserved_text` FROM `xq_discount_airlines`";
+	$searchSql = "SELECT `ID`, `start_airport_code`, `arrive_airport_code`, `airline_price`, `reserved_text` FROM `xq_airlines`";
 	if (count($_POST) > 0) {
 		//有传入参数，需要加入where条件
 		$searchSql .= "WHERE";
@@ -41,19 +41,11 @@ if (0 == $current_user->ID) {
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["discount_price"])) {
+		if (isset($_POST["airline_price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `discount_price`='" . $_POST["discount_price"] . "'";
+				$searchSql .= " AND `airline_price`='" . $_POST["airline_price"] . "'";
 			} else {
-				$searchSql .= " `discount_price`='" . $_POST["discount_price"] . "'";
-			}
-			$conditionFlag = true;
-		}
-		if (isset($_POST["discount_date"])) {
-			if ($conditionFlag) {
-				$searchSql .= " AND `discount_date`='" . $_POST["discount_date"] . "'";
-			} else {
-				$searchSql .= " `discount_date`='" . $_POST["discount_date"] . "'";
+				$searchSql .= " `airline_price`='" . $_POST["airline_price"] . "'";
 			}
 			$conditionFlag = true;
 		}
@@ -66,7 +58,7 @@ if (0 == $current_user->ID) {
 			$conditionFlag = true;
 		}
 	}
-
+	//var_dump($searchSql);
 	$discountAirlineArray = $wpdb->get_results($searchSql);
 	$outp = "";
 	foreach ($discountAirlineArray as $discountAirline) {
@@ -74,8 +66,7 @@ if (0 == $current_user->ID) {
 		$outp .= '{"ID":"' . $discountAirline->ID . '",';
 		$outp .= '"start_airport_code":"' . $discountAirline->start_airport_code . '",';
 		$outp .= '"arrive_airport_code":"' . $discountAirline->arrive_airport_code . '",';
-		$outp .= '"discount_price":"' . $discountAirline->discount_price . '",';
-		$outp .= '"discount_date":"' . $discountAirline->discount_date . '",';
+		$outp .= '"airline_price":"' . $discountAirline->airline_price . '",';
 		$outp .= '"reserved_text":"' . $discountAirline->reserved_text . '"}';
 	}
 

@@ -7,9 +7,6 @@ if (0 == $current_user->ID) {
 	echo "用户未登录！";
 
 } else {
-	header("Access-Control-Allow-Origin: *");
-	header("Content-Type: application/json; charset=UTF-8");
-
 	global $wpdb;
 	$searchSql = "SELECT `ID`, `start_airport_code`, `arrive_airport_code`, `discount_price`, `discount_date`, `reserved_text` FROM `xq_discount_airlines`";
 	if (count($_POST) > 0) {
@@ -71,15 +68,11 @@ if (0 == $current_user->ID) {
 	$outp = "";
 	foreach ($discountAirlineArray as $discountAirline) {
 		if ($outp != "") {$outp .= ",";}
-		$outp .= '{"ID":"' . $discountAirline->ID . '",';
-		$outp .= '"start_airport_code":"' . $discountAirline->start_airport_code . '",';
-		$outp .= '"arrive_airport_code":"' . $discountAirline->arrive_airport_code . '",';
-		$outp .= '"discount_price":"' . $discountAirline->discount_price . '",';
-		$outp .= '"discount_date":"' . $discountAirline->discount_date . '",';
-		$outp .= '"reserved_text":"' . $discountAirline->reserved_text . '"}';
+		$outp .= '{"Price":"' . $discountAirline->discount_price . '",';
+		$outp .= '"Date":"' . $discountAirline->discount_date . '"}';
 	}
 
-	$outp = '{"records":[' . $outp . ']}';
+	$outp = '[' . $outp . ']';
 	echo ($outp);
 }
 

@@ -5,7 +5,7 @@ function selectAll(obj) {            
     });
 }
 
-function showProcessDiv(value, airportUrl) {
+function showProcessDiv(value) {
     //alert(value);
     //jQuery("#product_select option[index='0']").remove();
     jQuery('#makeYourChoice').remove();
@@ -23,48 +23,43 @@ function showProcessDiv(value, airportUrl) {
 
 }
 
-/*
-function showOrderDate(value, disCountUrl) {
+function showOrderDate(value) {
     if ("YES" == value) {
-        jQuery('#allOrderDate').hide();
-        //需要从后台取出所有的discountDate
-        var fromAirport = jQuery('#from_airport').val();
-        var toAirport = jQuery('#to_airport').val();
-        var Obj = {
-            fromAirport: fromAirport,
-            toAirport: toAirport
-        }
-        jQuery.post(disCountUrl, Obj,
-            function(data) {
-                alert(data);
-            });
-
         jQuery('#discountDate').show(200);
     } else if ("NO" == value) {
-        jQuery('#discountDate').hide();
-        jQuery('#allOrderDate').show(200);
+        jQuery('#discountDate').hide(200);
+        pickerEvent.remove();
     }
 }
-*/
 
-
-function ajaxTime(wpUrl) {
-    var ifDiscount = jQuery("input[name='airline_discount'][checked]").val();
-    var disCountUrl = wpUrl;
-    if ("NO" = ifDiscount) {
-        disCountUrl += "/show-airline";
-    } else if ("YES" == value) {
-        disCountUrl += "/show-discount-airline";
-    }
+function getStartDate(wpUrl) {
+    var disCountUrl = wpUrl + "/discountAirlines";
     var fromAirport = jQuery('#from_airport').val();
     var toAirport = jQuery('#to_airport').val();
     var Obj = {
-        fromAirport: fromAirport,
-        toAirport: toAirport
+        start_airport_code: fromAirport,
+        arrive_airport_code: toAirport
     }
+    
     jQuery.post(disCountUrl, Obj, function(data) {
+        //alert(data);
         pickerEvent.setPriceArr(eval("(" + data + ")"));
-        pickerEvent.Init("order_date");
+        pickerEvent.Init("start_date");
     });
+}
 
+function getBackDate(wpUrl) {
+    var disCountUrl = wpUrl + "/discountAirlines";
+    var fromAirport = jQuery('#to_airport').val();
+    var toAirport = jQuery('#from_airport').val();
+    var Obj = {
+        start_airport_code: fromAirport,
+        arrive_airport_code: toAirport
+    }
+    
+    jQuery.post(disCountUrl, Obj, function(data) {
+        //alert(data);
+        pickerEvent.setPriceArr(eval("(" + data + ")"));
+        pickerEvent.Init("back_date");
+    });
 }

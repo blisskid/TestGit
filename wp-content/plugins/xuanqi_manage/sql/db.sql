@@ -6,8 +6,8 @@
 DROP TABLE IF EXISTS `xq_airlines`;
 CREATE TABLE IF NOT EXISTS `xq_airlines` (
   `ID` bigint(20) unsigned NOT NULL,
-  `start_airport_id` bigint(20) unsigned NOT NULL COMMENT '出发航站楼ID',
-  `arrive_airport_id` bigint(20) unsigned NOT NULL COMMENT '到达航站楼ID',
+  `start_airport_code` varchar(20) NOT NULL COMMENT '出发航站楼代号',
+  `arrive_airport_code` varchar(20) NOT NULL COMMENT '到达航站楼代号',
   `airline_price` double NOT NULL COMMENT '航线常规价格',
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS `xq_airports` (
 DROP TABLE IF EXISTS `xq_discount_airlines`;
 CREATE TABLE IF NOT EXISTS `xq_discount_airlines` (
   `ID` bigint(20) unsigned NOT NULL,
-  `start_airport_id` bigint(20) unsigned NOT NULL COMMENT '出发航站ID',
-  `arrive_airport_id` bigint(20) unsigned NOT NULL COMMENT '到达航站ID',
+  `start_airport_code` varchar(20) NOT NULL COMMENT '出发航站楼代号',
+  `arrive_airport_code` varchar(20) NOT NULL COMMENT '到达航站楼代号',
   `discount_price` double NOT NULL COMMENT '折扣价格',
   `discount_date` date NOT NULL COMMENT '折扣日期',
   `reserved_text` varchar(60) DEFAULT ''
