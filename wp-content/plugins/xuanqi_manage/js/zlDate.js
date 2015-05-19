@@ -1,6 +1,7 @@
 ﻿var obj = { date: new Date(), year: -1, month: -1, priceArr: [] };
 var htmlObj = { header: "", left: "", right: "" };
 var elemId = null;
+var priceId = null;
 function getAbsoluteLeft(objectId) {
    var o = document.getElementById(objectId)
    var oLeft = o.offsetLeft;
@@ -28,7 +29,7 @@ function getElementWidth(objectId) {
     return x.clientHeight;
 }
 var pickerEvent = {
-    Init: function (elemid) {
+    Init: function (elemid, priceid) {
         if (obj.year == -1) {
             dateUtil.getCurrent();
         }
@@ -47,6 +48,7 @@ var pickerEvent = {
         html += '<div style="clear: both;"></div>';
         html += "</div></div>";
         elemId=elemid;
+        priceId=priceid;
         var elemObj = document.getElementById(elemid);       
         jQuery(document.body).append(html);
         document.getElementById("picker_last").onclick = pickerEvent.getLast;
@@ -236,8 +238,10 @@ var commonUtil = {
         var date = sender.getAttribute("date");
         var price = sender.getAttribute("price");
         var el = document.getElementById(elemId);
-        if (el != null) {
+        var e2 = document.getElementById(priceId);
+        if (el != null && e2 != null) {
             el.value = date;
+            e2.value = price;
 			//alert("日期是："+date);
 			//alert("价格是：￥"+price);
             pickerEvent.remove();

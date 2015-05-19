@@ -6,9 +6,11 @@
 DROP TABLE IF EXISTS `xq_airlines`;
 CREATE TABLE IF NOT EXISTS `xq_airlines` (
   `ID` bigint(20) unsigned NOT NULL,
+  `two_airport_code` varchar(20) NOT NULL COMMENT '两个机场的机场代号组合',
   `start_airport_code` varchar(20) NOT NULL COMMENT '出发航站楼代号',
   `arrive_airport_code` varchar(20) NOT NULL COMMENT '到达航站楼代号',
-  `airline_price` double NOT NULL COMMENT '航线常规价格',
+  `date` date NOT NULL COMMENT '日期',  
+  `price` double NOT NULL COMMENT '航线常规价格',
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 

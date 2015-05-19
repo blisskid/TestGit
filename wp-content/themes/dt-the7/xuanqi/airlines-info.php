@@ -8,7 +8,7 @@ if (0 == $current_user->ID) {
 
 } else {
 	global $wpdb;
-	$searchSql = "SELECT `ID`, `start_airport_code`, `arrive_airport_code`, `discount_price`, `discount_date`, `reserved_text` FROM `xq_discount_airlines`";
+	$searchSql = "SELECT `ID`, `two_airport_code`, `start_airport_code`, `arrive_airport_code`, `date`, `price`, `reserved_text` FROM `xq_airlines`";
 	if (count($_POST) > 0) {
 		//有传入参数，需要加入where条件
 		$searchSql .= "WHERE";
@@ -16,9 +16,17 @@ if (0 == $current_user->ID) {
 		$conditionFlag = false;
 		if (isset($_POST["ID"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `ID`='" . $_POST["ID"] . "'";
+				$searchSql .= " AND `ID`=" . $_POST["ID"];
 			} else {
-				$searchSql .= " `ID`='" . $_POST["ID"] . "'";
+				$searchSql .= " `ID`=" . $_POST["ID"];
+			}
+			$conditionFlag = true;
+		}
+		if (isset($_POST["two_airport_code"])) {
+			if ($conditionFlag) {
+				$searchSql .= " AND `two_airport_code`='" . $_POST["two_airport_code"] . "'";
+			} else {
+				$searchSql .= " `two_airport_code`='" . $_POST["two_airport_code"] . "'";
 			}
 			$conditionFlag = true;
 		}
@@ -38,19 +46,19 @@ if (0 == $current_user->ID) {
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["discount_price"])) {
+		if (isset($_POST["date"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `discount_price`='" . $_POST["discount_price"] . "'";
+				$searchSql .= " AND `date`='" . $_POST["airline_date"] . "'";
 			} else {
-				$searchSql .= " `discount_price`='" . $_POST["discount_price"] . "'";
+				$searchSql .= " `date`='" . $_POST["airline_date"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["discount_date"])) {
+		if (isset($_POST["price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `discount_date`='" . $_POST["discount_date"] . "'";
+				$searchSql .= " AND `price`=" . $_POST["airline_price"];
 			} else {
-				$searchSql .= " `discount_date`='" . $_POST["discount_date"] . "'";
+				$searchSql .= " `price`=" . $_POST["airline_price"];
 			}
 			$conditionFlag = true;
 		}
@@ -68,8 +76,8 @@ if (0 == $current_user->ID) {
 	$outp = "";
 	foreach ($discountAirlineArray as $discountAirline) {
 		if ($outp != "") {$outp .= ",";}
-		$outp .= '{"Price":"' . $discountAirline->discount_price . '",';
-		$outp .= '"Date":"' . $discountAirline->discount_date . '"}';
+		$outp .= '{"Price":"' . $discountAirline->price . '",';
+		$outp .= '"Date":"' . $discountAirline->date . '"}';
 	}
 
 	$outp = '[' . $outp . ']';

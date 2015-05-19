@@ -19,9 +19,9 @@ if (0 == $current_user->ID) {
 		$conditionFlag = false;
 		if (isset($_POST["ID"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `ID`='" . $_POST["ID"] . "'";
+				$searchSql .= " AND `ID`=" . $_POST["ID"];
 			} else {
-				$searchSql .= " `ID`='" . $_POST["ID"] . "'";
+				$searchSql .= " `ID`=" . $_POST["ID"];
 			}
 			$conditionFlag = true;
 		}
@@ -43,9 +43,9 @@ if (0 == $current_user->ID) {
 		}
 		if (isset($_POST["discount_price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `discount_price`='" . $_POST["discount_price"] . "'";
+				$searchSql .= " AND `discount_price`=" . $_POST["discount_price"];
 			} else {
-				$searchSql .= " `discount_price`='" . $_POST["discount_price"] . "'";
+				$searchSql .= " `discount_price`=" . $_POST["discount_price"];
 			}
 			$conditionFlag = true;
 		}

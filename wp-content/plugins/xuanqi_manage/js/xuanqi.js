@@ -33,33 +33,33 @@ function showOrderDate(value) {
 }
 
 function getStartDate(wpUrl) {
-    var disCountUrl = wpUrl + "/discountAirlines";
+    var disCountUrl = wpUrl + "/airlines-info";
     var fromAirport = jQuery('#from_airport').val();
     var toAirport = jQuery('#to_airport').val();
+    var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
     var Obj = {
-        start_airport_code: fromAirport,
-        arrive_airport_code: toAirport
+        two_airport_code: twoAirport
     }
     
     jQuery.post(disCountUrl, Obj, function(data) {
         //alert(data);
         pickerEvent.setPriceArr(eval("(" + data + ")"));
-        pickerEvent.Init("start_date");
+        pickerEvent.Init("start_date", "start_price");
     });
 }
 
 function getBackDate(wpUrl) {
-    var disCountUrl = wpUrl + "/discountAirlines";
+    var disCountUrl = wpUrl + "/airlines-info";
     var fromAirport = jQuery('#to_airport').val();
     var toAirport = jQuery('#from_airport').val();
+    var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
     var Obj = {
-        start_airport_code: fromAirport,
-        arrive_airport_code: toAirport
+        two_airport_code: twoAirport
     }
     
     jQuery.post(disCountUrl, Obj, function(data) {
         //alert(data);
         pickerEvent.setPriceArr(eval("(" + data + ")"));
-        pickerEvent.Init("back_date");
+        pickerEvent.Init("back_date", "back_price");
     });
 }

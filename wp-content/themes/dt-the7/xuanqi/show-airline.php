@@ -11,7 +11,7 @@ if (0 == $current_user->ID) {
 	header("Content-Type: application/json; charset=UTF-8");
 
 	global $wpdb;
-	$searchSql = "SELECT `ID`, `start_airport_code`, `arrive_airport_code`, `airline_price`, `reserved_text` FROM `xq_airlines`";
+	$searchSql = "SELECT `ID`, `two_airport_code`, `start_airport_code`, `arrive_airport_code`, `date`, `price`, `reserved_text` FROM `xq_airlines`";
 	if (count($_POST) > 0) {
 		//有传入参数，需要加入where条件
 		$searchSql .= "WHERE";
@@ -19,9 +19,17 @@ if (0 == $current_user->ID) {
 		$conditionFlag = false;
 		if (isset($_POST["ID"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `ID`='" . $_POST["ID"] . "'";
+				$searchSql .= " AND `ID`=" . $_POST["ID"];
 			} else {
-				$searchSql .= " `ID`='" . $_POST["ID"] . "'";
+				$searchSql .= " `ID`=" . $_POST["ID"];
+			}
+			$conditionFlag = true;
+		}
+		if (isset($_POST["two_airport_code"])) {
+			if ($conditionFlag) {
+				$searchSql .= " AND `two_airport_code`='" . $_POST["two_airport_code"] . "'";
+			} else {
+				$searchSql .= " `two_airport_code`='" . $_POST["two_airport_code"] . "'";
 			}
 			$conditionFlag = true;
 		}
@@ -41,11 +49,19 @@ if (0 == $current_user->ID) {
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["airline_price"])) {
+		if (isset($_POST["date"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `airline_price`='" . $_POST["airline_price"] . "'";
+				$searchSql .= " AND `date`='" . $_POST["airline_date"] . "'";
 			} else {
-				$searchSql .= " `airline_price`='" . $_POST["airline_price"] . "'";
+				$searchSql .= " `date`='" . $_POST["airline_date"] . "'";
+			}
+			$conditionFlag = true;
+		}
+		if (isset($_POST["price"])) {
+			if ($conditionFlag) {
+				$searchSql .= " AND `price`=" . $_POST["airline_price"];
+			} else {
+				$searchSql .= " `price`=" . $_POST["airline_price"];
 			}
 			$conditionFlag = true;
 		}
@@ -64,9 +80,11 @@ if (0 == $current_user->ID) {
 	foreach ($discountAirlineArray as $discountAirline) {
 		if ($outp != "") {$outp .= ",";}
 		$outp .= '{"ID":"' . $discountAirline->ID . '",';
+		$outp .= '"two_airport_code":"' . $discountAirline->two_airport_code . '",';
 		$outp .= '"start_airport_code":"' . $discountAirline->start_airport_code . '",';
 		$outp .= '"arrive_airport_code":"' . $discountAirline->arrive_airport_code . '",';
-		$outp .= '"airline_price":"' . $discountAirline->airline_price . '",';
+		$outp .= '"date":"' . $discountAirline->date . '",';
+		$outp .= '"price":"' . $discountAirline->price . '",';
 		$outp .= '"reserved_text":"' . $discountAirline->reserved_text . '"}';
 	}
 
