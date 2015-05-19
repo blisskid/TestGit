@@ -1,4 +1,12 @@
 <?php
+$current_user = wp_get_current_user();
+$wpurl = get_bloginfo('wpurl');
+
+if (0 == $current_user->ID) {
+
+	echo "用户未登录！";
+
+} else {
 //预约界面，需要选择产品、出发城市
 global $wpdb;
 //查询出所有的产品
@@ -67,3 +75,6 @@ foreach ($airportArray as $airport) {
 	</form>
 </div>
 
+<?php
+}
+?>

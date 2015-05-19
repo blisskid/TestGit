@@ -49,6 +49,26 @@ CREATE TABLE IF NOT EXISTS `xq_discount_airlines` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `xq_orders` 订单信息表
+--
+DROP TABLE IF EXISTS `xq_orders`;
+CREATE TABLE IF NOT EXISTS `xq_orders` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `product_id` bigint(20) unsigned NOT NULL COMMENT '产品代号',
+  `product_price` double NOT NULL COMMENT '产品价格',
+  `start_airport_code` varchar(20) NOT NULL COMMENT '出发航站楼代号',
+  `arrive_airport_code` varchar(20) NOT NULL COMMENT '到达航站楼代号',
+  `airline_price` double NOT NULL COMMENT '往返机票价格',
+  `start_date` date NOT NULL COMMENT '出发日期',
+  `back_date` date NOT NULL COMMENT '返回日期',
+  `total_price` double NOT NULL COMMENT '总价格',
+  `order_status` int(11) NOT NULL DEFAULT '0' COMMENT '订单状态。0：未支付；1：已支付；2：已取消。',
+  `reserved_text` varchar(60) DEFAULT ''
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `xq_products`
 --
 DROP TABLE IF EXISTS `xq_products`;
@@ -135,7 +155,11 @@ ALTER TABLE `xq_airports`
 --
 ALTER TABLE `xq_discount_airlines`
   ADD PRIMARY KEY (`ID`);
-
+--
+-- Indexes for table `xq_discount_airlines`
+--
+ALTER TABLE `xq_orders`
+  ADD PRIMARY KEY (`ID`);
 --
 -- Indexes for table `xq_products`
 --
@@ -175,6 +199,12 @@ ALTER TABLE `xq_airlines`
 --
 ALTER TABLE `xq_discount_airlines`
   MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+--
+-- AUTO_INCREMENT for table `xq_discount_airlines`
+--
+ALTER TABLE `xq_orders`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;  
 --
 -- AUTO_INCREMENT for table `xq_products`
 --
