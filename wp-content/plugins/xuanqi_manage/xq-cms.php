@@ -23,6 +23,10 @@ function add_styles() {
 	wp_enqueue_style('plugin_stylesheet');
 	wp_register_style('date_stylesheet', plugins_url('css/datepicker.css', __FILE__));
 	wp_enqueue_style('date_stylesheet');
+	
+	wp_register_style('font_awesome', plugins_url('css/font-awesome.min.css', __FILE__));
+	wp_enqueue_style('font_awesome');
+	
 }
 
 add_action('init', 'add_styles');
