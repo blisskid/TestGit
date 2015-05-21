@@ -47,10 +47,3 @@ function loadCustomTemplate($template) {
 	include $template;
 	exit;
 }
-
-function templateRedirect() {
-	$basename = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
-	loadCustomTemplate(TEMPLATEPATH . '/xuanqi/' . "/$basename.php");
-}
-
-add_action('template_redirect', 'templateRedirect');
