@@ -5367,8 +5367,10 @@ body {
   color: #ffffff;
 }
 #branding {
+  /*
   padding-top: 36px;
   padding-bottom: 36px;
+  */
 }
 .text-near-logo,
 .text-near-logo *,

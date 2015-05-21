@@ -70,15 +70,18 @@ var pickerEvent = {
     },
     getLast: function () {
         dateUtil.getLastDate();
-        pickerEvent.Init(elemId);
+        pickerEvent.Init(elemId, priceId);
     },
     getNext: function () {
         dateUtil.getNexDate();
-        pickerEvent.Init(elemId);
+        pickerEvent.Init(elemId, priceId);
     },
 	getToday:function(){
+        /*
 		dateUtil.getCurrent();
-		pickerEvent.Init(elemId);
+		pickerEvent.Init(elemId, priceId);
+        */
+        pickerEvent.remove();
 	},
     setPriceArr: function (arr) {
         obj.priceArr = arr;
@@ -101,7 +104,8 @@ var pickerEvent = {
 }
 var pickerHtml = {
     getHead: function () {
-        var head = '<ul class="calendar_num basefix"><li class="bold">六</li><li>五</li><li>四</li><li>三</li><li>二</li><li>一</li><li class="bold">日</li><li class="picker_today bold" id="picker_today">回到今天</li></ul>';
+        //var head = '<ul class="calendar_num basefix"><li class="bold">六</li><li>五</li><li>四</li><li>三</li><li>二</li><li>一</li><li class="bold">日</li><li class="picker_today bold" id="picker_today">回到今天</li></ul>';
+        var head = '<ul class="calendar_num basefix"><li class="bold">六</li><li>五</li><li>四</li><li>三</li><li>二</li><li>一</li><li class="bold">日</li><li class="picker_today bold" id="picker_today">关闭</li></ul>';
         htmlObj.header = head;
     },
     getLeft: function () {

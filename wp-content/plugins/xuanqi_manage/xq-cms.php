@@ -23,10 +23,10 @@ function add_styles() {
 	wp_enqueue_style('plugin_stylesheet');
 	wp_register_style('date_stylesheet', plugins_url('css/datepicker.css', __FILE__));
 	wp_enqueue_style('date_stylesheet');
-	
+
 	wp_register_style('font_awesome', plugins_url('css/font-awesome.min.css', __FILE__));
 	wp_enqueue_style('font_awesome');
-	
+
 }
 
 add_action('init', 'add_styles');
@@ -314,7 +314,7 @@ function xuanqi_add_product_callback() {
 	$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_products_config&method=";
 	$url .= isset($productArray) ? "update" : "add";
 	echo "<div class=\"xqform\">";
-	echo "<form action=\"$url\" method=\"post\" ng-app=\"addProductApp\"  ng-controller=\"addProductCtrl\" name=\"addProductForm\" novalidate>";
+	echo "<form action=\"$url\" method=\"post\" name=\"addProductForm\">";
 	?>
 
 <table align="center">
@@ -322,40 +322,28 @@ function xuanqi_add_product_callback() {
         <td>
             输入产品名称：
             <br>
-            <input style="width:300px" type="text" value="" name="product_name" ng-model="product_name" required></input>
-            <input type="hidden" name="product_id" value="<?php echo isset($productArray) ? $productArray[0]->ID : ""?>"/>
-            <span style="color:red" ng-show="addProductForm.product_name.$dirty && addProductForm.product_name.$invalid">
-				 		<span ng-show="addProductForm.product_name.$error.required">请输入产品名称.</span>
-            </span>
+            <input style="width:300px" type="text" value="" name="product_name" placeholder="请输入产品名称" required></input>
         </td>
     </tr>
     <tr>
         <td>
             输入产品价格：
             <br>
-            <input style="width:300px" type="number" value="" name="product_price" ng-model="product_price" required>（元）</input>
-            <span style="color:red" ng-show="addProductForm.product_price.$dirty && addProductForm.product_price.$invalid">
-				 		<span ng-show="addProductForm.product_price.$error.required">请输入产品价格.</span>
-            <span ng-show="addProductForm.product_price.$error.number">产品价格需要为数字.</span>
-            </span>
+            <input style="width:300px" type="text" value="" name="product_price" placeholder="请输入产品价格" pattern="^[0-9]+[\.][0-9]{0,2}$" title="请输入正数，小数点后面最多两位" required>（元）</input>
         </td>
     </tr>
     <tr>
         <td>
             输入经销商产品价格：
             <br>
-            <input style="width:300px" type="number" value="" name="product_dealer_price" ng-model="product_dealer_price" required>（元）</input>
-            <span style="color:red" ng-show="addProductForm.product_dealer_price.$dirty && addProductForm.product_dealer_price.$invalid">
-				 		<span ng-show="addProductForm.product_dealer_price.$error.required">请输入经销商产品价格.</span>
-            <span ng-show="addProductForm.product_dealer_price.$error.number">经销商产品价格需要为数字.</span>
-            </span>
+            <input style="width:300px" type="text" value="" name="product_dealer_price" placeholder="请输入经销商产品价格" pattern="^[0-9]+[\.][0-9]{0,2}$" title="请输入正数，小数点后面最多两位" required>（元）</input>
         </td>
     </tr>
     <tr>
         <td>
             选择产品类别：
             <br>
-            <select style="width:300px" name="product_type" ng-model="product_type">
+            <select style="width:300px" name="product_type" >
                 <option value="0" selected>疫苗类产品</option>
                 <option value="1">其他产品</option>
             </select>
@@ -365,7 +353,7 @@ function xuanqi_add_product_callback() {
         <td>
             选择产品支付流程：
             <br>
-            <select style="width:300px" name="product_paytype" ng-model="product_paytype">
+            <select style="width:300px" name="product_paytype">
                 <option value="0" selected>支付流程一</option>
                 <option value="1">支付流程二</option>
             </select>
@@ -375,7 +363,7 @@ function xuanqi_add_product_callback() {
         <td>
             产品是否在首页展示：
             <br>
-            <select style="width:300px" name="product_show" ng-model="product_show">
+            <select style="width:300px" name="product_show">
                 <option value="0">不在首页显示</option>
                 <option value="1" selected>在首页显示</option>
             </select>
@@ -392,24 +380,12 @@ function xuanqi_add_product_callback() {
         	<!--
         	<button ng-click="submit()" ng-disabled="addProductForm.product_name.$dirty && addProductForm.product_name.$invalid || addProductForm.product_price.$dirty && addProductForm.product_price.$invalid || addProductForm.product_dealer_price.$dirty && addProductForm.product_dealer_price.$invalid">保存产品</button>
         	-->
-        	<button type="submit" ng-disabled="addProductForm.product_name.$dirty && addProductForm.product_name.$invalid || addProductForm.product_price.$dirty && addProductForm.product_price.$invalid || addProductForm.product_dealer_price.$dirty && addProductForm.product_dealer_price.$invalid">保存产品</button>
+        	<button type="submit">保存产品</button>
          </td>
     </tr>
 </table>
 </form>
 </div>
-<script>
-var app = angular.module('addProductApp', []);
-app.controller('addProductCtrl', function($scope, $http) {
-	$scope.product_name = "<?php echo isset($productArray) ? $productArray[0]->product_name : "请输入产品名称"?>";
-	$scope.product_price = <?php echo isset($productArray) ? $productArray[0]->product_price : 10000?>;
-	$scope.product_dealer_price = <?php echo isset($productArray) ? $productArray[0]->product_dealer_price : 10000?>;
-	$scope.product_type = "<?php echo isset($productArray) ? $productArray[0]->product_type : "0"?>";
-	$scope.product_paytype = "<?php echo isset($productArray) ? $productArray[0]->product_paytype : "0"?>";
-	$scope.product_show = "<?php echo isset($productArray) ? $productArray[0]->product_show : "1"?>";
-
-});
-</script>
 <?php
 
 }

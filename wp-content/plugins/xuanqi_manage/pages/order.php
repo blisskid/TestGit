@@ -12,7 +12,7 @@ if (0 == $current_user->ID) {
 //查询出所有的产品
 	$productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_type`, `product_paytype`, `product_show`, `reserved_text` FROM `xq_products`");
 //查询出所有的出发地
-	$airportArray = $wpdb->get_results("SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `reserved_text` FROM `xq_airports`");
+	$airportArray = $wpdb->get_results("SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `reserved_text` FROM `xq_airports` WHERE `airport_code` not in ('ZGGG_CAN', 'ZGSZ_SZX', 'VHHH_HKG')");
 
 	?>
 <div>
@@ -58,11 +58,11 @@ foreach ($airportArray as $airport) {
 						-->
 					<div>
 						<label>请选择出发日期：</label>
-						<input type="text" style="width:80%" id="start_date" name="start_date" readonly="readonly" onclick="getStartDate('<?php echo get_bloginfo('wpurl');?>');" placeholder="点击选择时间"/>
+						<input type="text" style="width:80%" id="start_date" name="start_date" readonly="readonly" onclick="getStartDate('<?php echo get_bloginfo('wpurl');?>');"/>
 						<input type="hidden" id="start_price" name="start_price"></input>
 						<br>
 						<label>请选择返程日期：</label>
-						<input type="text" style="width:80%" id="back_date" name="back_date" readonly="readonly" onclick="getBackDate('<?php echo get_bloginfo('wpurl');?>');" placeholder="点击选择时间"/>
+						<input type="text" style="width:80%" id="back_date" name="back_date" readonly="readonly" onclick="getBackDate('<?php echo get_bloginfo('wpurl');?>');"/>
 						<input type="hidden" id="back_price" name="back_price"></input>
 						<br>
 					</div>
