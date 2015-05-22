@@ -27,13 +27,18 @@ add_action( 'register_form', 'ugp_show_extra_register_fields' );
 function ugp_show_extra_register_fields(){
 	?>
 	<p>
+	<label for="phone"><?php _e( 'Phone', 'ugp-domain' );?><br/>
+	<input id="phone" class="input" type="text" pattern="[0-9]{11}" title="请输入11位手机号码" tabindex="30" size="25" value="" name="phone" required/>
+	</label>
+	</p>	
+	<p>
 	<label for="password"><?php _e( 'Password', 'ugp-domain' );?><br/>
-	<input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" />
+	<input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" required/>
 	</label>
 	</p>
 	<p>
 	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
-	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" />
+	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
 	</label>
 	</p>
 	<p>
@@ -55,6 +60,9 @@ function ugp_check_extra_register_fields($login, $email, $errors) {
 	if ( strlen( $_POST['password'] ) < 8 ) {
 		$errors->add( 'password_too_short', __("<strong>ERROR</strong>: Passwords must be at least eight characters long", 'ugp-domain' ) );
 	}
+	if ( strlen( $_POST['phone'] ) != 11 ) {
+		$errors->add( 'phone_number_error', __("<strong>ERROR</strong>: Please input 11 phone number", 'ugp-domain' ) );
+	}	
 	if ( $_POST['are_you_human'] !== get_bloginfo( 'name' ) ) {
 		$errors->add( 'not_human', __("<strong>ERROR</strong>: Your name is Bot? James Bot? Check bellow the form, there's a Back to [sitename] link.", 'ugp-domain' ) );
 	}
@@ -72,6 +80,10 @@ function ugp_register_extra_fields( $user_id ){
 	if ( $_POST['password'] !== '' ) {
 		$userdata['user_pass'] = $_POST['password'];
 	}
+	if ( $_POST['phone'] !== '' ) {
+		update_usermeta($user_id, 'phone', $_POST['phone']);		
+	}
+	
 	$new_user_id = wp_update_user( $userdata );
 }
 
@@ -83,7 +95,8 @@ add_filter( 'gettext', 'ugp_edit_password_email_text',20, 3 );
 function ugp_edit_password_email_text ( $translated_text, $untranslated_text, $domain ) {
 	if(in_array($GLOBALS['pagenow'], array('wp-login.php'))){
 		if ( $untranslated_text == 'A password will be e-mailed to you.' ) {
-			$translated_text = __( 'If you leave password fields empty one will be generated for you. Password must be at least eight characters long.', 'ugp-domain' );
+			//$translated_text = __( 'If you leave password fields empty one will be generated for you. Password must be at least eight characters long.', 'ugp-domain' );
+			$translated_text = "";
 		}
 		if( $untranslated_text == 'Registration complete. Please check your e-mail.' ) {
 			$translated_text = __( 'Registration complete. Please sign in or check your e-mail.', 'ugp-domain' );

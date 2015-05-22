@@ -63,7 +63,7 @@ function save_custom_user_profile_fields($user_id) {
 		return FALSE;
 	}
 
-	update($user_id, 'phone', $_POST['phone']);
+	update_usermeta($user_id, 'phone', $_POST['phone']);
 }
 add_action('show_user_profile', 'add_custom_user_profile_fields'); //钩子作用在show_user_profile
 add_action('edit_user_profile', 'add_custom_user_profile_fields'); //钩子作用在edit_user_profile
