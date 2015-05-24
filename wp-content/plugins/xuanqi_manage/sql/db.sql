@@ -58,11 +58,16 @@ CREATE TABLE IF NOT EXISTS `xq_orders` (
   `ID` bigint(20) unsigned NOT NULL,
   `product_id` bigint(20) unsigned NOT NULL COMMENT '产品代号',
   `product_price` double NOT NULL COMMENT '产品价格',
+  `if_airplane` int(11) NOT NULL DEFAULT '1' COMMENT '是否乘坐飞机。1：是；0：否。',
   `start_airport_code` varchar(20) NOT NULL COMMENT '出发航站楼代号',
   `arrive_airport_code` varchar(20) NOT NULL COMMENT '到达航站楼代号',
-  `airline_price` double NOT NULL COMMENT '往返机票价格',
   `start_date` date NOT NULL COMMENT '出发日期',
-  `back_date` date NOT NULL COMMENT '返回日期',
+  `back_date` date NOT NULL COMMENT '返回日期', 
+  `airline_price` double NOT NULL COMMENT '往返机票价格',
+  `if_hotel` int(11) NOT NULL DEFAULT '1' COMMENT '是否住酒店。1：是；0：否。',
+  `in_date` date NOT NULL COMMENT '入住日期',
+  `out_date` date NOT NULL COMMENT '退房日期', 
+  `hotel_price` double NOT NULL COMMENT '酒店价格',
   `total_price` double NOT NULL COMMENT '总价格',
   `order_status` int(11) NOT NULL DEFAULT '0' COMMENT '订单状态。0：未支付；1：已支付；2：已取消。',
   `reserved_text` varchar(60) DEFAULT ''
@@ -79,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `xq_products` (
   `product_name` varchar(60) NOT NULL DEFAULT '' COMMENT '产品名称',
   `product_price` double NOT NULL COMMENT '产品价格（元）',
   `product_dealer_price` double NOT NULL COMMENT '经销商产品价格',
+  `product_direct_price` double NOT NULL COMMENT '直销商产品价格',
   `product_type` int(11) NOT NULL DEFAULT '0' COMMENT '产品类别。0：疫苗类产品；1:其他。',
   `product_paytype` int(11) NOT NULL DEFAULT '0' COMMENT '0:对应流程一，1:对应流程2',
   `product_show` int(11) NOT NULL DEFAULT '1' COMMENT '0:不在首页显示，1:在首页显示',
@@ -136,6 +142,20 @@ CREATE TABLE IF NOT EXISTS `xq_users` (
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+-- 表的结构 `xq_hotels`
+--
+DROP TABLE IF EXISTS `xq_hotels`;
+CREATE TABLE IF NOT EXISTS `xq_hotels` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `hotel_name` varchar(200) NOT NULL DEFAULT '默认酒店' COMMENT '酒店名称',
+  `date` date NOT NULL COMMENT '日期',  
+  `price` double NOT NULL COMMENT '酒店价格',
+  `reserved_text` varchar(60) DEFAULT ''
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 --
 -- Indexes for dumped tables
 --
@@ -187,6 +207,16 @@ ALTER TABLE `xq_users`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `xq_hotels`
+--
+ALTER TABLE `xq_hotels`
+  ADD PRIMARY KEY (`ID`);
+--
+-- Indexes for table `xq_hotels`
+--
+ALTER TABLE `xq_hotels` 
+  ADD UNIQUE( `hotel_name`, `date`);
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -228,5 +258,8 @@ ALTER TABLE `xq_set_product`
 ALTER TABLE `xq_users`
   MODIFY `user_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 
-
-INSERT INTO `xq_airports`(`airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `reserved_text`) VALUES ('ZBAA_PEK','ZBAA','PEK','北京首都国际机场','beijing','');
+-- AUTO_INCREMENT for table `xq_hotels`
+--
+ALTER TABLE `xq_hotels`
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--

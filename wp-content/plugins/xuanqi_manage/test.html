@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head id="ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>携程网日期控件</title>
+<style>
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, em, button {
+    margin: 0;
+    padding: 0;
+}
+body {
+    color: #333333;
+    font-family: Simsun,sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<table width="300" align="center" >
+  <tr>
+    <td height="100" valign="middle"><strong>携程网日期控件:</strong></td>
+    <td width="30"></td>
+    <td valign="middle"><input id="calendar" type="text"></td>
+  </tr>
+</table>
+<script src="cQuery_110421.js" charset="utf-8" type="text/javascript"></script>
+<script src="js/calendar.js" charset="utf-8" type="text/javascript"></script>
+<script>
+
+$("#calendar").regMod("calendar","6.0", {
+	options: {
+	autoShow: !1,
+	showWeek: !0,
+	maxDate: function() {
+		var a = (new Date).addYears(1);
+		return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate()
+	}()
+   },
+   listeners:{
+				   onBeforeShow: function() {},
+				   onChange: function() {}
+              }
+  })
+</script>
+</body>
+</html>

@@ -12,7 +12,7 @@ if (0 == $current_user->ID) {
 
 	global $wpdb;
 
-	$searchSql = "SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_type`, `product_paytype`, `product_show`, `reserved_text` FROM `xq_products`";
+	$searchSql = "SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_type`, `product_paytype`, `product_show`, `reserved_text` FROM `xq_products`";
 	if (count($_POST) > 0) {
 		//有传入参数，需要加入where条件
 		$searchSql .= "WHERE";
@@ -47,6 +47,14 @@ if (0 == $current_user->ID) {
 				$searchSql .= " AND `product_dealer_price`=" . $_POST["product_dealer_price"];
 			} else {
 				$searchSql .= " `product_dealer_price`=" . $_POST["product_dealer_price"];
+			}
+			$conditionFlag = true;
+		}
+		if (isset($_POST["product_direct_price"])) {
+			if ($conditionFlag) {
+				$searchSql .= " AND `product_direct_price`=" . $_POST["product_direct_price"];
+			} else {
+				$searchSql .= " `product_direct_price`=" . $_POST["product_direct_price"];
 			}
 			$conditionFlag = true;
 		}
@@ -93,6 +101,7 @@ if (0 == $current_user->ID) {
 		$outp .= '"product_name":"' . $product->product_name . '",';
 		$outp .= '"product_price":"' . $product->product_price . '",';
 		$outp .= '"product_dealer_price":"' . $product->product_dealer_price . '",';
+		$outp .= '"product_direct_price":"' . $product->product_direct_price . '",';
 
 		if ("0" == $product->product_type) {
 			$outp .= '"product_type":"疫苗类产品",';

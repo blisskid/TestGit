@@ -55,10 +55,6 @@ td {
 }
 */
 
-button {
-    margin-right: 10px;
-}
-
 .xqform {}
 
 .xqform table {
@@ -96,6 +92,11 @@ button {
 
 .xqgrid {
     padding: 20px 20px 20px 0;
+}
+
+.xqgrid button,.xqgrid input {
+    margin-right: 5px;
+    margin-left: 10px;
 }
 
 .xqgrid table th {

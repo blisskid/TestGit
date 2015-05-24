@@ -127,7 +127,8 @@ var pickerHtml = {
                 var priceStr = "";
                 var classStyle = "";
                 if (price != -1) {
-                    priceStr = "<dfn>¥</dfn>" + price;
+                    //priceStr = "<dfn>¥</dfn>" + price;
+                    priceStr = "可选";
                     classStyle = "class='on'";
                 }
 				if (price != -1&&obj.year==new Date().getFullYear()&&obj.month==new Date().getMonth()+1&&i-c==new Date().getDate()) {
