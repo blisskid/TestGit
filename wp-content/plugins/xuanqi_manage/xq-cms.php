@@ -197,10 +197,10 @@ function xuanqi_products_config_callback() {
         <th>直销商产品价格（元）</th>
         <tr ng-repeat="x in names">
         	<td><input id="{{x.product_id}}" type="checkbox" name="xq_checkbox"></input></td>
-            <td>{{ x.product_name }}</td>
-            <td>{{ x.product_price }}</td>
-            <td>{{ x.product_dealer_price }}</td>
-            <td>{{ x.product_direct_price }}</td>
+            <td ng-bind="x.product_name"></td>
+            <td ng-bind="x.product_price"></td>
+            <td ng-bind="x.product_dealer_price"></td>
+            <td ng-bind="x.product_direct_price"></td>
         </tr>
     </table>
 </div>
