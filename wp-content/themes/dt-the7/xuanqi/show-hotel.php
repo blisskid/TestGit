@@ -13,45 +13,61 @@ if (0 == $current_user->ID) {
 	global $wpdb;
 
 	$searchSql = "SELECT `ID`, `date`, `price` FROM `xq_hotels`";
-	if (count($_GET) > 0) {
+	$countSql = "SELECT COUNT(*) FROM `xq_hotels`";
+	$conditionStr = "";
+	if (count($_GET) > 1) {
 		//有传入参数，需要加入where条件
-		$searchSql .= "WHERE";
+		$conditionStr .= "WHERE";
 		//表示是否有大于两个条件
 		$conditionFlag = false;
 		if (isset($_GET["ID"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `ID`=" . $_GET["ID"];
+				$conditionStr .= " AND `ID`=" . $_GET["ID"];
 			} else {
-				$searchSql .= " `ID`=" . $_GET["ID"];
+				$conditionStr .= " `ID`=" . $_GET["ID"];
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_GET["hotel_price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `price`=" . $_GET["hotel_price"];
+				$conditionStr .= " AND `price`=" . $_GET["hotel_price"];
 			} else {
-				$searchSql .= " `price`=" . $_GET["hotel_price"];
+				$conditionStr .= " `price`=" . $_GET["hotel_price"];
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_GET["hotel_date"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `date`='" . $_GET["hotel_date"] . "'";
+				$conditionStr .= " AND `date`='" . $_GET["hotel_date"] . "'";
 			} else {
-				$searchSql .= " `date`='" . $_GET["hotel_date"] . "'";
+				$conditionStr .= " `date`='" . $_GET["hotel_date"] . "'";
 
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_GET["reserved_text"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `reserved_text`='" . $_GET["reserved_text"] . "'";
+				$conditionStr .= " AND `reserved_text`='" . $_GET["reserved_text"] . "'";
 			} else {
-				$searchSql .= " `reserved_text`='" . $_GET["reserved_text"] . "'";
+				$conditionStr .= " `reserved_text`='" . $_GET["reserved_text"] . "'";
 			}
 			$conditionFlag = true;
 		}
+
 	}
+
+	$searchSql .= $conditionStr;
+	$countSql .= $conditionStr;
+
+	$count = $wpdb->get_var($countSql);
+
+	$searchSql .= " ORDER BY date DESC";
+
+	if (isset($_GET["page_num"])) {
+		$index = ($_GET["page_num"] - 1) * 20;
+		$searchSql .= " LIMIT " . $index . ",20";
+	}
+
 	//var_dump($searchSql);
 	$array = $wpdb->get_results($searchSql);
 	$outp = "";
@@ -62,7 +78,7 @@ if (0 == $current_user->ID) {
 		$outp .= '"price":"' . $item->price . '"}';
 	}
 
-	$outp = '{"records":[' . $outp . ']}';
+	$outp = '{"records":[' . $outp . '], "count":"' . $count . '"}';
 	echo ($outp);
 }
 

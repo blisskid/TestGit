@@ -103,15 +103,89 @@ add_action('init', 'add_scripts');
 
 //产品配置代码
 function register_my_custom_menu_page() {
+
+	add_menu_page('常规配置', '常规配置', 'manage_options', 'xuanqi_common_config', 'xuanqi_common_config_callback', '', 6);
 	//product config
-	add_menu_page('产品配置', '产品配置', 'manage_options', 'xuanqi_products_config', 'xuanqi_products_config_callback', '', 6);
+
+	add_menu_page('产品配置', '产品配置', 'manage_options', 'xuanqi_products_config', 'xuanqi_products_config_callback', '', 7);
 	add_submenu_page('xuanqi_products_config', '修改产品', '修改产品', 'manage_options', 'xuanqi_add_product', 'xuanqi_add_product_callback');
 
 	//airport config
-	add_menu_page('酒店价格配置', '酒店价格配置', 'manage_options', 'xuanqi_hotels_config', 'xuanqi_hotels_config_callback', '', 7);
-	add_submenu_page('xuanqi_hotels_config', '新增酒店日期价格', '新增酒店日期价格', 'manage_options', 'xuanqi_add_hotel', 'xuanqi_add_hotel_callback');
+	add_menu_page('酒店特殊日期价格配置', '酒店特殊日期价格配置', 'manage_options', 'xuanqi_hotels_config', 'xuanqi_hotels_config_callback', '', 8);
+	add_submenu_page('xuanqi_hotels_config', '新增特殊日期价格', '新增特殊日期价格', 'manage_options', 'xuanqi_add_hotel', 'xuanqi_add_hotel_callback');
 
 }
+
+/****************************************************常规配置************************************************/
+function xuanqi_common_config_callback() {
+	/*判断是否是修改，如果是修改需要往控件中填值*/
+	$current_user = wp_get_current_user();
+	$wpurl = get_bloginfo('wpurl');
+
+	if (0 == $current_user->ID) {
+
+		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+		return;
+
+	} else {
+
+		//var_dump($_POST);
+
+		if (isset($_GET["id"]) && "" != trim($_GET["id"])) {
+
+			global $wpdb;
+
+			$productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_description` FROM `xq_products` WHERE ID=" . trim($_GET["id"]));
+			//var_dump($productArray);
+		}
+	}
+
+	$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_products_config&method=";
+	$url .= isset($productArray) ? "update" : "add";
+	echo "<div class=\"xqform\">";
+	echo "<form action=\"$url\" method=\"post\" name=\"addProductForm\">";
+	?>
+
+<table align="center">
+    <tr>
+        <td>
+            输入产品价格：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_price : '';?>" name="product_price" placeholder="请输入产品价格" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            输入经销商产品价格：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_dealer_price : '';?>" name="product_dealer_price" placeholder="请输入经销商产品价格" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            输入直销商产品价格：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_direct_price : '';?>" name="product_direct_price" placeholder="请输入直销商产品价格" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            输入产品介绍：
+            <?php wp_editor(isset($productArray) ? $productArray[0]->product_description : "请输入产品描述", "product_description");?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        	<button type="submit">保存产品</button>
+        	<input type="hidden" value="<?php echo isset($productArray) ? $productArray[0]->ID : '';?>" name="product_id"></input>
+         </td>
+    </tr>
+</table>
+</form>
+</div>
+<?php
+}
+/****************************************************常规配置************************************************/
 
 /****************************************************产品配置************************************************/
 
@@ -414,13 +488,14 @@ function xuanqi_hotels_config_callback() {
 	<button ng-click="delete()">删除</button>
 	<button ng-click="update()">修改</button>
 	<input type="text" id="search_date" placeholder="输入日期查询"></input>
+	<input type="text" id="search_price" placeholder="输入价格查询"></input>
 	<button ng-click="search()">查询</button>
 	<div style="float: right">
 		<button ng-click="firstPage()" title="跳转到第一页"><<</button>
 		<button ng-click="prevPage()" title="跳转到上一页"><</button>
 		<button ng-click="nextPage()" title="跳转到下一页">></button>
 		<button ng-click="lastPage()" title="跳转到最后一页">>></button>
-		<input title="当前页面" type="text" name="page_num" id="page_num" value="1" size="1"></input>
+		<label>共<span ng-bind="count"></span>条数据，共<span ng-bind="pages"></span>页<input title="当前页面" type="text" name="page_num" id="page_num" value="1" size="1"></input></label>
 		<button ng-click="gotoPage()" title="跳转到任意页">跳转</button>
 	</div>
 	<table>
@@ -440,13 +515,32 @@ function xuanqi_hotels_config_callback() {
 var app = angular.module('showApp', []);
 app.controller('showCtrl', function($scope, $http) {
 
-	var page_num = jQuery('#page_num').val();
-    var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
-    url += 'page_num=';
-    url += page_num;
-    $http.get(url).success(function(response) {
-        $scope.names = response.records;
-    });
+	var refresh = function(page_num) {
+	    var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
+	    url += 'page_num=';
+	    url += page_num;
+
+	    var hotel_date = jQuery('#search_date').val();
+	    if (hotel_date != "") {
+	        url += '&hotel_date=';
+	        url += hotel_date;
+	    }
+	    var hotel_price = jQuery('#search_price').val();
+	    if (hotel_price != "") {
+	        url += '&hotel_price=';
+	        url += hotel_price;
+	    }
+
+	    $http.get(url).success(function(response) {
+	        $scope.names = response.records;
+	        $scope.count = response.count;
+	        $scope.pages = Math.ceil(response.count / 20);
+	        jQuery('#page_num').val(page_num);
+	    });
+	}
+
+	refresh(1);
+
 
     $scope.delete = function() {
 	    var ids = "";
@@ -477,9 +571,33 @@ app.controller('showCtrl', function($scope, $http) {
 	        jQuery.post('<?php echo get_bloginfo('wpurl') . "/delete-hotel";?>', Obj,
 	            function(data) {
 	                alert(data);
-				    $http.get('<?php echo get_bloginfo('wpurl') . "/show-hotel";?>').success(function(response) {
+
+			        refresh(1);
+			        /*
+			        var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
+				    url += 'page_num=';
+				    url += 1;
+
+				    var hotel_date = jQuery('#search_date').val();
+				    if (hotel_date != "") {
+				        url += '&hotel_date=';
+				        url += hotel_date;
+				    }
+				    var hotel_price = jQuery('#search_price').val();
+				    if (hotel_price != "") {
+				        url += '&hotel_price=';
+				        url += hotel_price;
+				    }
+
+
+				    $http.get(url).success(function(response) {
 				        $scope.names = response.records;
+				        $scope.count = response.count;
+				        $scope.pages = Math.ceil(response.count / 20);
+				        jQuery('#page_num').val(1);
 				    });
+*/
+
 	            });
 	    }
     }
@@ -500,28 +618,183 @@ app.controller('showCtrl', function($scope, $http) {
 	    window.location.href='<?php echo get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_add_hotel&id=";?>' + checkBoxs[0].id;
     }
 
-    $scope.search = function() {
 
-		var hotel_date = jQuery('#search_date').val();
+    $scope.search = function() {
+    	refresh(1);
+        /*
         var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
-        url += 'hotel_date=';
-        url += hotel_date;
+	    url += 'page_num=';
+	    url += 1;
+
+	    var hotel_date = jQuery('#search_date').val();
+	    if (hotel_date != "") {
+	        url += '&hotel_date=';
+	        url += hotel_date;
+	    }
+	    var hotel_price = jQuery('#search_price').val();
+	    if (hotel_price != "") {
+	        url += '&hotel_price=';
+	        url += hotel_price;
+	    }
+
+
 	    $http.get(url).success(function(response) {
 	        $scope.names = response.records;
+	        $scope.count = response.count;
+	        $scope.pages = Math.ceil(response.count / 20);
+	        jQuery('#page_num').val(1);
 	    });
+	    */
     }
+
 
     $scope.prevPage = function() {
 
-		var page_num = jQuery('#page_num').val() - 1;
+    	if (parseInt(jQuery('#page_num').val()) > 1) {
+			var page_num = parseInt(jQuery('#page_num').val()) - 1;
+			refresh(page_num);
+			/*
+		    var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
+		    url += 'page_num=';
+		    url += page_num;
+
+		    var hotel_date = jQuery('#search_date').val();
+		    if (hotel_date != "") {
+		        url += '&hotel_date=';
+		        url += hotel_date;
+		    }
+		    var hotel_price = jQuery('#search_price').val();
+		    if (hotel_price != "") {
+		        url += '&hotel_price=';
+		        url += hotel_price;
+		    }
+
+		    $http.get(url).success(function(response) {
+		        $scope.names = response.records;
+		        $scope.count = response.count;
+		        $scope.pages = Math.ceil(response.count / 20);
+		        jQuery('#page_num').val(page_num);
+		    });
+*/
+    	}
+    }
+
+    $scope.nextPage = function() {
+
+    	if (parseInt(jQuery('#page_num').val()) < parseInt($scope.pages)) {
+			var page_num = parseInt(jQuery('#page_num').val()) + 1;
+			refresh(page_num);
+			/*
+		    var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
+		    url += 'page_num=';
+		    url += page_num;
+
+		    var hotel_date = jQuery('#search_date').val();
+		    if (hotel_date != "") {
+		        url += '&hotel_date=';
+		        url += hotel_date;
+		    }
+		    var hotel_price = jQuery('#search_price').val();
+		    if (hotel_price != "") {
+		        url += '&hotel_price=';
+		        url += hotel_price;
+		    }
+
+		    $http.get(url).success(function(response) {
+		        $scope.names = response.records;
+		        $scope.count = response.count;
+		        $scope.pages = Math.ceil(response.count / 20);
+		        jQuery('#page_num').val(page_num);
+		    });
+*/
+    	}
+    }
+
+    $scope.firstPage = function() {
+
+		refresh(1);
+		/*
 	    var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
 	    url += 'page_num=';
 	    url += page_num;
+
+	    var hotel_date = jQuery('#search_date').val();
+	    if (hotel_date != "") {
+	        url += '&hotel_date=';
+	        url += hotel_date;
+	    }
+	    var hotel_price = jQuery('#search_price').val();
+	    if (hotel_price != "") {
+	        url += '&hotel_price=';
+	        url += hotel_price;
+	    }
+
 	    $http.get(url).success(function(response) {
 	        $scope.names = response.records;
+	        $scope.count = response.count;
+	        $scope.pages = Math.ceil(response.count / 20);
 	        jQuery('#page_num').val(page_num);
 	    });
+		*/
     }
+
+    $scope.lastPage = function() {
+
+		var page_num = $scope.pages;
+		refresh(page_num);
+		/*
+	    var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
+	    url += 'page_num=';
+	    url += page_num;
+
+	    var hotel_date = jQuery('#search_date').val();
+	    if (hotel_date != "") {
+	        url += '&hotel_date=';
+	        url += hotel_date;
+	    }
+	    var hotel_price = jQuery('#search_price').val();
+	    if (hotel_price != "") {
+	        url += '&hotel_price=';
+	        url += hotel_price;
+	    }
+
+	    $http.get(url).success(function(response) {
+	        $scope.names = response.records;
+	        $scope.count = response.count;
+	        $scope.pages = Math.ceil(response.count / 20);
+	        jQuery('#page_num').val(page_num);
+	    });
+		*/
+    }
+
+    $scope.gotoPage = function() {
+
+		var page_num = jQuery('#page_num').val();
+		refresh(page_num);
+		/*
+	    var url = '<?php echo get_bloginfo('wpurl') . "/show-hotel";?>?';
+	    url += 'page_num=';
+	    url += page_num;
+
+	    var hotel_date = jQuery('#search_date').val();
+	    if (hotel_date != "") {
+	        url += '&hotel_date=';
+	        url += hotel_date;
+	    }
+	    var hotel_price = jQuery('#search_price').val();
+	    if (hotel_price != "") {
+	        url += '&hotel_price=';
+	        url += hotel_price;
+	    }
+
+	    $http.get(url).success(function(response) {
+	        $scope.names = response.records;
+	        $scope.count = response.count;
+	        $scope.pages = Math.ceil(response.count / 20);
+	    });
+		*/
+    }
+
 
 
     $("#search_date").regMod("calendar", "6.0", {
