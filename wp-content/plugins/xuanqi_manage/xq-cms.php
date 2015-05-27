@@ -592,7 +592,7 @@ app.controller('showCtrl', function($scope, $http) {
 	            count++;
 	            if (count < checkBoxsLength) {
 	                ids += jQuery(this).attr('id') + ",";
-	            } else if (count = checkBoxsLength) {
+	            } else if (count == checkBoxsLength) {
 	                ids += jQuery(this).attr('id');
 	            }
 
@@ -952,13 +952,15 @@ function xuanqi_airport_config_callback() {
         <th>航站名称</th>
         <th>城市名称</th>
         <th>省市名称</th>
-        <th>到达香港价格名称</th>
+        <th>到达香港价格</th>
+        <th>不可选的日期</th>
         <tr ng-repeat="x in names">
         	<td><input id="{{x.airport_code}}" type="checkbox" name="xq_checkbox"></input></td>
             <td ng-bind="x.airport_name"></td>
             <td ng-bind="x.city_name"></td>
             <td ng-bind="x.province_name"></td>
             <td ng-bind="x.hongkong_price"></td>
+            <td ng-bind="x.bad_date"></td>
         </tr>
     </table>
 </div>
@@ -1008,7 +1010,7 @@ app.controller('showCtrl', function($scope, $http) {
 	            count++;
 	            if (count < checkBoxsLength) {
 	                ids += jQuery(this).attr('id') + ",";
-	            } else if (count = checkBoxsLength) {
+	            } else if (count == checkBoxsLength) {
 	                ids += jQuery(this).attr('id');
 	            }
 
@@ -1178,13 +1180,45 @@ function xuanqi_add_airport_callback() {
         </td>
     </tr>
     <tr>
+    <tr>
+        <td>
+            选择不可选的日期，点击按钮添加：
+            <br>
+            <input class="regular-text" type="text" id="choose_bad_date"></input>
+        	<br>
+        	<input type="button" value="添加不可选日期" onclick="addBadDates()"></input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        	<div id="badDatesDiv"></div>
+        </td>
+    </tr>
+    <tr>
         <td>
         	<button type="submit">保存出发机场信息</button>
         	<input type="hidden" name="airport_code" value="<?php echo isset($array) ? $array[0]->airport_code : '';?>"></input>
+        	<input type="hidden" id="bad_date" name="bad_date" value="<?php echo isset($array) ? $array[0]->bad_date : '';?>"></input>
          </td>
     </tr>
 </table>
 </form>
+<script type="text/javascript">
+    $("#choose_bad_date").regMod("calendar", "6.0", {
+        options: {
+            autoShow: !1,
+            showWeek: !0,
+            maxDate: function() {
+                var a = (new Date).addYears(1);
+                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
+            }()
+        },
+        listeners: {
+            onBeforeShow: function() {},
+            onChange: function() {}
+        }
+    })
+</script>
 <?php
 
 }
@@ -1272,10 +1306,7 @@ app.controller('showCtrl', function($scope, $http) {
         options: {
             autoShow: !1,
             showWeek: !0,
-            minDate: function() {
-                var a = (new Date).addYears(-1);
-                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
-            }(),            
+            showAll: !0,
             maxDate: function() {
                 var a = (new Date).addYears(1);
                 return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
@@ -1285,7 +1316,7 @@ app.controller('showCtrl', function($scope, $http) {
             onBeforeShow: function() {},
             onChange: function() {}
         }
-    })	
+    })
 
     $scope.search = function() {
     	refresh(1);

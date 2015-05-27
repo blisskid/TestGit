@@ -17,7 +17,7 @@ if (0 == $current_user->ID) {
 	$conditionStr = "";
 	if (count($_GET) > 1) {
 		//有传入参数，需要加入where条件
-		$conditionStr .= "WHERE";
+		$conditionStr .= " WHERE";
 		//表示是否有大于两个条件
 		$conditionFlag = false;
 		if (isset($_GET["ID"])) {

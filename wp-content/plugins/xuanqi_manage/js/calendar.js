@@ -108,7 +108,8 @@ window.replace = function() {
                     defaultDate: null,
                     date: null,
                     tipText: "yyyy-mm-dd",
-                    zindex: 9999
+                    zindex: 9999,
+                    showAll:!1
                 },
                 string: {
                     header: "\u8bf7\u9009\u62e9\u65e5\u671f",
@@ -423,7 +424,9 @@ window.replace = function() {
                 attr: ""
             };
             d == l && f.push(b.today);
-            if (this._checkPassDate(c, d, e)) f.push(b.nothismonth);
+            //增加显示所有的判断
+            if (!this.setting.options.showAll && this._checkPassDate(c, d, e)) f.push(b.nothismonth);
+            //if (this._checkPassDate(c, d, e)) f.push(b.nothismonth);
             else {
                 g += ' data-bind="select"';
                 if (c = this._checkFestival(c)) a.isfestival = !0,

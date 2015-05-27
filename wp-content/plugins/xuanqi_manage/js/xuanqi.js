@@ -196,6 +196,22 @@ function getBackDate(wpUrl) {
 */
 }
 
+//添加不可选的日期到DIV
+function addBadDates() {
+    var badDate = jQuery('#choose_bad_date').val();
+    var badDateStr = badDate.split('-').join('');
+    var badDatesDiv = document.getElementById("badDatesDiv");
+    var deleteFunction = "deleteBadDateDiv('" + badDateStr + "')";
+    var objectStr = "<div id=" + badDateStr + "><label>" + badDate + "<input type='button' value='删除' onclick=" + deleteFunction + "></input></label></div>";
+    //var badDateDiv = $('<div>', { id: badDate, text: objectStr});
+    badDatesDiv.innerHTML += objectStr;
+}
+
+function deleteBadDateDiv(badDate) {
+    var badDateDiv = document.getElementById(badDate);
+    badDateDiv.parentNode.removeChild(badDateDiv);
+}
+
 //费用结算
 function toSettlement() {
 

@@ -12,8 +12,20 @@ if (0 == $current_user->ID) {
 	if (isset($_POST["ids"])) {
 		global $wpdb;
 		$ids = $_POST["ids"];
-		$sql = "DELETE FROM xq_airports WHERE airport_code in ($ids)";
-
+		$array = explode(",", $ids);
+		$airports = "";
+		$count = 0;
+		$length = count($array);
+		foreach ($array as $item) {
+			$count++;
+			if ($count < $length) {
+				$airports .= "'" . $item . "',";
+			} else if ($count == $length) {
+				$airports .= "'" . $item . "'";
+			}
+		}
+		$sql = "DELETE FROM xq_airports WHERE airport_code in ($airports)";
+		//var_dump($sql);
 		$result = $wpdb->query($sql);
 		//var_dump($result);
 		if (0 < $result) {

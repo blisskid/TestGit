@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS `xq_airports` (
   `city_name` varchar(60) NOT NULL DEFAULT '' COMMENT '城市中文名称',
   `province_code` varchar(60) NOT NULL DEFAULT '' COMMENT '省市拼音',
   `province_name` varchar(60) NOT NULL DEFAULT '' COMMENT '省市中文名',
+  `hongkong_price` double NOT NULL COMMENT '到达香港的机票价格',
+  `bad_date` varchar(1000) DEFAULT '' COMMENT '不可选的日期列表，用逗号隔开',
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -56,20 +58,22 @@ CREATE TABLE IF NOT EXISTS `xq_discount_airlines` (
 DROP TABLE IF EXISTS `xq_orders`;
 CREATE TABLE IF NOT EXISTS `xq_orders` (
   `ID` bigint(20) unsigned NOT NULL,
-  `product_id` bigint(20) unsigned NOT NULL COMMENT '产品代号',
+  `user_login` varchar(60) NOT NULL,
+  `product_name` varchar(60) NOT NULL DEFAULT '' COMMENT '产品名称',
   `product_price` double NOT NULL COMMENT '产品价格',
   `if_airplane` int(11) NOT NULL DEFAULT '1' COMMENT '是否乘坐飞机。1：是；0：否。',
-  `start_airport_code` varchar(20) NOT NULL COMMENT '出发航站楼代号',
-  `arrive_airport_code` varchar(20) NOT NULL COMMENT '到达航站楼代号',
-  `start_date` date NOT NULL COMMENT '出发日期',
-  `back_date` date NOT NULL COMMENT '返回日期', 
-  `airline_price` double NOT NULL COMMENT '往返机票价格',
+  `start_airport_name` varchar(100) NOT NULL DEFAULT '' COMMENT '出发航站楼名称',
+  `arrive_airport_name` varchar(100) NOT NULL DEFAULT '' COMMENT '到达航站楼名称',
+  `start_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '出发日期',
+  `back_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '返回日期', 
+  `airline_price` double NOT NULL DEFAULT 0 COMMENT '往返机票价格',
   `if_hotel` int(11) NOT NULL DEFAULT '1' COMMENT '是否住酒店。1：是；0：否。',
-  `in_date` date NOT NULL COMMENT '入住日期',
-  `out_date` date NOT NULL COMMENT '退房日期', 
-  `hotel_price` double NOT NULL COMMENT '酒店价格',
+  `in_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '入住日期',
+  `out_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '退房日期', 
+  `hotel_price` double NOT NULL DEFAULT 0 COMMENT '酒店价格',
   `total_price` double NOT NULL COMMENT '总价格',
   `order_status` int(11) NOT NULL DEFAULT '0' COMMENT '订单状态。0：未支付；1：已支付；2：已取消。',
+  `save_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单生成时间',
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 

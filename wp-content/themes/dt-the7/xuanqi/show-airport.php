@@ -12,7 +12,7 @@ if (0 == $current_user->ID) {
 
 	global $wpdb;
 
-	$searchSql = "SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price`, `reserved_text` FROM `xq_airports`";
+	$searchSql = "SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price`, `bad_date`, `reserved_text` FROM `xq_airports`";
 	$countSql = "SELECT COUNT(*) FROM `xq_airports`";
 	$conditionStr = "";
 	if (count($_GET) > 1) {
@@ -92,6 +92,14 @@ if (0 == $current_user->ID) {
 			}
 			$conditionFlag = true;
 		}
+		if (isset($_GET["bad_date"])) {
+			if ($conditionFlag) {
+				$conditionStr .= " AND `bad_date`='" . $_GET["bad_date"] . "'";
+			} else {
+				$conditionStr .= " `bad_date`='" . $_GET["bad_date"] . "'";
+			}
+			$conditionFlag = true;
+		}
 		if (isset($_GET["reserved_text"])) {
 			if ($conditionFlag) {
 				$conditionStr .= " AND `reserved_text`='" . $_GET["reserved_text"] . "'";
@@ -122,6 +130,7 @@ if (0 == $current_user->ID) {
 		$outp .= '"city_name":"' . $airport->city_name . '",';
 		$outp .= '"province_name":"' . $airport->province_name . '",';
 		$outp .= '"hongkong_price":"' . $airport->hongkong_price . '",';
+		$outp .= '"bad_date":"' . $airport->bad_date . '",';
 		$outp .= '"reserved_text":"' . $airport->reserved_text . '"}';
 	}
 
