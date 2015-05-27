@@ -109,10 +109,16 @@ function register_my_custom_menu_page() {
 	/*
 	add_menu_page('产品配置', '产品配置', 'manage_options', 'xuanqi_products_config', 'xuanqi_products_config_callback', '', 7);
 	add_submenu_page('xuanqi_products_config', '修改产品', '修改产品', 'manage_options', 'xuanqi_add_product', 'xuanqi_add_product_callback');
-	*/
+	 */
+	//hotel config
+	add_menu_page('酒店特殊日期价格配置', '酒店特殊日期价格配置', 'manage_options', 'xuanqi_hotel_config', 'xuanqi_hotel_config_callback', '', 7);
+	add_submenu_page('xuanqi_hotel_config', '新增特殊日期价格', '新增特殊日期价格', 'manage_options', 'xuanqi_add_hotel', 'xuanqi_add_hotel_callback');
+
 	//airport config
-	add_menu_page('酒店特殊日期价格配置', '酒店特殊日期价格配置', 'manage_options', 'xuanqi_hotel_config_callback', 'xuanqi_hotels_config_callback', '', 7);
-	add_submenu_page('xuanqi_hotels_config', '新增特殊日期价格', '新增特殊日期价格', 'manage_options', 'xuanqi_add_hotel', 'xuanqi_add_hotel_callback');
+	add_menu_page('出发机场配置', '出发机场配置', 'manage_options', 'xuanqi_airport_config', 'xuanqi_airport_config_callback', '', 8);
+	add_submenu_page('xuanqi_airport_config', '新增出发机场', '新增出发机场', 'manage_options', 'xuanqi_add_airport', 'xuanqi_add_airport_callback');
+
+	add_menu_page('订单查询', '订单查询', 'manage_options', 'xuanqi_order_config', 'xuanqi_order_config_callback', '', 9);
 
 }
 
@@ -131,7 +137,7 @@ function xuanqi_common_config_callback() {
 		if (isset($_POST["hotel_weekend_price"]) && $_POST["hotel_weekend_price"] != "") {
 			update_option("hotel_weekend_price", $_POST["hotel_weekend_price"]);
 		}
-		if (isset($_POST["hotel_weekday_price"]) && $_POST["hotel_weekday_price"] != "") {	
+		if (isset($_POST["hotel_weekday_price"]) && $_POST["hotel_weekday_price"] != "") {
 			update_option("hotel_weekday_price", $_POST["hotel_weekday_price"]);
 		}
 		if (isset($_POST["product_price"]) && $_POST["product_price"] != "") {
@@ -144,7 +150,7 @@ function xuanqi_common_config_callback() {
 			update_option("product_direct_price", $_POST["product_direct_price"]);
 		}
 		$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_common_config";
-	?>
+		?>
 <div class="xqform">
 	<form action="<?php echo $url;?>" method="post" name="updateForm">
 		<table align="center">
@@ -168,7 +174,7 @@ function xuanqi_common_config_callback() {
 		            <br>
 		            <input class="regular-text" type="text" value="<?php echo get_option('product_price');?>" name="product_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
 		        </td>
-		    </tr>		    		    
+		    </tr>
 		    <tr>
 		        <td>
 		            输入经销商产品价格：
@@ -192,7 +198,7 @@ function xuanqi_common_config_callback() {
 	</form>
 </div>
 <?php
-	}
+}
 }
 /****************************************************常规配置************************************************/
 
@@ -417,7 +423,7 @@ function xuanqi_save_hotel() {
 			global $wpdb;
 			$date = trim($_POST["date"]);
 			$price = trim($_POST["price"]);
-			
+
 			$count = $wpdb->get_var("SELECT COUNT(*) FROM `xq_hotels` WHERE `date` = '$date'");
 			//var_dump($count);
 			if (intval($count) == 0) {
@@ -690,7 +696,7 @@ function xuanqi_add_hotel_callback() {
 		}
 	}
 
-	$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_hotels_config&method=";
+	$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_hotel_config&method=";
 	$url .= isset($array) ? "update" : "add";
 	echo "<div class=\"xqform\">";
 	echo "<form action=\"$url\" method=\"post\" name=\"addForm\">";
@@ -705,7 +711,7 @@ function xuanqi_add_hotel_callback() {
             <input class="regular-text" type="text" value="" id="date" name="date" required></input>
         </td>
     </tr>
-    <?php}?>
+    <?php }?>
     <tr>
         <td>
             输入价格：
@@ -759,9 +765,9 @@ function xuanqi_save_airport() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["airport_icao"]) && isset($_POST["airport_iata"]) 
-			&& isset($_POST["airport_name"]) && isset($_POST["city_code"]) && isset($_POST["city_name"]) 
-			&& isset($_POST["province_code"]) && isset($_POST["province_name"])) {
+		if (isset($_POST["airport_icao"]) && isset($_POST["airport_iata"])
+			&& isset($_POST["airport_name"]) && isset($_POST["city_code"]) && isset($_POST["city_name"])
+			&& isset($_POST["province_code"]) && isset($_POST["province_name"]) && isset($_POST["hongkong_price"])) {
 
 			if ("" == trim($_POST["airport_icao"])) {
 				echo "<font color='red'>机场ICAO码不能为空</font>";
@@ -798,6 +804,11 @@ function xuanqi_save_airport() {
 				return;
 			}
 
+			if ("" == trim($_POST["hongkong_price"])) {
+				echo "<font color='red'>到达香港的价格不能为空</font>";
+				return;
+			}
+
 			global $wpdb;
 			$airport_icao = trim($_POST["airport_icao"]);
 			$airport_iata = trim($_POST["airport_iata"]);
@@ -807,12 +818,13 @@ function xuanqi_save_airport() {
 			$city_name = trim($_POST["city_name"]);
 			$province_code = trim($_POST["province_code"]);
 			$province_name = trim($_POST["province_name"]);
-			
+			$hongkong_price = trim($_POST["hongkong_price"]);
+
 			$count = $wpdb->get_var("SELECT COUNT(*) FROM `xq_airports` WHERE `airport_code` = '$airport_code'");
 			//var_dump($count);
 			if (intval($count) == 0) {
-				$sql = "INSERT INTO `xq_airports`(`airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`) 
-				VALUES ('$airport_icao','$airport_iata','$airport_code','$airport_name','$city_code','$city_name','$province_code','$province_name')";
+				$sql = "INSERT INTO `xq_airports`(`airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price`)
+				VALUES ('$airport_icao','$airport_iata','$airport_code','$airport_name','$city_code','$city_name','$province_code','$province_name', $hongkong_price)";
 
 				//var_dump($sql);
 				$result = $wpdb->query($sql);
@@ -843,8 +855,8 @@ function xuanqi_update_airport() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["airport_code"]) && isset($_POST["airport_name"]) && isset($_POST["city_code"]) 
-			&& isset($_POST["city_name"]) && isset($_POST["province_code"]) && isset($_POST["province_name"])) {
+		if (isset($_POST["airport_code"]) && isset($_POST["airport_name"]) && isset($_POST["city_code"])
+			&& isset($_POST["city_name"]) && isset($_POST["province_code"]) && isset($_POST["province_name"]) && isset($_POST["hongkong_price"])) {
 
 			if ("" == trim($_POST["airport_code"])) {
 				echo "<font color='red'>机场代号不能为空</font>";
@@ -876,6 +888,11 @@ function xuanqi_update_airport() {
 				return;
 			}
 
+			if ("" == trim($_POST["hongkong_price"])) {
+				echo "<font color='red'>到达香港的价格不能为空</font>";
+				return;
+			}
+
 			global $wpdb;
 			$airport_code = trim($_POST["airport_code"]);
 			$airport_name = trim($_POST["airport_name"]);
@@ -883,8 +900,9 @@ function xuanqi_update_airport() {
 			$city_name = trim($_POST["city_name"]);
 			$province_code = trim($_POST["province_code"]);
 			$province_name = trim($_POST["province_name"]);
-			
-			$sql = "UPDATE `xq_airports` SET `airport_code`='$airport_code',`airport_name`=$airport_name,`city_code`='$city_code',`city_name`=$city_name,`province_code`='$province_code',`province_name`=$province_name WHERE `airport_code` = '$airport_code'";
+			$hongkong_price = trim($_POST["hongkong_price"]);
+
+			$sql = "UPDATE `xq_airports` SET `airport_name`='$airport_name',`city_code`='$city_code',`city_name`='$city_name',`province_code`='$province_code',`province_name`='$province_name',`hongkong_price`=$hongkong_price WHERE `airport_code` = '$airport_code'";
 			//var_dump($sql);
 			$result = $wpdb->query($sql);
 			//var_dump($result);
@@ -934,11 +952,13 @@ function xuanqi_airport_config_callback() {
         <th>航站名称</th>
         <th>城市名称</th>
         <th>省市名称</th>
+        <th>到达香港价格名称</th>
         <tr ng-repeat="x in names">
         	<td><input id="{{x.airport_code}}" type="checkbox" name="xq_checkbox"></input></td>
             <td ng-bind="x.airport_name"></td>
             <td ng-bind="x.city_name"></td>
             <td ng-bind="x.province_name"></td>
+            <td ng-bind="x.hongkong_price"></td>
         </tr>
     </table>
 </div>
@@ -1068,7 +1088,7 @@ app.controller('showCtrl', function($scope, $http) {
 
 }
 
-function xuanqi_add_hotel_callback() {
+function xuanqi_add_airport_callback() {
 
 	/*判断是否是修改，如果是修改需要往控件中填值*/
 	$current_user = wp_get_current_user();
@@ -1086,9 +1106,9 @@ function xuanqi_add_hotel_callback() {
 		if (isset($_GET["id"]) && "" != trim($_GET["id"])) {
 
 			global $wpdb;
-
-			$array = $wpdb->get_results("SELECT `airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name` WHERE airport_code=" . trim($_GET["id"]));
-			//var_dump($productArray);
+			$sql = "SELECT `airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price` FROM xq_airports WHERE airport_code='" . trim($_GET["id"]) . "'";
+			//var_dump($sql);
+			$array = $wpdb->get_results($sql);
 		}
 	}
 
@@ -1113,51 +1133,189 @@ function xuanqi_add_hotel_callback() {
             <br>
             <input class="regular-text" type="text" value="" id="airport_iata" name="airport_iata" required></input>
         </td>
-    </tr>    
-    <?php}?>
+    </tr>
+    <?php }?>
     <tr>
         <td>
-            输入日期：
+            输入机场名称：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->date : '';?>" id="date" name="date" required></input>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->airport_name : '';?>" id="airport_name" name="airport_name" required></input>
         </td>
     </tr>
     <tr>
         <td>
-            输入价格：
+            输入城市拼音：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->price : '';?>" name="price" placeholder="请输入价格"  pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->city_code : '';?>" id="city_code" name="city_code" required></input>
         </td>
     </tr>
     <tr>
         <td>
-        	<button type="submit">保存酒店信息</button>
-        	<input type="hidden" name="ID" value="<?php echo isset($array) ? $array[0]->ID : '';?>"></input>
+            输入城市名称：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->city_name : '';?>" id="city_name" name="city_name" required></input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            输入省市拼音：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->province_code : '';?>" id="province_code" name="province_code" required></input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            输入省市名称：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->province_name : '';?>" id="province_name" name="province_name" required></input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            输入到达香港的机票价格：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->hongkong_price : '';?>" name="hongkong_price"  pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        	<button type="submit">保存出发机场信息</button>
+        	<input type="hidden" name="airport_code" value="<?php echo isset($array) ? $array[0]->airport_code : '';?>"></input>
          </td>
     </tr>
 </table>
 </form>
-</div>
-<script type="text/javascript">
-    $("#date").regMod("calendar", "6.0", {
-        options: {
-            autoShow: !1,
-            showWeek: !0,
-            maxDate: function() {
-                var a = (new Date).addYears(1);
-                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
-            }()
-        },
-        listeners: {
-            onBeforeShow: function() {},
-            onChange: function() {}
-        }
-    })
-</script>
 <?php
 
 }
 
 /****************************************************航站配置************************************************/
+
+/****************************************************订单查询************************************************/
+function xuanqi_order_config_callback() {
+
+	?>
+<div ng-app="showApp" ng-controller="showCtrl" class="xqgrid">
+	<input type="text" id="search_save_time" placeholder="输入订单日期查询"></input>
+	<button ng-click="search()">查询</button>
+	<div style="float: right">
+		<button ng-click="firstPage()" title="跳转到第一页"><<</button>
+		<button ng-click="prevPage()" title="跳转到上一页"><</button>
+		<button ng-click="nextPage()" title="跳转到下一页">></button>
+		<button ng-click="lastPage()" title="跳转到最后一页">>></button>
+		<label>共<span ng-bind="count"></span>条数据，共<span ng-bind="pages"></span>页<input title="当前页面" type="text" name="page_num" id="page_num" value="1" size="1"></input></label>
+		<button ng-click="gotoPage()" title="跳转到任意页">跳转</button>
+	</div>
+	<table>
+		<th style="width:10px" >
+			<input type="checkbox" onclick="selectAll(this)"></input>
+		</th>
+        <th>用户名</th>
+        <th>产品名称</th>
+        <th>产品价格</th>
+        <th>是否乘坐飞机</th>
+        <th>出发机场</th>
+        <th>到达机场</th>
+        <th>出发日期</th>
+        <th>返回日期</th>
+        <th>往返机票价格</th>
+        <th>是否入住酒店</th>
+        <th>入住日期</th>
+        <th>退房日期</th>
+        <th>酒店价格</th>
+        <th>总价格</th>
+        <th>订单状态</th>
+        <th>生成时间</th>
+        <tr ng-repeat="x in names">
+        	<td><input id="{{x.ID}}" type="checkbox" name="xq_checkbox"></input></td>
+            <td ng-bind="x.user_login"></td>
+            <td ng-bind="x.product_name"></td>
+            <td ng-bind="x.product_price"></td>
+            <td ng-bind="x.if_airplane"></td>
+            <td ng-bind="x.start_airport_name"></td>
+            <td ng-bind="x.arrive_airport_name"></td>
+            <td ng-bind="x.start_date"></td>
+            <td ng-bind="x.back_date"></td>
+            <td ng-bind="x.airline_price"></td>
+            <td ng-bind="x.if_hotel"></td>
+            <td ng-bind="x.in_date"></td>
+            <td ng-bind="x.out_date"></td>
+            <td ng-bind="x.hotel_price"></td>
+            <td ng-bind="x.total_price"></td>
+            <td ng-bind="x.order_status"></td>
+            <td ng-bind="x.save_time"></td>
+        </tr>
+    </table>
+</div>
+<script>
+var app = angular.module('showApp', []);
+app.controller('showCtrl', function($scope, $http) {
+
+	var refresh = function(page_num) {
+	    var url = '<?php echo get_bloginfo('wpurl') . "/show-order";?>?';
+	    url += 'page_num=';
+	    url += page_num;
+
+	    var search_save_time = jQuery('#search_save_time').val();
+	    if (search_save_time != "") {
+	        url += '&save_time=';
+	        url += search_save_time;
+	    }
+
+	    $http.get(url).success(function(response) {
+	        $scope.names = response.records;
+	        $scope.count = response.count;
+	        $scope.pages = Math.ceil(response.count / 20);
+	        jQuery('#page_num').val(page_num);
+	    });
+	}
+
+	refresh(1);
+
+    $scope.search = function() {
+    	refresh(1);
+    }
+
+
+    $scope.prevPage = function() {
+
+    	if (parseInt(jQuery('#page_num').val()) > 1) {
+			var page_num = parseInt(jQuery('#page_num').val()) - 1;
+			refresh(page_num);
+    	}
+    }
+
+    $scope.nextPage = function() {
+
+    	if (parseInt(jQuery('#page_num').val()) < parseInt($scope.pages)) {
+			var page_num = parseInt(jQuery('#page_num').val()) + 1;
+			refresh(page_num);
+    	}
+    }
+
+    $scope.firstPage = function() {
+
+		refresh(1);
+    }
+
+    $scope.lastPage = function() {
+
+		var page_num = $scope.pages;
+		refresh(page_num);
+    }
+
+    $scope.gotoPage = function() {
+
+		var page_num = jQuery('#page_num').val();
+		refresh(page_num);
+    }
+
+});
+</script>
+<?php
+
+}
+
+/****************************************************订单查询************************************************/
 
 ?>

@@ -12,87 +12,106 @@ if (0 == $current_user->ID) {
 
 	global $wpdb;
 
-	$searchSql = "SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `reserved_text` FROM `xq_airports`";
-	if (count($_POST) > 0) {
+	$searchSql = "SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price`, `reserved_text` FROM `xq_airports`";
+	$countSql = "SELECT COUNT(*) FROM `xq_airports`";
+	$conditionStr = "";
+	if (count($_GET) > 1) {
 		//有传入参数，需要加入where条件
-		$searchSql .= "WHERE";
+		$conditionStr .= " WHERE";
 		//表示是否有大于两个条件
 		$conditionFlag = false;
-		if (isset($_POST["airport_code"])) {
+		if (isset($_GET["airport_code"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `airport_code`='" . $_POST["airport_code"] . "'";
+				$conditionStr .= " AND `airport_code`='" . $_GET["airport_code"] . "'";
 			} else {
-				$searchSql .= " `airport_code`='" . $_POST["airport_code"] . "'";
+				$conditionStr .= " `airport_code`='" . $_GET["airport_code"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["airport_icao"])) {
+		if (isset($_GET["airport_icao"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `airport_icao`='" . $_POST["airport_icao"] . "'";
+				$conditionStr .= " AND `airport_icao`='" . $_GET["airport_icao"] . "'";
 			} else {
-				$searchSql .= " `airport_icao`='" . $_POST["airport_icao"] . "'";
+				$conditionStr .= " `airport_icao`='" . $_GET["airport_icao"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["airport_iata"])) {
+		if (isset($_GET["airport_iata"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `airport_iata`='" . $_POST["airport_iata"] . "'";
+				$conditionStr .= " AND `airport_iata`='" . $_GET["airport_iata"] . "'";
 			} else {
-				$searchSql .= " `airport_iata`='" . $_POST["airport_iata"] . "'";
+				$conditionStr .= " `airport_iata`='" . $_GET["airport_iata"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["airport_name"])) {
+		if (isset($_GET["airport_name"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `airport_name`='" . $_POST["airport_name"] . "'";
+				$conditionStr .= " AND `airport_name`='" . $_GET["airport_name"] . "'";
 			} else {
-				$searchSql .= " `airport_name`='" . $_POST["airport_name"] . "'";
+				$conditionStr .= " `airport_name` like '%" . $_GET["airport_name"] . "%'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["city_code"])) {
+		if (isset($_GET["city_code"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `city_code`='" . $_POST["city_code"] . "'";
+				$conditionStr .= " AND `city_code`='" . $_GET["city_code"] . "'";
 			} else {
-				$searchSql .= " `city_code`='" . $_POST["city_code"] . "'";
+				$conditionStr .= " `city_code`='" . $_GET["city_code"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["city_name"])) {
+		if (isset($_GET["city_name"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `city_name`='" . $_POST["city_name"] . "'";
+				$conditionStr .= " AND `city_name`='" . $_GET["city_name"] . "'";
 			} else {
-				$searchSql .= " `city_name`='" . $_POST["city_name"] . "'";
+				$conditionStr .= " `city_name`='" . $_GET["city_name"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["province_code"])) {
+		if (isset($_GET["province_code"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `province_code`='" . $_POST["province_code"] . "'";
+				$conditionStr .= " AND `province_code`='" . $_GET["province_code"] . "'";
 			} else {
-				$searchSql .= " `province_code`='" . $_POST["province_code"] . "'";
+				$conditionStr .= " `province_code`='" . $_GET["province_code"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["province_name"])) {
+		if (isset($_GET["province_name"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `province_name`='" . $_POST["province_name"] . "'";
+				$conditionStr .= " AND `province_name`='" . $_GET["province_name"] . "'";
 			} else {
-				$searchSql .= " `province_name`='" . $_POST["province_name"] . "'";
+				$conditionStr .= " `province_name`='" . $_GET["province_name"] . "'";
 			}
 			$conditionFlag = true;
 		}
-		if (isset($_POST["reserved_text"])) {
+		if (isset($_GET["hongkong_price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `reserved_text`='" . $_POST["reserved_text"] . "'";
+				$conditionStr .= " AND `hongkong_price`='" . $_GET["hongkong_price"] . "'";
 			} else {
-				$searchSql .= " `reserved_text`='" . $_POST["reserved_text"] . "'";
+				$conditionStr .= " `hongkong_price`=" . $_GET["hongkong_price"];
+			}
+			$conditionFlag = true;
+		}
+		if (isset($_GET["reserved_text"])) {
+			if ($conditionFlag) {
+				$conditionStr .= " AND `reserved_text`='" . $_GET["reserved_text"] . "'";
+			} else {
+				$conditionStr .= " `reserved_text`='" . $_GET["reserved_text"] . "'";
 			}
 			$conditionFlag = true;
 		}
 	}
 
+	$searchSql .= $conditionStr;
+	$countSql .= $conditionStr;
+
+	if (isset($_GET["page_num"])) {
+		$index = ($_GET["page_num"] - 1) * 20;
+		$searchSql .= " LIMIT " . $index . ",20";
+	}
+	//var_dump($searchSql);
 	$airportArray = $wpdb->get_results($searchSql);
+	$count = $wpdb->get_var($countSql);
 	$outp = "";
 	foreach ($airportArray as $airport) {
 		if ($outp != "") {$outp .= ",";}
@@ -100,11 +119,13 @@ if (0 == $current_user->ID) {
 		$outp .= '"airport_icao":"' . $airport->airport_icao . '",';
 		$outp .= '"airport_iata":"' . $airport->airport_iata . '",';
 		$outp .= '"airport_name":"' . $airport->airport_name . '",';
-		$outp .= '"city_code":"' . $airport->city_code . '",';
+		$outp .= '"city_name":"' . $airport->city_name . '",';
+		$outp .= '"province_name":"' . $airport->province_name . '",';
+		$outp .= '"hongkong_price":"' . $airport->hongkong_price . '",';
 		$outp .= '"reserved_text":"' . $airport->reserved_text . '"}';
 	}
 
-	$outp = '{"records":[' . $outp . ']}';
+	$outp = '{"records":[' . $outp . '], "count":"' . $count . '"}';
 	echo ($outp);
 }
 
