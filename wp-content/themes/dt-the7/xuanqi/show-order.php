@@ -52,18 +52,32 @@ if (0 == $current_user->ID) {
 		$outp .= '"user_login":"' . $item->user_login . '",';
 		$outp .= '"product_name":"' . $item->product_name . '",';
 		$outp .= '"product_price":"' . $item->product_price . '",';
-		$outp .= '"if_airplane":"' . $item->if_airplane . '",';
+		if ("0" == $item->if_airplane) {
+			$outp .= '"if_airplane":"否",';
+		} else if ("1" == $item->if_airplane) {
+			$outp .= '"if_airplane":"是",';
+		}		
 		$outp .= '"start_airport_name":"' . $item->start_airport_name . '",';
 		$outp .= '"arrive_airport_name":"' . $item->arrive_airport_name . '",';
 		$outp .= '"start_date":"' . $item->start_date . '",';
 		$outp .= '"back_date":"' . $item->back_date . '",';
 		$outp .= '"airline_price":"' . $item->airline_price . '",';
-		$outp .= '"if_hotel":"' . $item->if_hotel . '",';
+		if ("0" == $item->if_hotel) {
+			$outp .= '"if_hotel":"否",';
+		} else if ("1" == $item->if_hotel) {
+			$outp .= '"if_hotel":"是",';
+		}		
 		$outp .= '"in_date":"' . $item->in_date . '",';
 		$outp .= '"out_date":"' . $item->out_date . '",';
 		$outp .= '"hotel_price":"' . $item->hotel_price . '",';
 		$outp .= '"total_price":"' . $item->total_price . '",';
-		$outp .= '"order_status":"' . $item->order_status . '",';
+		if ("0" == $item->order_status) {
+			$outp .= '"order_status":"未支付",';
+		} else if ("1" == $item->order_status) {
+			$outp .= '"order_status":"已支付",';
+		} else if ("2" == $item->order_status) {
+			$outp .= '"order_status":"已取消",';
+		}		
 		$outp .= '"save_time":"' . $item->save_time . '",';
 		$outp .= '"reserved_text":"' . $item->reserved_text . '"}';
 	}

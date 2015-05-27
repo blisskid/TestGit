@@ -1207,9 +1207,6 @@ function xuanqi_order_config_callback() {
 		<button ng-click="gotoPage()" title="跳转到任意页">跳转</button>
 	</div>
 	<table>
-		<th style="width:10px" >
-			<input type="checkbox" onclick="selectAll(this)"></input>
-		</th>
         <th>用户名</th>
         <th>产品名称</th>
         <th>产品价格</th>
@@ -1227,7 +1224,6 @@ function xuanqi_order_config_callback() {
         <th>订单状态</th>
         <th>生成时间</th>
         <tr ng-repeat="x in names">
-        	<td><input id="{{x.ID}}" type="checkbox" name="xq_checkbox"></input></td>
             <td ng-bind="x.user_login"></td>
             <td ng-bind="x.product_name"></td>
             <td ng-bind="x.product_price"></td>
@@ -1271,6 +1267,25 @@ app.controller('showCtrl', function($scope, $http) {
 	}
 
 	refresh(1);
+
+    $("#search_save_time").regMod("calendar", "6.0", {
+        options: {
+            autoShow: !1,
+            showWeek: !0,
+            minDate: function() {
+                var a = (new Date).addYears(-1);
+                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
+            }(),            
+            maxDate: function() {
+                var a = (new Date).addYears(1);
+                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
+            }()
+        },
+        listeners: {
+            onBeforeShow: function() {},
+            onChange: function() {}
+        }
+    })	
 
     $scope.search = function() {
     	refresh(1);
