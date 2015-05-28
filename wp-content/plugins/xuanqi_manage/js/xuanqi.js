@@ -76,7 +76,7 @@ function showHotelAirlineDiv(wpUrl) {
     }
 
 
-    var fromAirport = jQuery('#from_airport').val();
+    var fromAirport = jQuery('#airport_code').val();
     var province = fromAirport.split(",")[1];
     if ("guangdong" == province) {
         //广东省不需要选择机票
@@ -87,47 +87,46 @@ function showHotelAirlineDiv(wpUrl) {
         jQuery('#airlineDiv').show(200);
         jQuery('#if_airplane').val("YES");
         //机票的时间控件
-        /*
-        $("#start_date").regMod("calendar", "6.0", {
-            options: {
-                autoShow: !1,
-                showWeek: !0,
-                maxDate: function() {
-                    var a = (new Date).addYears(1);
-                    return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate()
-                }()
-            },
-            listeners: {
-                onBeforeShow: function() {},
-                onChange: function() {}
-            }
-        })
-        $("#back_date").regMod("calendar", "6.0", {
-            options: {
-                autoShow: !1,
-                showWeek: !0,
-                maxDate: function() {
-                    var a = (new Date).addYears(1);
-                    return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate()
-                }()
-            },
-            listeners: {
-                onBeforeShow: function() {},
-                onChange: function() {}
-            }
-        })
-        */
-        var disCountUrl = wpUrl + "/airlines-info";
-        var fromAirport = jQuery('#from_airport').val().split(",")[0];
-        var toAirport = jQuery('#to_airport').val();
-        var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
+        
+        var url = wpUrl + "/show-airport";
+        var airport_code = jQuery('#airport_code').val().split(",")[0];
+        //var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
         var Obj = {
-            two_airport_code: twoAirport
+            airport_code: airport_code
         }
 
-        jQuery.post(disCountUrl, Obj, function(data) {
-            //alert(data);
-            pickerEvent.setPriceArr(eval("(" + data + ")"));
+        jQuery.post(url, Obj, function(data) {
+            //alert(data.records[0].bad_date);
+            $("#start_date").regMod("calendar", "6.0", {
+                options: {
+                    autoShow: !1,
+                    showWeek: !0,
+                    prohibit: data.records[0].bad_date,
+                    maxDate: function() {
+                        var a = (new Date).addYears(1);
+                        return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate()
+                    }()
+                },
+                listeners: {
+                    onBeforeShow: function() {},
+                    onChange: function() {}
+                }
+            })
+            $("#back_date").regMod("calendar", "6.0", {
+                options: {
+                    autoShow: !1,
+                    showWeek: !0,
+                    prohibit: data.records[0].bad_date,
+                    maxDate: function() {
+                        var a = (new Date).addYears(1);
+                        return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate()
+                    }()
+                },
+                listeners: {
+                    onBeforeShow: function() {},
+                    onChange: function() {}
+                }
+            })            
             jQuery('#hotelAirlineDiv').show(200);
         });
 
@@ -141,59 +140,6 @@ function showHotelDateDiv(value) {
     } else if ("NO" == value) {
         jQuery('#hotelDateDiv').hide(200);
     }
-}
-
-/*
-function showProcessDiv(value) {
-    //alert(value);
-    //jQuery("#product_select option[index='0']").remove();
-    jQuery('#makeYourChoice').remove();
-    var selectedArray = value.split(",");
-    if ("0" == selectedArray[1]) {
-        //疫苗类产品
-        jQuery('#yimiaoDiv').show(200);
-        jQuery('#notYimiaoDiv').hide();
-
-    } else if ("1" == selectedArray[1]) {
-        //非疫苗类产品，需要将一些值填入默认值
-        jQuery('#notYimiaoDiv').show(200);
-        jQuery('#yimiaoDiv').hide();
-    }
-}
-
-function showOrderDate(value) {
-    if ("YES" == value) {
-        jQuery('#discountDate').show(200);
-    } else if ("NO" == value) {
-        jQuery('#discountDate').hide(200);
-        pickerEvent.remove();
-    }
-}
-*/
-
-//选择机票起飞日期
-function getStartDate(wpUrl) {
-    pickerEvent.Init("start_date", "start_price");
-}
-
-//选择返程机票日期
-function getBackDate(wpUrl) {
-    pickerEvent.Init("back_date", "back_price");
-    /*
-    var disCountUrl = wpUrl + "/airlines-info";
-    var fromAirport = jQuery('#to_airport').val();
-    var toAirport = jQuery('#from_airport').val().split(",")[0];
-    var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
-    var Obj = {
-        two_airport_code: twoAirport
-    }
-
-    jQuery.post(disCountUrl, Obj, function(data) {
-        //alert(data);
-        pickerEvent.setPriceArr(eval("(" + data + ")"));
-        pickerEvent.Init("back_date", "back_price");
-    });
-*/
 }
 
 //添加不可选的日期到DIV

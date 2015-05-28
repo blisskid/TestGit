@@ -39,7 +39,7 @@ if (0 == $current_user->ID) {
 			<div style="width:50%;float:left;display: none;" id="orderDiv">
 				到达为香港国际机场
 				<label>请选择出发地：</label>
-			    <select name="from_airport" id="from_airport" required onchange="hideHotelAirlineDiv()">
+			    <select name="airport_code" id="airport_code" required onchange="hideHotelAirlineDiv()">
 			<?php
 foreach ($airportArray as $airport) {
 		$text = $airport->airport_name;
@@ -67,18 +67,10 @@ foreach ($airportArray as $airport) {
 				<div id="airlineDiv">
 					您的出发地不在广东省内，需要购买往返机票
 					<label>请选择出发日期：</label>
-
-					<input type="text" id="start_date" name="start_date" readonly="readonly" onclick="getStartDate();"/>
-					<!--
 					<input type="text" id="start_date" name="start_date" required/>
-					-->
 
 					<label>请选择返程日期：</label>
-
-					<input type="text" id="back_date" name="back_date" readonly="readonly" onclick="getBackDate();"/>
-					<!--
 					<input type="text" id="back_date" name="back_date" required/>
-					-->
 
 				</div>
 
@@ -97,7 +89,6 @@ foreach ($airportArray as $airport) {
 
 
 				<input type="button" onclick="toSettlement()" value="费用结算"></input>
-				<input type="hidden" name="to_airport" id="to_airport" value="VHHH_HKG"/>
 				<input type="hidden" id="back_price" name="back_price"></input>
 				<input type="hidden" id="start_price" name="start_price"></input>
 				<input type="hidden" id="if_airplane" name="if_airplane"></input>

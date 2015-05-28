@@ -954,7 +954,7 @@ function xuanqi_airport_config_callback() {
         <th>航站名称</th>
         <th>城市名称</th>
         <th>省市名称</th>
-        <th>到达香港价格</th>
+        <th>香港往返机票价格</th>
         <th>不可选的日期</th>
         <tr ng-repeat="x in names">
         	<td><input id="{{x.airport_code}}" type="checkbox" name="xq_checkbox"></input></td>
@@ -1110,7 +1110,7 @@ function xuanqi_add_airport_callback() {
 		if (isset($_GET["id"]) && "" != trim($_GET["id"])) {
 
 			global $wpdb;
-			$sql = "SELECT `airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price` FROM xq_airports WHERE airport_code='" . trim($_GET["id"]) . "'";
+			$sql = "SELECT `airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price`,`bad_date` FROM xq_airports WHERE airport_code='" . trim($_GET["id"]) . "'";
 			//var_dump($sql);
 			$array = $wpdb->get_results($sql);
 		}
@@ -1213,7 +1213,7 @@ function xuanqi_add_airport_callback() {
 		    var deleteFunction = "deleteBadDateDiv('" + bad_dates[i] + "')";
 		    var objectStr = "<div id=" + bad_dates[i] + "><label>" + bad_dates[i] + "<input type='button' value='删除' onclick=" + deleteFunction + "></input></label></div>";
 		    badDatesDiv.innerHTML += objectStr;
-	    }		
+	    }
 	}
 
     $("#choose_bad_date").regMod("calendar", "6.0", {
