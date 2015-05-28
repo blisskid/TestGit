@@ -765,7 +765,7 @@ function xuanqi_save_airport() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["airport_icao"]) && isset($_POST["airport_iata"])
+		if (isset($_POST["airport_icao"]) && isset($_POST["airport_iata"]) && isset($_POST["bad_date"])
 			&& isset($_POST["airport_name"]) && isset($_POST["city_code"]) && isset($_POST["city_name"])
 			&& isset($_POST["province_code"]) && isset($_POST["province_name"]) && isset($_POST["hongkong_price"])) {
 
@@ -819,12 +819,13 @@ function xuanqi_save_airport() {
 			$province_code = trim($_POST["province_code"]);
 			$province_name = trim($_POST["province_name"]);
 			$hongkong_price = trim($_POST["hongkong_price"]);
+			$bad_date = trim($_POST["bad_date"]);
 
 			$count = $wpdb->get_var("SELECT COUNT(*) FROM `xq_airports` WHERE `airport_code` = '$airport_code'");
 			//var_dump($count);
 			if (intval($count) == 0) {
-				$sql = "INSERT INTO `xq_airports`(`airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price`)
-				VALUES ('$airport_icao','$airport_iata','$airport_code','$airport_name','$city_code','$city_name','$province_code','$province_name', $hongkong_price)";
+				$sql = "INSERT INTO `xq_airports`(`airport_icao`, `airport_iata`, `airport_code`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `hongkong_price`, `bad_date`)
+				VALUES ('$airport_icao','$airport_iata','$airport_code','$airport_name','$city_code','$city_name','$province_code','$province_name', $hongkong_price, '$bad_date')";
 
 				//var_dump($sql);
 				$result = $wpdb->query($sql);
@@ -855,7 +856,7 @@ function xuanqi_update_airport() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["airport_code"]) && isset($_POST["airport_name"]) && isset($_POST["city_code"])
+		if (isset($_POST["airport_code"]) && isset($_POST["airport_name"]) && isset($_POST["city_code"]) && isset($_POST["bad_date"])
 			&& isset($_POST["city_name"]) && isset($_POST["province_code"]) && isset($_POST["province_name"]) && isset($_POST["hongkong_price"])) {
 
 			if ("" == trim($_POST["airport_code"])) {
@@ -901,8 +902,9 @@ function xuanqi_update_airport() {
 			$province_code = trim($_POST["province_code"]);
 			$province_name = trim($_POST["province_name"]);
 			$hongkong_price = trim($_POST["hongkong_price"]);
+			$bad_date = trim($_POST["bad_date"]);
 
-			$sql = "UPDATE `xq_airports` SET `airport_name`='$airport_name',`city_code`='$city_code',`city_name`='$city_name',`province_code`='$province_code',`province_name`='$province_name',`hongkong_price`=$hongkong_price WHERE `airport_code` = '$airport_code'";
+			$sql = "UPDATE `xq_airports` SET `airport_name`='$airport_name',`city_code`='$city_code',`city_name`='$city_name',`province_code`='$province_code',`province_name`='$province_name',`hongkong_price`=$hongkong_price,`bad_date`='$bad_date' WHERE `airport_code` = '$airport_code'";
 			//var_dump($sql);
 			$result = $wpdb->query($sql);
 			//var_dump($result);
@@ -989,7 +991,7 @@ app.controller('showCtrl', function($scope, $http) {
 
 	refresh(1);
 
-    jQuery('#hintDiv').hide(1000);
+    //jQuery('#hintDiv').hide(1000);
 
 
     //functions
@@ -1174,7 +1176,7 @@ function xuanqi_add_airport_callback() {
     </tr>
     <tr>
         <td>
-            输入到达香港的机票价格：
+            输入到香港的往返机票价格：
             <br>
             <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->hongkong_price : '';?>" name="hongkong_price"  pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
         </td>
@@ -1204,6 +1206,16 @@ function xuanqi_add_airport_callback() {
 </table>
 </form>
 <script type="text/javascript">
+	if ("" != jQuery("#bad_date").val()) {
+		var bad_dates = jQuery("#bad_date").val().split(',');
+	    for (var i = bad_dates.length - 1; i >= 0; i--) {
+		    var badDatesDiv = document.getElementById("badDatesDiv");
+		    var deleteFunction = "deleteBadDateDiv('" + bad_dates[i] + "')";
+		    var objectStr = "<div id=" + bad_dates[i] + "><label>" + bad_dates[i] + "<input type='button' value='删除' onclick=" + deleteFunction + "></input></label></div>";
+		    badDatesDiv.innerHTML += objectStr;
+	    }		
+	}
+
     $("#choose_bad_date").regMod("calendar", "6.0", {
         options: {
             autoShow: !1,

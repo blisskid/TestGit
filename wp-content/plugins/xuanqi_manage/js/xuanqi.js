@@ -51,7 +51,7 @@ function showOrderDiv() {
             onBeforeShow: function() {},
             onChange: function() {}
         }
-    }) 
+    })
 
 }
 
@@ -73,9 +73,9 @@ function showHotelAirlineDiv(wpUrl) {
     if (jQuery("#inject_date").val() == "") {
         alert("请选择疫苗注射日期");
         return;
-    } 
+    }
 
-   
+
     var fromAirport = jQuery('#from_airport').val();
     var province = fromAirport.split(",")[1];
     if ("guangdong" == province) {
@@ -116,7 +116,7 @@ function showHotelAirlineDiv(wpUrl) {
                 onChange: function() {}
             }
         })
-        */ 
+        */
         var disCountUrl = wpUrl + "/airlines-info";
         var fromAirport = jQuery('#from_airport').val().split(",")[0];
         var toAirport = jQuery('#to_airport').val();
@@ -199,17 +199,42 @@ function getBackDate(wpUrl) {
 //添加不可选的日期到DIV
 function addBadDates() {
     var badDate = jQuery('#choose_bad_date').val();
-    var badDateStr = badDate.split('-').join('');
-    var badDatesDiv = document.getElementById("badDatesDiv");
-    var deleteFunction = "deleteBadDateDiv('" + badDateStr + "')";
-    var objectStr = "<div id=" + badDateStr + "><label>" + badDate + "<input type='button' value='删除' onclick=" + deleteFunction + "></input></label></div>";
-    //var badDateDiv = $('<div>', { id: badDate, text: objectStr});
-    badDatesDiv.innerHTML += objectStr;
+    if (badDate != "") {
+        var bad_dates = jQuery("#bad_date").val();
+        if (-1 === bad_dates.indexOf(badDate)) {
+            var badDatesDiv = document.getElementById("badDatesDiv");
+            var deleteFunction = "deleteBadDateDiv('" + badDate + "')";
+            var objectStr = "<div id=" + badDate + "><label>" + badDate + "<input type='button' value='删除' onclick=" + deleteFunction + "></input></label></div>";
+            //var badDateDiv = $('<div>', { id: badDate, text: objectStr});
+            badDatesDiv.innerHTML += objectStr;
+
+            if (bad_dates == "") {
+                bad_dates = badDate;
+            } else {
+                bad_dates += ",";
+                bad_dates += badDate;
+            }
+            jQuery("#bad_date").val(bad_dates);
+        } else {
+            alert("所选日期已存在");
+        }
+
+    } else {
+        alert("请选择日期");
+    }
 }
 
 function deleteBadDateDiv(badDate) {
     var badDateDiv = document.getElementById(badDate);
     badDateDiv.parentNode.removeChild(badDateDiv);
+
+    var bad_dates = jQuery("#bad_date").val().split(',');
+    for (var i = bad_dates.length - 1; i >= 0; i--) {
+        if (bad_dates[i] === badDate) {
+            bad_dates.splice(i, 1);
+        }
+    }
+    jQuery("#bad_date").val(bad_dates.join(','));
 }
 
 //费用结算
@@ -224,7 +249,7 @@ function toSettlement() {
         if (jQuery("#out_date").val() == "") {
             alert("请选择酒店退房日期");
             return;
-        }        
+        }
     }
 
     var ifAirplane = jQuery("#if_airplane").val();
@@ -236,7 +261,7 @@ function toSettlement() {
         if (jQuery("#back_date").val() == "") {
             alert("请选择返程日期");
             return;
-        }        
+        }
     }
 
     jQuery("#orderForm").submit();
