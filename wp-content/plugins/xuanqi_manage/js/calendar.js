@@ -109,7 +109,8 @@ window.replace = function() {
                     date: null,
                     tipText: "yyyy-mm-dd",
                     zindex: 9999,
-                    showAll:!1
+                    showAll:!1,
+                    hideAll:!1,
                 },
                 string: {
                     header: "\u8bf7\u9009\u62e9\u65e5\u671f",
@@ -424,8 +425,8 @@ window.replace = function() {
                 attr: ""
             };
             d == l && f.push(b.today);
-            //增加显示所有的判断
-            if (!this.setting.options.showAll && this._checkPassDate(c, d, e)) f.push(b.nothismonth);
+            //增加显示所有的判断 增加所有都不现实的判断
+            if ((this.setting.options.hideAll && !(this.setting.options.permit && -1 !== this.setting.options.permit.indexOf(c))) || (!this.setting.options.showAll && this._checkPassDate(c, d, e))) f.push(b.nothismonth);
             //if (this._checkPassDate(c, d, e)) f.push(b.nothismonth);
             else {
                 g += ' data-bind="select"';

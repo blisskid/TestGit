@@ -18,10 +18,21 @@ if (0 == $current_user->ID) {
 		<h4>个人信息：</h4>
 		<p>
 		用户名：<?php echo $current_user->user_login;?>
+		<br>		
+		姓名：<?php echo $current_user->user_login;?>
 		<br>
+		性别：<?php echo $current_user->user_email?>
+		<br>
+		年龄：<?php echo $current_user->user_email?>		
+		<br>		
 		邮箱：<?php echo $current_user->user_email?>
 		<br>
 		手机：<?php echo get_usermeta($current_user->ID, 'phone');?>
+		<br>		
+		职业：<?php echo $current_user->user_login;?>
+		<br>
+		过敏：<?php echo $current_user->user_email?>
+
 		</p>
 		<br>
 		<br>

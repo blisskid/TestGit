@@ -46,6 +46,26 @@ function ugp_show_extra_register_fields(){
 	<input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
 	</label>
 	</p>
+	<p>
+	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
+	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	</label>
+	</p>
+	<p>
+	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
+	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	</label>
+	</p>
+	<p>
+	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
+	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	</label>
+	</p>
+	<p>
+	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
+	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	</label>
+	</p>				
 	<?php
 }
 

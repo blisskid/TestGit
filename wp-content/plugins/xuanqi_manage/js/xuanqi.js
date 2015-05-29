@@ -101,7 +101,8 @@ function showHotelAirlineDiv(wpUrl) {
                 options: {
                     autoShow: !1,
                     showWeek: !0,
-                    prohibit: data.records[0].bad_date,
+                    hideAll: !0,
+                    permit: data.records[0].bad_date,
                     maxDate: function() {
                         var a = (new Date).addYears(1);
                         return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate()
@@ -116,7 +117,8 @@ function showHotelAirlineDiv(wpUrl) {
                 options: {
                     autoShow: !1,
                     showWeek: !0,
-                    prohibit: data.records[0].bad_date,
+                    hideAll: !0,
+                    permit: data.records[0].bad_date,
                     maxDate: function() {
                         var a = (new Date).addYears(1);
                         return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate()
