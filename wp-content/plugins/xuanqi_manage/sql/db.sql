@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `xq_orders` (
   `ID` bigint(20) unsigned NOT NULL,
   `user_login` varchar(60) NOT NULL,
   `product_name` varchar(60) NOT NULL DEFAULT '' COMMENT '产品名称',
+  `inject_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '注射日期',
   `product_price` double NOT NULL COMMENT '产品价格',
   `if_airplane` int(11) NOT NULL DEFAULT '1' COMMENT '是否乘坐飞机。1：是；0：否。',
   `start_airport_name` varchar(100) NOT NULL DEFAULT '' COMMENT '出发航站楼名称',

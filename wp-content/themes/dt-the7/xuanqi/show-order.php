@@ -11,7 +11,7 @@ if (0 == $current_user->ID) {
 	header("Content-Type: application/json; charset=UTF-8");
 
 	global $wpdb;
-	$searchSql = "SELECT `ID`,`user_login`,`product_name`,`product_price`,`if_airplane`,`start_airport_name`,`arrive_airport_name`,`start_date`,`back_date`,`airline_price`,`if_hotel`,`in_date`,`out_date`,`hotel_price`,`total_price`,`order_status`,`save_time`,`reserved_text` FROM `xq_orders`";
+	$searchSql = "SELECT `ID`,`user_login`,`product_name`,`product_price`,`inject_date`,`if_airplane`,`start_airport_name`,`arrive_airport_name`,`start_date`,`back_date`,`airline_price`,`if_hotel`,`in_date`,`out_date`,`hotel_price`,`total_price`,`order_status`,`save_time`,`reserved_text` FROM `xq_orders`";
 	$countSql = "SELECT COUNT(*) FROM `xq_orders`";
 	$conditionStr = "";
 	if (count($_GET) > 1) {
@@ -52,11 +52,12 @@ if (0 == $current_user->ID) {
 		$outp .= '"user_login":"' . $item->user_login . '",';
 		$outp .= '"product_name":"' . $item->product_name . '",';
 		$outp .= '"product_price":"' . $item->product_price . '",';
+		$outp .= '"inject_date":"' . $item->inject_date . '",';
 		if ("0" == $item->if_airplane) {
 			$outp .= '"if_airplane":"否",';
 		} else if ("1" == $item->if_airplane) {
 			$outp .= '"if_airplane":"是",';
-		}		
+		}
 		$outp .= '"start_airport_name":"' . $item->start_airport_name . '",';
 		$outp .= '"arrive_airport_name":"' . $item->arrive_airport_name . '",';
 		$outp .= '"start_date":"' . $item->start_date . '",';
@@ -66,7 +67,7 @@ if (0 == $current_user->ID) {
 			$outp .= '"if_hotel":"否",';
 		} else if ("1" == $item->if_hotel) {
 			$outp .= '"if_hotel":"是",';
-		}		
+		}
 		$outp .= '"in_date":"' . $item->in_date . '",';
 		$outp .= '"out_date":"' . $item->out_date . '",';
 		$outp .= '"hotel_price":"' . $item->hotel_price . '",';
@@ -77,7 +78,7 @@ if (0 == $current_user->ID) {
 			$outp .= '"order_status":"已支付",';
 		} else if ("2" == $item->order_status) {
 			$outp .= '"order_status":"已取消",';
-		}		
+		}
 		$outp .= '"save_time":"' . $item->save_time . '",';
 		$outp .= '"reserved_text":"' . $item->reserved_text . '"}';
 	}

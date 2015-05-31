@@ -11,6 +11,8 @@ if (0 == $current_user->ID) {
 	global $wpdb;
 //查询出所有的出发地
 	$airportArray = $wpdb->get_results("SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `reserved_text` FROM `xq_airports` WHERE `airport_code` != 'VHHH_HKG'");
+	$orderArray = $wpdb->get_results("SELECT `product_name`, `inject_date`, `save_time` FROM `xq_orders` WHERE `user_login`='$current_user->user_login' ORDER BY `save_time`");
+	$productArray = $wpdb->get_results("SELECT `product_name`, `ID` FROM `xq_products`");
 
 	?>
 
@@ -18,27 +20,44 @@ if (0 == $current_user->ID) {
 		<h4>个人信息：</h4>
 		<p>
 		用户名：<?php echo $current_user->user_login;?>
-		<br>		
-		姓名：<?php echo $current_user->user_login;?>
 		<br>
-		性别：<?php echo $current_user->user_email?>
+		姓名：<?php echo get_usermeta($current_user->ID, 'last_name') . get_usermeta($current_user->ID, 'first_name');?>
 		<br>
-		年龄：<?php echo $current_user->user_email?>		
-		<br>		
-		邮箱：<?php echo $current_user->user_email?>
+		性别：<?php echo get_usermeta($current_user->ID, 'sex');?>
+		<br>
+		年龄：<?php echo get_usermeta($current_user->ID, 'age');?>
+		<br>
+		邮箱：<?php echo $current_user->user_email;?>
 		<br>
 		手机：<?php echo get_usermeta($current_user->ID, 'phone');?>
-		<br>		
-		职业：<?php echo $current_user->user_login;?>
 		<br>
-		过敏：<?php echo $current_user->user_email?>
+		职业：<?php echo get_usermeta($current_user->ID, 'job');?>
+		<br>
+		过敏：<?php echo get_usermeta($current_user->ID, 'allergy');?>
 
 		</p>
 		<br>
 		<br>
 		<h4>历史预约信息：</h4>
 		<p>
-		显示用户的历史预约信息。
+			<?php
+if (count($orderArray == 0)) {
+		echo "您是第一次预约，暂无预约信息";
+	} else {
+		$orderCount = 0;
+		foreach ($orderArray as $order) {
+			$orderCount++;
+			$product_name = $order->product_name;
+			$inject_date = $order->inject_date;
+			$save_time = $order->save_time;
+			echo "<p><h5>第$orderCount次预约：<h5>";
+			echo "<br>订单生成时间：$save_time";
+			echo "<br>产品名称：$product_name";
+			echo "<br>注射日期：$inject_date";
+		}
+
+	}
+	?>
 		</p>
 		<br>
 		<h4 onclick="showOrderDiv()" style="cursor:pointer;color: red;">信息无误，开始预约</h4>
@@ -48,8 +67,18 @@ if (0 == $current_user->ID) {
 	<div style="margin-left:33.3%;width:66.7%;">
 		<form id="orderForm" name="orderForm" action="<?php echo get_bloginfo('wpurl') . "/结算";?>" method="post">
 			<div style="width:50%;float:left;display: none;" id="orderDiv">
-				到达为香港国际机场
-				<label>请选择出发地：</label>
+				<label>请选择产品：</label>
+			    <select name="product_id" id="product_id" required>
+			<?php
+foreach ($productArray as $product) {
+		$text = $product->product_name;
+		$value = $product->ID;
+		echo "<option value='$value'>$text</option>";
+	}
+	?>
+			    </select>
+
+				<label>到达为香港国际机场，请选择出发地：</label>
 			    <select name="airport_code" id="airport_code" required onchange="hideHotelAirlineDiv()">
 			<?php
 foreach ($airportArray as $airport) {

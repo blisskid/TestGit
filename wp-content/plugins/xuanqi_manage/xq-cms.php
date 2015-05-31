@@ -76,20 +76,20 @@ add_action('init', 'add_scripts');
 //产品配置代码
 function register_my_custom_menu_page() {
 
-	add_menu_page('常规配置', '常规配置', 'manage_options', 'xuanqi_common_config', 'xuanqi_common_config_callback', '', 6);
 	//product config
-	add_menu_page('产品配置', '产品配置', 'manage_options', 'xuanqi_products_config', 'xuanqi_products_config_callback', '', 7);
+	add_menu_page('产品配置', '产品配置', 'manage_options', 'xuanqi_products_config', 'xuanqi_products_config_callback', '', 6);
 	add_submenu_page('xuanqi_products_config', '修改产品', '修改产品', 'manage_options', 'xuanqi_add_product', 'xuanqi_add_product_callback');
 
 	//hotel config
-	add_menu_page('酒店特殊日期价格配置', '酒店特殊日期价格配置', 'manage_options', 'xuanqi_hotel_config', 'xuanqi_hotel_config_callback', '', 7);
+	add_menu_page('酒店价格配置', '酒店价格配置', 'manage_options', 'xuanqi_common_config', 'xuanqi_common_config_callback', '', 7);
+	add_menu_page('酒店特殊日期价格配置', '酒店特殊日期价格配置', 'manage_options', 'xuanqi_hotel_config', 'xuanqi_hotel_config_callback', '', 8);
 	add_submenu_page('xuanqi_hotel_config', '新增特殊日期价格', '新增特殊日期价格', 'manage_options', 'xuanqi_add_hotel', 'xuanqi_add_hotel_callback');
 
 	//airport config
-	add_menu_page('出发机场配置', '出发机场配置', 'manage_options', 'xuanqi_airport_config', 'xuanqi_airport_config_callback', '', 8);
+	add_menu_page('出发机场配置', '出发机场配置', 'manage_options', 'xuanqi_airport_config', 'xuanqi_airport_config_callback', '', 9);
 	add_submenu_page('xuanqi_airport_config', '新增出发机场', '新增出发机场', 'manage_options', 'xuanqi_add_airport', 'xuanqi_add_airport_callback');
 
-	add_menu_page('订单查询', '订单查询', 'manage_options', 'xuanqi_order_config', 'xuanqi_order_config_callback', '', 9);
+	add_menu_page('订单查询', '订单查询', 'manage_options', 'xuanqi_order_config', 'xuanqi_order_config_callback', '', 10);
 
 }
 
@@ -111,15 +111,17 @@ function xuanqi_common_config_callback() {
 		if (isset($_POST["hotel_weekday_price"]) && $_POST["hotel_weekday_price"] != "") {
 			update_option("hotel_weekday_price", $_POST["hotel_weekday_price"]);
 		}
+		/*
 		if (isset($_POST["product_price"]) && $_POST["product_price"] != "") {
-			update_option("product_price", $_POST["product_price"]);
+		update_option("product_price", $_POST["product_price"]);
 		}
 		if (isset($_POST["product_dealer_price"]) && $_POST["product_dealer_price"] != "") {
-			update_option("product_dealer_price", $_POST["product_dealer_price"]);
+		update_option("product_dealer_price", $_POST["product_dealer_price"]);
 		}
 		if (isset($_POST["product_direct_price"]) && $_POST["product_direct_price"] != "") {
-			update_option("product_direct_price", $_POST["product_direct_price"]);
+		update_option("product_direct_price", $_POST["product_direct_price"]);
 		}
+		 */
 		$url = get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_common_config";
 		?>
 <div class="xqform">
@@ -139,6 +141,7 @@ function xuanqi_common_config_callback() {
 		            <input class="regular-text" type="text" value="<?php echo get_option('hotel_weekday_price');?>" name="hotel_weekday_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
 		        </td>
 		    </tr>
+		    <!--
 		    <tr>
 		        <td>
 		            输入产品价格：
@@ -160,6 +163,7 @@ function xuanqi_common_config_callback() {
 		            <input class="regular-text" type="text" value="<?php echo get_option('product_direct_price');?>" name="product_direct_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
 		        </td>
 		    </tr>
+		-->
 		    <tr>
 		        <td>
 		        	<button type="submit">更新</button>
@@ -188,7 +192,7 @@ function xuanqi_update_product() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["product_price"]) && isset($_POST["product_id"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_description"])) {
+		if (isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_id"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_description"])) {
 
 			if ("" == trim($_POST["product_price"])) {
 				echo "<font color='red'>产品价格不能为空</font>";
@@ -200,8 +204,8 @@ function xuanqi_update_product() {
 				return;
 			}
 
-			if ("" == trim($_POST["product_description"])) {
-				echo "<font color='red'>产品描述不能为空</font>";
+			if ("" == trim($_POST["product_name"])) {
+				echo "<font color='red'>产品名称不能为空</font>";
 				return;
 			}
 
@@ -213,7 +217,7 @@ function xuanqi_update_product() {
 			$product_direct_price = trim($_POST["product_direct_price"]);
 			$product_description = trim($_POST["product_description"]);
 
-			$sql = "UPDATE `xq_products` SET `product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_description`='$product_description' WHERE ID=$product_id";
+			$sql = "UPDATE `xq_products` SET `product_name`='$product_name',`product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_description`='$product_description' WHERE ID=$product_id";
 			//var_dump($sql);
 			$result = $wpdb->query($sql);
 			//var_dump($result);
@@ -227,11 +231,63 @@ function xuanqi_update_product() {
 	}
 }
 
+function xuanqi_save_product() {
+	$current_user = wp_get_current_user();
+	$wpurl = get_bloginfo('wpurl');
+
+	if (0 == $current_user->ID) {
+
+		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+		return;
+
+	} else {
+
+		//var_dump($_POST);
+
+		if (isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_description"])) {
+
+			if ("" == trim($_POST["product_price"])) {
+				echo "<font color='red'>产品价格不能为空</font>";
+				return;
+			}
+
+			if ("" == trim($_POST["product_dealer_price"])) {
+				echo "<font color='red'>经销商产品价格不能为空</font>";
+				return;
+			}
+
+			if ("" == trim($_POST["product_name"])) {
+				echo "<font color='red'>产品名称不能为空</font>";
+				return;
+			}
+
+			global $wpdb;
+			$product_name = trim($_POST["product_name"]);
+			$product_price = trim($_POST["product_price"]);
+			$product_dealer_price = trim($_POST["product_dealer_price"]);
+			$product_direct_price = trim($_POST["product_direct_price"]);
+			$product_description = trim($_POST["product_description"]);
+
+			//$sql = "UPDATE `xq_products` SET `product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_description`='$product_description' WHERE ID=$product_id";
+			$sql = "insert into `xq_products` (`product_name`,`product_price`,`product_dealer_price`,`product_direct_price`,`product_description`) values('$product_name',$product_price,$product_dealer_price,$product_direct_price,'$product_description')";
+			//var_dump($sql);
+			$result = $wpdb->query($sql);
+			//var_dump($result);
+			if (0 < $result) {
+				//echo "Success! Insert " . $result . " rows";
+			} else {
+				echo "<font color='red'>数据添加错误，信息为："+$result+"</font>";
+			}
+
+		}
+	}
+}
+
 function xuanqi_products_config_callback() {
 
 	?>
-<div ng-app="showProductApp" ng-controller="showProductCtrl" class="xqgrid">
-
+<div ng-app="showApp" ng-controller="showCtrl" class="xqgrid">
+	<div style="margin-left: 10px;" id="hintDiv">
 <?php
 
 	if (isset($_GET["method"]) && "" != trim($_GET["method"])) {
@@ -243,10 +299,18 @@ function xuanqi_products_config_callback() {
 	}
 
 	?>
-
-	<button ng-click="updateProduct()">修改</button>
-	<br/>
-	<br/>
+	</div>
+	<button onclick="window.location.href='<?php echo get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_add_product";?>'">新增</button>
+	<button ng-click="delete()">删除</button>
+	<button ng-click="update()">修改</button>
+	<div style="float: right">
+		<button ng-click="firstPage()" title="跳转到第一页"><<</button>
+		<button ng-click="prevPage()" title="跳转到上一页"><</button>
+		<button ng-click="nextPage()" title="跳转到下一页">></button>
+		<button ng-click="lastPage()" title="跳转到最后一页">>></button>
+		<label>共<span ng-bind="count"></span>条数据，共<span ng-bind="pages"></span>页<input title="当前页面" type="text" name="page_num" id="page_num" value="1" size="1"></input></label>
+		<button ng-click="gotoPage()" title="跳转到任意页">跳转</button>
+	</div>
 	<table>
 		<th style="width:10px" >
 			<input type="checkbox" onclick="selectAll(this)"></input>
@@ -265,13 +329,65 @@ function xuanqi_products_config_callback() {
     </table>
 </div>
 <script>
-var app = angular.module('showProductApp', []);
-app.controller('showProductCtrl', function($scope, $http) {
-    $http.get('<?php echo get_bloginfo('wpurl') . "/show-product";?>').success(function(response) {
-        $scope.names = response.records;
-    });
+var app = angular.module('showApp', []);
+app.controller('showCtrl', function($scope, $http) {
 
-    $scope.updateProduct = function() {
+	var refresh = function(page_num) {
+	    var url = '<?php echo get_bloginfo('wpurl') . "/show-product";?>?';
+	    url += 'page_num=';
+	    url += page_num;
+
+	    $http.get(url).success(function(response) {
+	        $scope.names = response.records;
+	        $scope.count = response.count;
+	        $scope.pages = Math.ceil(response.count / 20);
+	        jQuery('#page_num').val(page_num);
+	    });
+	}
+
+	refresh(1);
+
+    //jQuery('#hintDiv').hide(1000);
+
+
+    //functions
+    $scope.delete = function() {
+	    var ids = "";
+	    var count = 0;
+	    var checkBoxs = jQuery('input:checkbox[name=xq_checkbox]:checked');
+	    var checkBoxsLength = checkBoxs.length;
+	    if (checkBoxsLength == 0) {
+	        alert("请选择要删除的记录");
+	        return;
+	    }
+
+	    if (confirm("确认要删除吗？")) {
+	        checkBoxs.each(function() {
+	            //alert(jQuery(this).attr('id'));
+	            //jQuery(this).prop('checked', obj.checked);
+	            count++;
+	            if (count < checkBoxsLength) {
+	                ids += jQuery(this).attr('id') + ",";
+	            } else if (count == checkBoxsLength) {
+	                ids += jQuery(this).attr('id');
+	            }
+
+	        });
+	        //alert(ids);
+	        var Obj = {
+	            ids: ids
+	        }
+	        jQuery.post('<?php echo get_bloginfo('wpurl') . "/delete-product";?>', Obj,
+	            function(data) {
+	                alert(data);
+
+			        refresh(1);
+
+	            });
+	    }
+    }
+
+    $scope.update = function() {
 	    var ids = "";
 	    var count = 0;
 	    var checkBoxs = jQuery('input:checkbox[name=xq_checkbox]:checked');
@@ -286,6 +402,47 @@ app.controller('showProductCtrl', function($scope, $http) {
 	    }
 	    window.location.href='<?php echo get_bloginfo('wpurl') . "/wp-admin/admin.php?page=xuanqi_add_product&id=";?>' + checkBoxs[0].id;
     }
+
+    /*
+    $scope.search = function() {
+    	refresh(1);
+    }
+    */
+
+
+    $scope.prevPage = function() {
+
+    	if (parseInt(jQuery('#page_num').val()) > 1) {
+			var page_num = parseInt(jQuery('#page_num').val()) - 1;
+			refresh(page_num);
+    	}
+    }
+
+    $scope.nextPage = function() {
+
+    	if (parseInt(jQuery('#page_num').val()) < parseInt($scope.pages)) {
+			var page_num = parseInt(jQuery('#page_num').val()) + 1;
+			refresh(page_num);
+    	}
+    }
+
+    $scope.firstPage = function() {
+
+		refresh(1);
+    }
+
+    $scope.lastPage = function() {
+
+		var page_num = $scope.pages;
+		refresh(page_num);
+    }
+
+    $scope.gotoPage = function() {
+
+		var page_num = jQuery('#page_num').val();
+		refresh(page_num);
+    }
+
 });
 </script>
 <?php
@@ -323,6 +480,13 @@ function xuanqi_add_product_callback() {
 	?>
 
 <table align="center">
+    <tr>
+        <td>
+            输入产品名称：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_name : '';?>" name="product_name" placeholder="请输入产品名称" required>（元）</input>
+        </td>
+    </tr>
     <tr>
         <td>
             输入产品价格：
@@ -1227,6 +1391,7 @@ function xuanqi_order_config_callback() {
         <th>用户名</th>
         <th>产品名称</th>
         <th>产品价格</th>
+        <th>注射日期</th>
         <th>是否乘坐飞机</th>
         <th>出发机场</th>
         <th>到达机场</th>
@@ -1244,6 +1409,7 @@ function xuanqi_order_config_callback() {
             <td ng-bind="x.user_login"></td>
             <td ng-bind="x.product_name"></td>
             <td ng-bind="x.product_price"></td>
+            <td ng-bind="x.inject_date"></td>
             <td ng-bind="x.if_airplane"></td>
             <td ng-bind="x.start_airport_name"></td>
             <td ng-bind="x.arrive_airport_name"></td>

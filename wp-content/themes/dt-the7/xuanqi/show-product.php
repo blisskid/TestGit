@@ -13,85 +13,96 @@ if (0 == $current_user->ID) {
 	global $wpdb;
 
 	$searchSql = "SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_type`, `product_paytype`, `product_show`, `reserved_text` FROM `xq_products`";
-	if (count($_POST) > 0) {
+	$countSql = "SELECT COUNT(*) FROM `xq_products`";
+	$conditionStr = "";
+	if (count($_POST) > 1) {
 		//有传入参数，需要加入where条件
-		$searchSql .= "WHERE";
+		$conditionStr .= "WHERE";
 		//表示是否有大于两个条件
 		$conditionFlag = false;
 		if (isset($_POST["ID"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `ID`=" . $_POST["ID"];
+				$conditionStr .= " AND `ID`=" . $_POST["ID"];
 			} else {
-				$searchSql .= " `ID`=" . $_POST["ID"];
+				$conditionStr .= " `ID`=" . $_POST["ID"];
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["product_name"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `product_name`='" . $_POST["product_name"] . "'";
+				$conditionStr .= " AND `product_name`='" . $_POST["product_name"] . "'";
 			} else {
-				$searchSql .= " `product_name`='" . $_POST["product_name"] . "'";
+				$conditionStr .= " `product_name`='" . $_POST["product_name"] . "'";
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["product_price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `product_price`=" . $_POST["product_price"];
+				$conditionStr .= " AND `product_price`=" . $_POST["product_price"];
 			} else {
-				$searchSql .= " `product_price`=" . $_POST["product_price"];
+				$conditionStr .= " `product_price`=" . $_POST["product_price"];
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["product_dealer_price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `product_dealer_price`=" . $_POST["product_dealer_price"];
+				$conditionStr .= " AND `product_dealer_price`=" . $_POST["product_dealer_price"];
 			} else {
-				$searchSql .= " `product_dealer_price`=" . $_POST["product_dealer_price"];
+				$conditionStr .= " `product_dealer_price`=" . $_POST["product_dealer_price"];
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["product_direct_price"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `product_direct_price`=" . $_POST["product_direct_price"];
+				$conditionStr .= " AND `product_direct_price`=" . $_POST["product_direct_price"];
 			} else {
-				$searchSql .= " `product_direct_price`=" . $_POST["product_direct_price"];
+				$conditionStr .= " `product_direct_price`=" . $_POST["product_direct_price"];
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["product_type"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `product_type`='" . $_POST["product_type"] . "'";
+				$conditionStr .= " AND `product_type`='" . $_POST["product_type"] . "'";
 			} else {
-				$searchSql .= " `product_type`='" . $_POST["product_type"] . "'";
+				$conditionStr .= " `product_type`='" . $_POST["product_type"] . "'";
 
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["product_paytype"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `product_paytype`='" . $_POST["product_paytype"] . "'";
+				$conditionStr .= " AND `product_paytype`='" . $_POST["product_paytype"] . "'";
 			} else {
-				$searchSql .= " `product_paytype`='" . $_POST["product_paytype"] . "'";
+				$conditionStr .= " `product_paytype`='" . $_POST["product_paytype"] . "'";
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["product_show"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `product_show`='" . $_POST["product_show"] . "'";
+				$conditionStr .= " AND `product_show`='" . $_POST["product_show"] . "'";
 			} else {
-				$searchSql .= " `product_show`='" . $_POST["product_show"] . "'";
+				$conditionStr .= " `product_show`='" . $_POST["product_show"] . "'";
 			}
 			$conditionFlag = true;
 		}
 		if (isset($_POST["reserved_text"])) {
 			if ($conditionFlag) {
-				$searchSql .= " AND `reserved_text`='" . $_POST["reserved_text"] . "'";
+				$conditionStr .= " AND `reserved_text`='" . $_POST["reserved_text"] . "'";
 			} else {
-				$searchSql .= " `reserved_text`='" . $_POST["reserved_text"] . "'";
+				$conditionStr .= " `reserved_text`='" . $_POST["reserved_text"] . "'";
 			}
 			$conditionFlag = true;
 		}
 	}
+	$searchSql .= $conditionStr;
+	$countSql .= $conditionStr;
+
+	if (isset($_GET["page_num"])) {
+		$index = ($_GET["page_num"] - 1) * 20;
+		$searchSql .= " LIMIT " . $index . ",20";
+	}
+
+	$count = $wpdb->get_var($countSql);
 
 	$productArray = $wpdb->get_results($searchSql);
 	$outp = "";
@@ -122,7 +133,7 @@ if (0 == $current_user->ID) {
 		}
 	}
 
-	$outp = '{"records":[' . $outp . ']}';
+	$outp = '{"records":[' . $outp . '], "count":"' . $count . '"}';
 	echo ($outp);
 }
 
