@@ -6,10 +6,10 @@
  * Version: 1.0
  * Author: Sola
  * Author URI: http://www.solagirl.net
-*/
+ */
 
-/* 
- * All credit goes to http://thematosoup.com 
+/*
+ * All credit goes to http://thematosoup.com
  *
  * Original code is from http://thematosoup.com/development/allow-users-set-password-wordpress-registration/
  */
@@ -18,73 +18,83 @@
  * Add Password, Repeat Password and Are You Human fields to WordPress registration form  http://wp.me/p1Ehkq-gn
  */
 
-
 add_action('init', 'ugp_textdomain');
 function ugp_textdomain() {
 	load_plugin_textdomain('ugp-domain', false, 'user-generate-password');
 }
-add_action( 'register_form', 'ugp_show_extra_register_fields' );
-function ugp_show_extra_register_fields(){
+add_action('register_form', 'ugp_show_extra_register_fields');
+function ugp_show_extra_register_fields() {
 	?>
 	<p>
-	<label for="phone"><?php _e( 'Phone', 'ugp-domain' );?><br/>
-	<input id="phone" class="input" type="text" pattern="[0-9]{11}" title="请输入11位手机号码" tabindex="30" size="25" value="" name="phone" required/>
-	</label>
-	</p>	
-	<p>
-	<label for="password"><?php _e( 'Password', 'ugp-domain' );?><br/>
-	<input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password" required/>
+	<label for="phone"><?php _e('Phone', 'ugp-domain');?><br/>
+	<input id="phone" class="input" type="text" pattern="1\d{10}" title="请输入正确格式的手机号码" size="25" value="" name="phone" required/>
 	</label>
 	</p>
 	<p>
-	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
-	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	<label for="password"><?php _e('Password', 'ugp-domain');?><br/>
+	<input id="password" class="input" type="password" size="25" value="" name="password" required/>
 	</label>
 	</p>
 	<p>
-	<label for="are_you_human" style="font-size:12px"><?php _e( 'Sorry, but we must check if you are human. What is the name of website you are registering for?' , 'ugp-domain' ); ?><br/>
-	<input id="are_you_human" class="input" type="text" tabindex="40" size="25" value="" name="are_you_human" />
+	<label for="repeat_password"><?php _e('Repeat password', 'ugp-domain');?><br/>
+	<input id="repeat_password" class="input" type="password" size="25" value="" name="repeat_password" required/>
 	</label>
 	</p>
 	<p>
-	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
-	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	<label for="last_name"><?php _e('Last name', 'ugp-domain');?><br/>
+	<input id="last_name" class="input" type="text" size="25" value="" name="last_name" pattern="[\u4e00-\u9fa5]{1,3}" title="请输入一到三位汉字" required/>
 	</label>
 	</p>
 	<p>
-	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
-	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	<label for="first_name"><?php _e('First name', 'ugp-domain');?><br/>
+	<input id="first_name" class="input" type="text" size="25" value="" name="first_name" pattern="[\u4e00-\u9fa5]{1,3}" title="请输入一到三位汉字" required/>
+	</label>
+	</p>
+	<p  style="margin: 2px 6px 16px 0;">
+	<label><?php _e('Sex', 'ugp-domain');?><br/>
+	<input type="radio" value="女" name="sex" checked/>女
+	<input type="radio" value="男" name="sex" />男
 	</label>
 	</p>
 	<p>
-	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
-	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	<label for="age"><?php _e('Age', 'ugp-domain');?><br/>
+	<input id="age" class="input" type="text" size="25" value="" name="age" pattern="120|((1[0-1]|\d)?\d)" title="请输入正确的年龄" required/>
 	</label>
 	</p>
 	<p>
-	<label for="repeat_password"><?php _e( 'Repeat password', 'ugp-domain' );?><br/>
-	<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password" required/>
+	<label for="job"><?php _e('Job', 'ugp-domain');?><br/>
+	<input id="job" class="input" type="text" size="25" value="" name="job" required/>
 	</label>
-	</p>				
+	</p>
+	<p>
+	<label for="allergy"><?php _e('Allergy', 'ugp-domain');?><br/>
+	<input id="allergy" class="input" type="text" size="25" value="" name="allergy"/>
+	</label>
+	</p>
+	<p>
+	<label for="are_you_human" style="font-size:12px"><?php _e('Sorry, but we must check if you are human. What is the name of website you are registering for?', 'ugp-domain');?><br/>
+	<input id="are_you_human" class="input" type="text" size="25" value="" name="are_you_human" />
+	</label>
+	</p>
 	<?php
 }
 
 /*
  * Check the form for errors
  */
-add_action( 'register_post', 'ugp_check_extra_register_fields', 10, 3 );
+add_action('register_post', 'ugp_check_extra_register_fields', 10, 3);
 function ugp_check_extra_register_fields($login, $email, $errors) {
-	if ( $_POST['password'] !== $_POST['repeat_password'] ) {
-		$errors->add( 'passwords_not_matched', __("<strong>ERROR</strong>: Passwords must match", 'ugp-domain' ) );
+	if ($_POST['password'] !== $_POST['repeat_password']) {
+		$errors->add('passwords_not_matched', __("<strong>ERROR</strong>: Passwords must match", 'ugp-domain'));
 	}
-	if ( strlen( $_POST['password'] ) < 8 ) {
-		$errors->add( 'password_too_short', __("<strong>ERROR</strong>: Passwords must be at least eight characters long", 'ugp-domain' ) );
+	if (strlen($_POST['password']) < 8) {
+		$errors->add('password_too_short', __("<strong>ERROR</strong>: Passwords must be at least eight characters long", 'ugp-domain'));
 	}
-	if ( strlen( $_POST['phone'] ) != 11 ) {
-		$errors->add( 'phone_number_error', __("<strong>ERROR</strong>: Please input 11 phone number", 'ugp-domain' ) );
-	}	
-	if ( $_POST['are_you_human'] !== get_bloginfo( 'name' ) ) {
-		$errors->add( 'not_human', __("<strong>ERROR</strong>: Your name is Bot? James Bot? Check bellow the form, there's a Back to [sitename] link.", 'ugp-domain' ) );
+	if (strlen($_POST['phone']) != 11) {
+		$errors->add('phone_number_error', __("<strong>ERROR</strong>: Please input 11 phone number", 'ugp-domain'));
+	}
+	if ($_POST['are_you_human'] !== get_bloginfo('name')) {
+		$errors->add('not_human', __("<strong>ERROR</strong>: Your name is Bot? James Bot? Check bellow the form, there's a Back to [sitename] link.", 'ugp-domain'));
 	}
 }
 
@@ -92,36 +102,222 @@ function ugp_check_extra_register_fields($login, $email, $errors) {
  * Storing WordPress user-selected password into database on registration
  */
 
-add_action( 'user_register', 'ugp_register_extra_fields', 100 );
-function ugp_register_extra_fields( $user_id ){
+add_action('user_register', 'ugp_register_extra_fields', 100);
+function ugp_register_extra_fields($user_id) {
 	$userdata = array();
-	
+
 	$userdata['ID'] = $user_id;
-	if ( $_POST['password'] !== '' ) {
+	if ($_POST['password'] !== '') {
 		$userdata['user_pass'] = $_POST['password'];
 	}
-	if ( $_POST['phone'] !== '' ) {
-		update_usermeta($user_id, 'phone', $_POST['phone']);		
+	if ($_POST['phone'] !== '') {
+		update_user_meta($user_id, 'phone', $_POST['phone']);
 	}
-	
-	$new_user_id = wp_update_user( $userdata );
+	if ($_POST['first_name'] !== '') {
+		update_user_meta($user_id, 'first_name', $_POST['first_name']);
+	}
+	if ($_POST['last_name'] !== '') {
+		update_user_meta($user_id, 'last_name', $_POST['last_name']);
+	}
+	if ($_POST['sex'] !== '') {
+		update_user_meta($user_id, 'sex', $_POST['sex']);
+	}
+	if ($_POST['age'] !== '') {
+		update_user_meta($user_id, 'age', $_POST['age']);
+	}
+	if ($_POST['job'] !== '') {
+		update_user_meta($user_id, 'job', $_POST['job']);
+	}
+	if ($_POST['allergy'] !== '') {
+		update_user_meta($user_id, 'allergy', $_POST['allergy']);
+	}
+	//所有注册的用户，都是普通会员
+
+	update_user_meta($user_id, 'user_type', '0');
+	update_user_meta($user_id, 'user_city', '');
+	update_user_meta($user_id, 'user_joinmsg', '');
+	update_user_meta($user_id, 'user_joinname', '');
+	$new_user_id = wp_update_user($userdata);
 }
 
 /*
  * Editing WordPress registration confirmation message
  */
 
-add_filter( 'gettext', 'ugp_edit_password_email_text',20, 3 );
-function ugp_edit_password_email_text ( $translated_text, $untranslated_text, $domain ) {
-	if(in_array($GLOBALS['pagenow'], array('wp-login.php'))){
-		if ( $untranslated_text == 'A password will be e-mailed to you.' ) {
+add_filter('gettext', 'ugp_edit_password_email_text', 20, 3);
+function ugp_edit_password_email_text($translated_text, $untranslated_text, $domain) {
+	if (in_array($GLOBALS['pagenow'], array('wp-login.php'))) {
+		if ($untranslated_text == 'A password will be e-mailed to you.') {
 			//$translated_text = __( 'If you leave password fields empty one will be generated for you. Password must be at least eight characters long.', 'ugp-domain' );
 			$translated_text = "";
 		}
-		if( $untranslated_text == 'Registration complete. Please check your e-mail.' ) {
-			$translated_text = __( 'Registration complete. Please sign in or check your e-mail.', 'ugp-domain' );
+		if ($untranslated_text == 'Registration complete. Please check your e-mail.') {
+			$translated_text = __('Registration complete. Please sign in or check your e-mail.', 'ugp-domain');
 		}
 	}
 	return $translated_text;
 }
+
+//用户资料界面加入手机号等其他信息
+function add_custom_user_profile_fields($user) {
+
+	?>
+<table class="form-table">
+<tr>
+    <th>
+        <label for="phone">手机号码</label>
+    </th>
+    <td>
+        <input type="text" name="phone" id="phone" pattern="1\d{10}" title="请输入正确格式的手机号码" value="<?php echo get_usermeta($user->ID, 'phone');?>" class="regular-text" readonly/>
+    </td>
+</tr>
+<tr>
+    <th>
+        <label for="sex">性别</label>
+    </th>
+    <td>
+        <?php
+$sex = get_usermeta($user->ID, 'sex');
+	if ('女' == $sex) {
+		echo '<input type="radio" value="女" name="sex" checked/>女';
+		echo '<input type="radio" value="男" name="sex" />男 ';
+	} else {
+		echo '<input type="radio" value="女" name="sex"/>女';
+		echo '<input type="radio" value="男" name="sex" checked/>男 ';
+	}
+
+	?>
+    </td>
+</tr>
+<tr>
+    <th>
+        <label for="age">年龄</label>
+    </th>
+    <td>
+        <input type="text" name="age" id="age" pattern="120|((1[0-1]|\d)?\d)" title="请输入正确的年龄" value="<?php echo get_usermeta($user->ID, 'age');?>" class="regular-text" />
+    </td>
+</tr>
+<tr>
+    <th>
+        <label for="job">职业</label>
+    </th>
+    <td>
+        <input type="text" name="job" id="job" value="<?php echo get_usermeta($user->ID, 'job');?>" class="regular-text" />
+    </td>
+</tr>
+<tr>
+    <th>
+        <label for="allergy">过敏</label>
+    </th>
+    <td>
+        <input type="text" name="allergy" id="allergy" value="<?php echo get_usermeta($user->ID, 'allergy');?>" class="regular-text" />
+    </td>
+</tr>
+</table>
+<?php }
+
+//管理用户资料界面加入更改用户类别，查看用户地区，留言的功能
+function add_xuanqi_user_type($user) {
+
+	$user_type = get_usermeta($user->ID, 'user_type');
+
+	?>
+<table class="form-table">
+<tr>
+    <th>
+        <label for="user_type">用户类别</label>
+    </th>
+    <td>
+		<select name="user_type" id="user_type" required>
+			<?php
+if ("0" == $user_type) {
+		echo "<option value='0' selected>普通会员</option>";
+		echo "<option value='1'>个人加盟客户</option>";
+		echo "<option value='2'>企业加盟客户</option>";
+		echo "<option value='3'>经销商</option>";
+		echo "<option value='4'>直销商</option>";
+	} else if ("1" == $user_type) {
+		echo "<option value='0'>普通会员</option>";
+		echo "<option value='1' selected>个人加盟客户</option>";
+		echo "<option value='2'>企业加盟客户</option>";
+		echo "<option value='3'>经销商</option>";
+		echo "<option value='4'>直销商</option>";
+	} else if ("2" == $user_type) {
+		echo "<option value='0'>普通会员</option>";
+		echo "<option value='1'>个人加盟客户</option>";
+		echo "<option value='2' selected>企业加盟客户</option>";
+		echo "<option value='3'>经销商</option>";
+		echo "<option value='4'>直销商</option>";
+	} else if ("3" == $user_type) {
+		echo "<option value='0'>普通会员</option>";
+		echo "<option value='1'>个人加盟客户</option>";
+		echo "<option value='2'>企业加盟客户</option>";
+		echo "<option value='3' selected>经销商</option>";
+		echo "<option value='4'>直销商</option>";
+	} else if ("4" == $user_type) {
+		echo "<option value='0'>普通会员</option>";
+		echo "<option value='1'>个人加盟客户</option>";
+		echo "<option value='2'>企业加盟客户</option>";
+		echo "<option value='3'>经销商</option>";
+		echo "<option value='4' selected>直销商</option>";
+	}
+	?>
+		</select>
+    </td>
+</tr>
+<tr>
+    <th>
+        <label>加盟姓名</label>
+    </th>
+    <td>
+        <?php echo get_usermeta($user->ID, 'user_joinname');?>
+    </td>
+</tr>
+<tr>
+    <th>
+        <label>地区</label>
+    </th>
+    <td>
+        <?php echo get_usermeta($user->ID, 'user_city');?>
+    </td>
+</tr>
+<tr>
+    <th>
+        <label>留言</label>
+    </th>
+    <td>
+    	<?php echo get_usermeta($user->ID, 'user_joinmsg');?>
+    </td>
+</tr>
+</table>
+<?php }
+
+function save_xuanqi_user_type($user_id) {
+	if (!current_user_can('edit_user', $user_id)) {
+		return FALSE;
+	}
+
+	update_user_meta($user_id, 'user_type', $_POST['user_type']);
+}
+
+function save_custom_user_profile_fields($user_id) {
+	if (!current_user_can('edit_user', $user_id)) {
+		return FALSE;
+	}
+
+	update_user_meta($user_id, 'sex', $_POST['sex']);
+	update_user_meta($user_id, 'age', $_POST['age']);
+	update_user_meta($user_id, 'job', $_POST['job']);
+	update_user_meta($user_id, 'allergy', $_POST['allergy']);
+}
+
+add_action('show_user_profile', 'add_custom_user_profile_fields'); //钩子作用在show_user_profile
+add_action('edit_user_profile', 'add_custom_user_profile_fields'); //钩子作用在edit_user_profile
+add_action('personal_options_update', 'save_custom_user_profile_fields');
+add_action('edit_user_profile_update', 'save_custom_user_profile_fields');
+
+add_action('edit_user_profile', 'add_xuanqi_user_type'); //钩子作用在edit_user_profile
+add_action('edit_user_profile_update', 'save_xuanqi_user_type');
+//用户资料界面加入手机号
+
 ?>

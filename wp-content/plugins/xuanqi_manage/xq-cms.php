@@ -34,7 +34,7 @@ function add_login_out_item_to_menu($items, $args) {
 	if (is_user_logged_in()) {
 		$link = '<a href="' . wp_logout_url($redirect) . '" title="' . __('Logout') . '">' . "注销" . '</a>';
 	} else {
-		$link = '<a href="' . wp_login_url($redirect) . '" title="' . __('Login') . '">' . "登录" . '</a>';
+		$link = '<a href="' . wp_login_url($redirect) . '" title="' . __('Login') . '">' . "登录/注册" . '</a>';
 	}
 
 	return $items .= '<li id="log-in-out-link" class="menu-item menu-type-link">' . $link . '</li>';
@@ -42,34 +42,6 @@ function add_login_out_item_to_menu($items, $args) {
 
 add_filter('wp_nav_menu_items', 'add_login_out_item_to_menu', 50, 2);
 //Add login/logout link to naviagation menu
-
-//用户资料界面加入手机号
-function add_custom_user_profile_fields($user) {
-
-	?>
-<table class="form-table">
-<tr>
-    <th>
-        <label for="phone">手机号码</label>
-    </th>
-    <td>
-        <input type="text" name="phone" id="phone" pattern="[0-9]{11}" title="请输入11位手机号码" value="<?php echo get_usermeta($user->ID, 'phone');?>" class="regular-text" />
-    </td>
-</tr>
-</table>
-<?php }
-function save_custom_user_profile_fields($user_id) {
-	if (!current_user_can('edit_user', $user_id)) {
-		return FALSE;
-	}
-
-	update_usermeta($user_id, 'phone', $_POST['phone']);
-}
-add_action('show_user_profile', 'add_custom_user_profile_fields'); //钩子作用在show_user_profile
-add_action('edit_user_profile', 'add_custom_user_profile_fields'); //钩子作用在edit_user_profile
-add_action('personal_options_update', 'save_custom_user_profile_fields');
-add_action('edit_user_profile_update', 'save_custom_user_profile_fields');
-//用户资料界面加入手机号
 
 //add menu
 add_action('admin_menu', 'register_my_custom_menu_page');
@@ -106,10 +78,9 @@ function register_my_custom_menu_page() {
 
 	add_menu_page('常规配置', '常规配置', 'manage_options', 'xuanqi_common_config', 'xuanqi_common_config_callback', '', 6);
 	//product config
-	/*
 	add_menu_page('产品配置', '产品配置', 'manage_options', 'xuanqi_products_config', 'xuanqi_products_config_callback', '', 7);
 	add_submenu_page('xuanqi_products_config', '修改产品', '修改产品', 'manage_options', 'xuanqi_add_product', 'xuanqi_add_product_callback');
-	 */
+
 	//hotel config
 	add_menu_page('酒店特殊日期价格配置', '酒店特殊日期价格配置', 'manage_options', 'xuanqi_hotel_config', 'xuanqi_hotel_config_callback', '', 7);
 	add_submenu_page('xuanqi_hotel_config', '新增特殊日期价格', '新增特殊日期价格', 'manage_options', 'xuanqi_add_hotel', 'xuanqi_add_hotel_callback');

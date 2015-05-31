@@ -28,6 +28,30 @@ msgstr "密码"
 msgid "Repeat password"
 msgstr "重复密码"
 
+#: user-generate-password.php:35
+msgid "First name"
+msgstr "名"
+
+#: user-generate-password.php:35
+msgid "Last name"
+msgstr "姓"
+
+#: user-generate-password.php:35
+msgid "Sex"
+msgstr "性别"
+
+#: user-generate-password.php:35
+msgid "Age"
+msgstr "年龄"
+
+#: user-generate-password.php:35
+msgid "Job"
+msgstr "职业"
+
+#: user-generate-password.php:35
+msgid "Allergy"
+msgstr "过敏"
+
 #: user-generate-password.php:45
 msgid ""
 "Sorry, but we must check if you are human. What is the name of website you "

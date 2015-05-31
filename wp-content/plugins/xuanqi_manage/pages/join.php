@@ -4,8 +4,8 @@
 		<table align="center">
 		    <tr>
 		        <td>
-					<input type="radio" name="user_type" value="0" checked>个人
-					<input type="radio" name="user_type" value="1">企业
+					<input type="radio" name="user_type" value="1" checked>个人
+					<input type="radio" name="user_type" value="2">企业
 		        </td>
 		    </tr>
 		    <tr>
