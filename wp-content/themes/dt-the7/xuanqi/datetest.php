@@ -5,7 +5,15 @@ $txt = "hello";
 $mail = '172542114@qq.com';
 
 // 发送邮件
-mail($mail, "My subject", $txt);
+//var_dump(mail($mail, "My subject", $txt));
 
-echo 'message was sent!';
+//echo 'message was sent!';
+
+$to = '172542114@qq.com';
+$subject = 'php mail test';
+$message = 'hello';
+//$headers = 'From: webmaster@example.com' . "\r\n" . 'Reply-To: webmaster@example.com' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
+
+$res = mail($to, $subject, $message);
+var_dump($res);
 ?>

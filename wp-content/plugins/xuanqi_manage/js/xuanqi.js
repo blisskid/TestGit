@@ -189,27 +189,48 @@ function deleteBadDateDiv(badDate) {
 function toSettlement() {
 
     var ifHotel = jQuery("input:radio[name='if_hotel']:checked").val();
+    var in_date= jQuery("#in_date").val();
+    var out_date = jQuery("#out_date").val();
+    var start_date = jQuery("#out_date").val();
+    var back_date = jQuery("#out_date").val();
+    var inject_date = jQuery("#inject_date").val();
     if ("YES" == ifHotel) {
-        if (jQuery("#in_date").val() == "") {
+        if (in_date == "") {
             alert("请选择酒店入住日期");
             return;
         }
-        if (jQuery("#out_date").val() == "") {
+        if (out_date == "") {
             alert("请选择酒店退房日期");
             return;
         }
+        if (out_date <= in_date) {
+            alert("退房日期需晚于入住日期");
+            return;          
+        }       
     }
 
     var ifAirplane = jQuery("#if_airplane").val();
     if ("YES" == ifAirplane) {
-        if (jQuery("#start_date").val() == "") {
+        if (start_date == "") {
             alert("请选择出发日期");
             return;
         }
-        if (jQuery("#back_date").val() == "") {
+        if (back_date == "") {
             alert("请选择返程日期");
             return;
         }
+        if (back_date <= start_date) {
+            alert("返程日期需晚于出发日期");
+            return;          
+        }
+        if (start_date > inject_date) {
+            alert("出发日期不能晚于于疫苗注射日期");
+            return;             
+        } 
+        if (back_date < inject_date) {
+            alert("返程日期不能早于疫苗注射日期");
+            return;             
+        }               
     }
 
     jQuery("#orderForm").submit();
