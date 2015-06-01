@@ -4,7 +4,7 @@ $wpurl = get_bloginfo('wpurl');
 
 if (0 == $current_user->ID) {
 
-	echo "用户未登录！";
+	echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
 
 } else {
 //预约界面，需要选择产品、出发城市

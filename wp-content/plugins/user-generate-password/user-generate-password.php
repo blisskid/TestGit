@@ -76,6 +76,9 @@ function ugp_show_extra_register_fields() {
 	<input id="are_you_human" class="input" type="text" size="25" value="" name="are_you_human" />
 	</label>
 	</p>
+	<p>
+	<label style="font-size:12px">提示：请正确的填写联系人资料，将用于订单确认和紧急联系</label>
+	</p>
 	<?php
 }
 
