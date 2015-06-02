@@ -53,7 +53,7 @@ if (count($orderArray) == 0) {
 			$product_name = $order->product_name;
 			$inject_date = $order->inject_date;
 			$save_time = $order->save_time;
-			echo "<p>第".$orderCount."次预约：";
+			echo "<p>第" . $orderCount . "次预约：";
 			echo "<br>订单生成时间：$save_time";
 			echo "<br>产品名称：$product_name";
 			echo "<br>注射日期：$inject_date";
