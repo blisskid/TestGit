@@ -191,8 +191,8 @@ function toSettlement() {
     var ifHotel = jQuery("input:radio[name='if_hotel']:checked").val();
     var in_date= jQuery("#in_date").val();
     var out_date = jQuery("#out_date").val();
-    var start_date = jQuery("#out_date").val();
-    var back_date = jQuery("#out_date").val();
+    var start_date = jQuery("#start_date").val();
+    var back_date = jQuery("#back_date").val();
     var inject_date = jQuery("#inject_date").val();
     if ("YES" == ifHotel) {
         if (in_date == "") {

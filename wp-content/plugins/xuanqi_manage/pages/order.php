@@ -10,8 +10,11 @@ if (0 == $current_user->ID) {
 //预约界面，需要选择产品、出发城市
 	global $wpdb;
 //查询出所有的出发地
+	$user_login = $current_user->user_login;
 	$airportArray = $wpdb->get_results("SELECT `airport_code`, `airport_icao`, `airport_iata`, `airport_name`, `city_code`, `city_name`, `province_code`, `province_name`, `reserved_text` FROM `xq_airports` WHERE `airport_code` != 'VHHH_HKG'");
-	$orderArray = $wpdb->get_results("SELECT `product_name`, `inject_date`, `save_time` FROM `xq_orders` WHERE `user_login`='$current_user->user_login' ORDER BY `save_time`");
+	$orderArray = $wpdb->get_results("SELECT `product_name`, `inject_date`, `save_time` FROM `xq_orders` WHERE `user_login`='$user_login' and `order_status` = 1 ORDER BY `save_time`");
+	//var_dump("SELECT `product_name`, `inject_date`, `save_time` FROM `xq_orders` WHERE `user_login`='$user_login' ORDER BY `save_time`");
+	//var_dump($orderArray);
 	$productArray = $wpdb->get_results("SELECT `product_name`, `ID` FROM `xq_products`");
 
 	?>
@@ -41,7 +44,7 @@ if (0 == $current_user->ID) {
 		<h4>历史预约信息：</h4>
 		<p>
 			<?php
-if (count($orderArray == 0)) {
+if (count($orderArray) == 0) {
 		echo "您是第一次预约，暂无预约信息";
 	} else {
 		$orderCount = 0;
@@ -50,7 +53,7 @@ if (count($orderArray == 0)) {
 			$product_name = $order->product_name;
 			$inject_date = $order->inject_date;
 			$save_time = $order->save_time;
-			echo "<p><h5>第$orderCount次预约：<h5>";
+			echo "<p>第".$orderCount."次预约：";
 			echo "<br>订单生成时间：$save_time";
 			echo "<br>产品名称：$product_name";
 			echo "<br>注射日期：$inject_date";
