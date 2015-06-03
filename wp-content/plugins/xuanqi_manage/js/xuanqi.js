@@ -89,7 +89,7 @@ function showHotelAirlineDiv(wpUrl) {
         jQuery("input[type='radio'][name='if_airplane'][value='1']").attr("checked", "checked");
         //机票的时间控件
         
-        var url = wpUrl + "/show-airport";
+        var url = wpUrl + "/airport-info";
         var airport_code = jQuery('#airport_code').val().split(",")[0];
         //var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
         var Obj = {
@@ -138,18 +138,18 @@ function showHotelAirlineDiv(wpUrl) {
 
 //是否选择入住酒店
 function showHotelDateDiv(value) {
-    if ("YES" == value) {
+    if ("1" == value) {
         jQuery('#hotelDateDiv').show(200);
-    } else if ("NO" == value) {
+    } else if ("0" == value) {
         jQuery('#hotelDateDiv').hide(200);
     }
 }
 
 //是否选择乘坐飞机
 function showAirplaneDateDiv(value) {
-    if ("YES" == value) {
+    if ("1" == value) {
         jQuery('#airplaneDateDiv').show(200);
-    } else if ("NO" == value) {
+    } else if ("0" == value) {
         jQuery('#airplaneDateDiv').hide(200);
     }
 }

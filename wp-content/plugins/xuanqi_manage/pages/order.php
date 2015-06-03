@@ -20,32 +20,21 @@ if (0 == $current_user->ID) {
 	?>
 
 	<div style="width:33.3%;float:left;">
-		<h4>个人信息：</h4>
-		<p>
-		用户名：<?php echo $current_user->user_login;?>
-		<br>
-		姓名：<?php echo get_usermeta($current_user->ID, 'last_name') . get_usermeta($current_user->ID, 'first_name');?>
-		<br>
-		性别：<?php echo get_usermeta($current_user->ID, 'sex');?>
-		<br>
-		年龄：<?php echo get_usermeta($current_user->ID, 'age');?>
-		<br>
-		邮箱：<?php echo $current_user->user_email;?>
-		<br>
-		手机：<?php echo get_usermeta($current_user->ID, 'phone');?>
-		<br>
-		职业：<?php echo get_usermeta($current_user->ID, 'job');?>
-		<br>
-		过敏：<?php echo get_usermeta($current_user->ID, 'allergy');?>
+		<table>
+			<tr><td><h4>个人信息：</tr></td>
+			<tr><td><b>用户：</b><?php echo $current_user->user_login;?></tr></td>
+			<tr><td><b>姓名：</b><?php echo get_usermeta($current_user->ID, 'last_name') . get_usermeta($current_user->ID, 'first_name');?></tr></td>
+			<tr><td><b>性别：</b><?php echo get_usermeta($current_user->ID, 'sex');?></tr></td>
+			<tr><td><b>年龄：</b><?php echo get_usermeta($current_user->ID, 'age');?></tr></td>
+			<tr><td><b>邮箱：</b><?php echo $current_user->user_email;?></tr></td>
+			<tr><td><b>手机：</b><?php echo get_usermeta($current_user->ID, 'phone');?></tr></td>
+			<tr><td><b>职业：</b><?php echo get_usermeta($current_user->ID, 'job');?></tr></td>
+			<tr><td><b>过敏：</b><?php echo get_usermeta($current_user->ID, 'allergy');?></tr></td>
 
-		</p>
-		<br>
-		<br>
-		<h4>历史预约信息：</h4>
-		<p>
+			<tr><td><h4>历史预约信息：</h4></tr></td>
 			<?php
 if (count($orderArray) == 0) {
-		echo "您是第一次预约，暂无预约信息";
+		echo "<tr><td>您是第一次预约，暂无预约信息</tr></td>";
 	} else {
 		$orderCount = 0;
 		foreach ($orderArray as $order) {
@@ -53,63 +42,62 @@ if (count($orderArray) == 0) {
 			$product_name = $order->product_name;
 			$inject_date = $order->inject_date;
 			$save_time = $order->save_time;
-			echo "<p>第" . $orderCount . "次预约：";
-			echo "<br>订单生成时间：$save_time";
-			echo "<br>产品名称：$product_name";
-			echo "<br>注射日期：$inject_date";
+			echo "<tr><td><b>第" . $orderCount . "次预约：</b></tr></td>";
+			echo "<tr><td><b>订单生成时间：</b>$save_time</tr></td>";
+			echo "<tr><td><b>产品名称：</b>$product_name</tr></td>";
+			echo "<tr><td><b>注射日期：</b>$inject_date</tr></td>";
 		}
 
 	}
 	?>
-		</p>
-		<br>
-		<h4 onclick="showOrderDiv()" style="cursor:pointer;color: red;">信息无误，开始预约</h4>
+			<tr><td><input type="button" value="信息无误，开始预约" onclick="showOrderDiv()"></input></tr></td>
+		</table>
 	</div>
 
 
 	<div style="margin-left:33.3%;width:66.7%;">
 		<form id="orderForm" name="orderForm" action="<?php echo get_bloginfo('wpurl') . "/结算";?>" method="post">
 			<div style="width:50%;float:left;display: none;" id="orderDiv">
-				<label>请选择产品：</label>
-			    <select name="product_id" id="product_id" required>
-			<?php
+				<table>
+					<tr><td><label>请选择产品：</label>
+				    <select name="product_id" id="product_id" required>
+				<?php
 foreach ($productArray as $product) {
 		$text = $product->product_name;
 		$value = $product->ID;
 		echo "<option value='$value'>$text</option>";
 	}
 	?>
-			    </select>
+				    </select></tr></td>
 
-				<label>到达为香港国际机场，请选择出发地：</label>
-			    <select name="airport_code" id="airport_code" required onchange="hideHotelAirlineDiv()">
-			<?php
+					<tr><td><label>到达为香港国际机场，请选择出发地：</label>
+				    <select name="airport_code" id="airport_code" required onchange="hideHotelAirlineDiv()">
+				<?php
 foreach ($airportArray as $airport) {
 		$text = $airport->airport_name;
 		$value = $airport->airport_code . "," . $airport->province_code;
 		echo "<option value='$value'>$text</option>";
 	}
 	?>
-			    </select>
+				    </select></tr></td>
 
-			    <label>请选择第几次预约：</label>
-			    <select name="order_index" id="order_index" required>
-			        <option value="1">第一次预约</option>
-			        <option value="2">第二次预约</option>
-			        <option value="3">第三次预约</option>
-			    </select>
-				<label>请选择疫苗注射日期：</label>
+				    <tr><td><label>请选择第几次预约：</label>
+				    <select name="order_index" id="order_index" required>
+				        <option value="1">第一次预约</option>
+				        <option value="2">第二次预约</option>
+				        <option value="3">第三次预约</option>
+				    </select></tr></td>
 
-				<input type="text" id="inject_date" name="inject_date"/>
-				<br>
-				<h4 onclick="showHotelAirlineDiv('<?php echo get_bloginfo('wpurl');?>')" style="cursor:pointer;color: red;">选择机票和酒店</h4>
 
+					<tr><td><label>请选择疫苗注射日期：</label>
+					<input type="text" id="inject_date" name="inject_date"/><tr><td>
+					<tr><td><input type="button" onclick="showHotelAirlineDiv('<?php echo get_bloginfo('wpurl');?>')" value="选择机票和酒店"></input><tr><td>
+				</table>
 			</div>
 			<div id="hotelAirlineDiv" style="display: none;margin-left:50%;">
 
 				<div id="airlineDiv">
-					您的出发地不在广东省内，请选择是否购买往返机票
-					<label>是否购买机票？</label>
+					<label>您的出发地不在广东省内，请选择是否购买机票</label>
 					<input type="radio" name="if_airplane" value="0" onclick="showAirplaneDateDiv(this.value)">否
 					<input type="radio" name="if_airplane" value="1" checked onclick="showAirplaneDateDiv(this.value)">是
 					<br>
