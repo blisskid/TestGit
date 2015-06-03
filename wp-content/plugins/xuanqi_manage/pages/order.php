@@ -108,19 +108,24 @@ foreach ($airportArray as $airport) {
 			<div id="hotelAirlineDiv" style="display: none;margin-left:50%;">
 
 				<div id="airlineDiv">
-					您的出发地不在广东省内，需要购买往返机票
-					<label>请选择出发日期：</label>
-					<input type="text" id="start_date" name="start_date" required/>
-
-					<label>请选择返程日期：</label>
-					<input type="text" id="back_date" name="back_date" required/>
+					您的出发地不在广东省内，请选择是否购买往返机票
+					<label>是否购买机票？</label>
+					<input type="radio" name="if_airplane" value="0" onclick="showAirplaneDateDiv(this.value)">否
+					<input type="radio" name="if_airplane" value="1" checked onclick="showAirplaneDateDiv(this.value)">是
+					<br>
+					<div id="airplaneDateDiv">
+						<label>请选择出发日期：</label>
+						<input type="text" id="start_date" name="start_date" required/>
+						<label>请选择返程日期：</label>
+						<input type="text" id="back_date" name="back_date" required/>
+					</div>
 
 				</div>
 
 				<div id="hotelDiv">
 					<label>是否入住酒店？</label>
-					<input type="radio" name="if_hotel" value="NO" onclick="showHotelDateDiv(this.value)">否
-					<input type="radio" name="if_hotel" value="YES" checked onclick="showHotelDateDiv(this.value)">是
+					<input type="radio" name="if_hotel" value="0" onclick="showHotelDateDiv(this.value)">否
+					<input type="radio" name="if_hotel" value="1" checked onclick="showHotelDateDiv(this.value)">是
 					<br>
 					<div id="hotelDateDiv">
 						<label>请选择酒店入住日期：</label>
@@ -134,7 +139,6 @@ foreach ($airportArray as $airport) {
 				<input type="button" onclick="toSettlement()" value="费用结算"></input>
 				<input type="hidden" id="back_price" name="back_price"></input>
 				<input type="hidden" id="start_price" name="start_price"></input>
-				<input type="hidden" id="if_airplane" name="if_airplane"></input>
 			</div>
 		</form>
 	</div>

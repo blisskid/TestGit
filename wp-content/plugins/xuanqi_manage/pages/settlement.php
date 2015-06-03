@@ -15,6 +15,8 @@ if (0 == $user->ID) {
 		&& isset($_POST["out_date"]) && isset($_POST["if_hotel"]) && isset($_POST["if_airplane"])
 		&& isset($_POST["order_index"])) {
 
+		//var_dump($_POST);
+
 		$product_id = trim($_POST["product_id"]);
 		$airport_codeArray = split(",", trim($_POST["airport_code"]));
 		$airport_code = $airport_codeArray[0];
@@ -47,13 +49,13 @@ if (0 == $user->ID) {
 		}
 
 		//如果选择了航班，则计算航班价格
-		if ("YES" == $if_airplane) {
+		if ("1" == $if_airplane) {
 			$airport = $wpdb->get_row("SELECT `hongkong_price`,`airport_name` FROM `xq_airports` WHERE `airport_code`='$airport_code'");
 			$airline_price = $airport->hongkong_price * 2;
 		}
 
 		//如果选择了酒店，计算酒店价格
-		if ("YES" == $if_hotel) {
+		if ("1" == $if_hotel) {
 			$dt_in = strtotime($in_date);
 			$dt_out = strtotime($out_date);
 			//key为入住时间，value为价格
@@ -112,13 +114,13 @@ if (0 == $user->ID) {
 				'%s',
 				'%s',
 				'%d',
-				'%s',
+				'%d',
 				'%s',
 				'%s',
 				'%s',
 				'%s',
 				'%d',
-				'%s',
+				'%d',
 				'%s',
 				'%s',
 				'%d',
@@ -140,6 +142,8 @@ if (0 == $user->ID) {
 		注射时间：<?php echo $inject_date;?>
 		</p>
 	</div>
+<?php if ("1" == $if_airplane) {
+				?>
 	<div>
 		<h3>航线信息：</h3>
 		<p>
@@ -150,6 +154,10 @@ if (0 == $user->ID) {
 		返回时间：<?php echo $back_date;?>
 		</p>
 	</div>
+	<?php }
+			?>
+<?php if ("1" == $if_hotel) {
+				?>
 	<div>
 		<h3>住宿信息：</h3>
 		<p>
@@ -158,6 +166,8 @@ if (0 == $user->ID) {
 		离店时间：<?php echo $out_date;?>
 		</p>
 	</div>
+	<?php }
+			?>
 	<div>
 		<h3>费用合计：</h3>
 		<p>

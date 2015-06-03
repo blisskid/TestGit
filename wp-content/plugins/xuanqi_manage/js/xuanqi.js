@@ -81,11 +81,12 @@ function showHotelAirlineDiv(wpUrl) {
     if ("guangdong" == province) {
         //广东省不需要选择机票
         jQuery('#airlineDiv').hide(200);
-        jQuery('#if_airplane').val("NO");
+        jQuery("input[type='radio'][name='if_airplane'][value='0']").attr("checked", "checked");
         jQuery('#hotelAirlineDiv').show(200);
     } else {
         jQuery('#airlineDiv').show(200);
-        jQuery('#if_airplane').val("YES");
+        //jQuery('#if_airplane').val("1");
+        jQuery("input[type='radio'][name='if_airplane'][value='1']").attr("checked", "checked");
         //机票的时间控件
         
         var url = wpUrl + "/show-airport";
@@ -144,6 +145,15 @@ function showHotelDateDiv(value) {
     }
 }
 
+//是否选择乘坐飞机
+function showAirplaneDateDiv(value) {
+    if ("YES" == value) {
+        jQuery('#airplaneDateDiv').show(200);
+    } else if ("NO" == value) {
+        jQuery('#airplaneDateDiv').hide(200);
+    }
+}
+
 //添加不可选的日期到DIV
 function addBadDates() {
     var badDate = jQuery('#choose_bad_date').val();
@@ -194,7 +204,7 @@ function toSettlement() {
     var start_date = jQuery("#start_date").val();
     var back_date = jQuery("#back_date").val();
     var inject_date = jQuery("#inject_date").val();
-    if ("YES" == ifHotel) {
+    if ("1" == ifHotel) {
         if (in_date == "") {
             alert("请选择酒店入住日期");
             return;
@@ -209,8 +219,8 @@ function toSettlement() {
         }       
     }
 
-    var ifAirplane = jQuery("#if_airplane").val();
-    if ("YES" == ifAirplane) {
+    var ifAirplane = jQuery("input:radio[name='if_airplane']:checked").val();
+    if ("1" == ifAirplane) {
         if (start_date == "") {
             alert("请选择出发日期");
             return;
