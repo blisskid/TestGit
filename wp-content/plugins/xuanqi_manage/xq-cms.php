@@ -1098,7 +1098,7 @@ function xuanqi_airport_config_callback() {
         <th>城市名称</th>
         <th>省市名称</th>
         <th>香港往返机票价格</th>
-        <th>不可选的日期</th>
+        <th>可选的日期</th>
         <tr ng-repeat="x in names">
         	<td><input id="{{x.airport_code}}" type="checkbox" name="xq_checkbox"></input></td>
             <td ng-bind="x.airport_name"></td>
@@ -1327,11 +1327,11 @@ function xuanqi_add_airport_callback() {
     <tr>
     <tr>
         <td>
-            选择不可选的日期，点击按钮添加：
+            选择可选的日期，点击按钮添加：
             <br>
             <input class="regular-text" type="text" id="choose_bad_date"></input>
         	<br>
-        	<input type="button" value="添加不可选日期" onclick="addBadDates()"></input>
+        	<input type="button" value="添加可选日期" onclick="addBadDates()"></input>
         </td>
     </tr>
     <tr>
