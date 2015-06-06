@@ -5,58 +5,10 @@ function selectAll(obj) {            
     });
 }
 
-function showOrderDiv() {
-    jQuery('#orderDiv').show(200);
-    $("#inject_date").regMod("calendar", "6.0", {
-        options: {
-            autoShow: !1,
-            showWeek: !0,
-            maxDate: function() {
-                var a = (new Date).addYears(1);
-                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
-            }()
-        },
-        listeners: {
-            onBeforeShow: function() {},
-            onChange: function() {}
-        }
-    })
-
-    //酒店的时间控件
-    $("#in_date").regMod("calendar", "6.0", {
-        options: {
-            autoShow: !1,
-            showWeek: !0,
-            maxDate: function() {
-                var a = (new Date).addYears(1);
-                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
-            }()
-        },
-        listeners: {
-            onBeforeShow: function() {},
-            onChange: function() {}
-        }
-    })
-
-    $("#out_date").regMod("calendar", "6.0", {
-        options: {
-            autoShow: !1,
-            showWeek: !0,
-            maxDate: function() {
-                var a = (new Date).addYears(1);
-                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
-            }()
-        },
-        listeners: {
-            onBeforeShow: function() {},
-            onChange: function() {}
-        }
-    })
-
-}
 
 function hideHotelAirlineDiv() {
-    jQuery('#hotelAirlineDiv').hide(200);
+    //jQuery('#hotelAirlineDiv').fadeOut(200);
+    jQuery('#hotelAirlineDiv').fadeOut(200);
     //将日期相关的内容清空
     jQuery("#out_date").val("");
     jQuery("#in_date").val("");
@@ -80,11 +32,11 @@ function showHotelAirlineDiv(wpUrl) {
     var province = fromAirport.split(",")[1];
     if ("guangdong" == province) {
         //广东省不需要选择机票
-        jQuery('#airlineDiv').hide(200);
+        jQuery('#airlineDiv').hide();
         jQuery("input[type='radio'][name='if_airplane'][value='0']").attr("checked", "checked");
-        jQuery('#hotelAirlineDiv').show(200);
+        jQuery('#hotelAirlineDiv').fadeIn(200);
     } else {
-        jQuery('#airlineDiv').show(200);
+        jQuery('#airlineDiv').show();
         //jQuery('#if_airplane').val("1");
         jQuery("input[type='radio'][name='if_airplane'][value='1']").attr("checked", "checked");
         //机票的时间控件
@@ -130,10 +82,40 @@ function showHotelAirlineDiv(wpUrl) {
                     onChange: function() {}
                 }
             })            
-            jQuery('#hotelAirlineDiv').show(200);
+            jQuery('#hotelAirlineDiv').fadeIn(200);
         });
 
     }
+    //酒店的时间控件
+    $("#in_date").regMod("calendar", "6.0", {
+        options: {
+            autoShow: !1,
+            showWeek: !0,
+            maxDate: function() {
+                var a = (new Date).addYears(1);
+                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
+            }()
+        },
+        listeners: {
+            onBeforeShow: function() {},
+            onChange: function() {}
+        }
+    })
+
+    $("#out_date").regMod("calendar", "6.0", {
+        options: {
+            autoShow: !1,
+            showWeek: !0,
+            maxDate: function() {
+                var a = (new Date).addYears(1);
+                return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate();
+            }()
+        },
+        listeners: {
+            onBeforeShow: function() {},
+            onChange: function() {}
+        }
+    })    
 }
 
 //是否选择入住酒店

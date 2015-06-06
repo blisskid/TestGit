@@ -33,9 +33,10 @@ if (0 == $user->ID) {
 		$airline_price = 0;
 		$hotel_price = 0;
 
+		$product = $wpdb->get_row("SELECT `product_name`, `product_price`, `product_dealer_price`, `product_direct_price` FROM `xq_products` WHERE `ID`=$product_id");
+
 		//如果是第一次预约，需要计算产品价格
 		if ("1" == $order_index) {
-			$product = $wpdb->get_row("SELECT `product_name`, `product_price`, `product_dealer_price`, `product_direct_price` FROM `xq_products` WHERE `ID`=$product_id");
 			$product_price = $product->product_price;
 			$user_type = get_usermeta($user->ID, 'user_type');
 			if ("3" == $user_type) {
@@ -135,44 +136,37 @@ if (0 == $user->ID) {
 
 <div>
 	<div>
-		<h3>产品信息：</h3>
-		<p>
+		您的本次预约为第<?php echo $order_index;?>次预约。
+		<h4>产品信息：</h4>
 		产品名称：<?php echo $product->product_name;?>
 		<br>
 		注射时间：<?php echo $inject_date;?>
-		</p>
 	</div>
 <?php if ("1" == $if_airplane) {
 				?>
 	<div>
-		<h3>航线信息：</h3>
-		<p>
+		<h4>航线信息：</h4>
 		出发时间：<?php echo $start_date;?>
 		<br>
 		出发航站楼：<?php echo $airport->airport_name;?>
 		<br>
 		返回时间：<?php echo $back_date;?>
-		</p>
 	</div>
 	<?php }
 			?>
 <?php if ("1" == $if_hotel) {
 				?>
 	<div>
-		<h3>住宿信息：</h3>
-		<p>
+		<h4>住宿信息：</h4>
 		入住时间：<?php echo $in_date;?>
 		<br>
 		离店时间：<?php echo $out_date;?>
-		</p>
 	</div>
 	<?php }
 			?>
 	<div>
-		<h3>费用合计：</h3>
-		<p>
+		<h4>费用合计：</h4>
 		总金额：<?php echo $total_price;?>元
-		</p>
 	</div>
 	<button>支付费用</button>
 </div>

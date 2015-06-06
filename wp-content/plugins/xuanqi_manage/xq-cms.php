@@ -139,14 +139,14 @@ function xuanqi_common_config_callback() {
 		        <td>
 		            输入酒店周五周六的价格：
 		            <br>
-		            <input class="regular-text" type="text" value="<?php echo get_option('hotel_weekend_price');?>" name="hotel_weekend_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+		            <input class="regular-text" type="text" value="<?php echo get_option('hotel_weekend_price');?>" name="hotel_weekend_price" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
 		        </td>
 		    </tr>
 		    <tr>
 		        <td>
 		            输入酒店周一至周四的价格：
 		            <br>
-		            <input class="regular-text" type="text" value="<?php echo get_option('hotel_weekday_price');?>" name="hotel_weekday_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+		            <input class="regular-text" type="text" value="<?php echo get_option('hotel_weekday_price');?>" name="hotel_weekday_price" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
 		        </td>
 		    </tr>
 		    <!--
@@ -154,21 +154,21 @@ function xuanqi_common_config_callback() {
 		        <td>
 		            输入产品价格：
 		            <br>
-		            <input class="regular-text" type="text" value="<?php echo get_option('product_price');?>" name="product_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+		            <input class="regular-text" type="text" value="<?php echo get_option('product_price');?>" name="product_price" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
 		        </td>
 		    </tr>
 		    <tr>
 		        <td>
 		            输入经销商产品价格：
 		            <br>
-		            <input class="regular-text" type="text" value="<?php echo get_option('product_dealer_price');?>" name="product_dealer_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+		            <input class="regular-text" type="text" value="<?php echo get_option('product_dealer_price');?>" name="product_dealer_price" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
 		        </td>
 		    </tr>
 		    <tr>
 		        <td>
 		            输入直销商产品价格：
 		            <br>
-		            <input class="regular-text" type="text" value="<?php echo get_option('product_direct_price');?>" name="product_direct_price" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+		            <input class="regular-text" type="text" value="<?php echo get_option('product_direct_price');?>" name="product_direct_price" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
 		        </td>
 		    </tr>
 		-->
@@ -499,21 +499,21 @@ function xuanqi_add_product_callback() {
         <td>
             输入产品价格：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_price : '';?>" name="product_price" placeholder="请输入产品价格" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_price : '';?>" name="product_price" placeholder="请输入产品价格" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
     </tr>
     <tr>
         <td>
             输入经销商产品价格：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_dealer_price : '';?>" name="product_dealer_price" placeholder="请输入经销商产品价格" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_dealer_price : '';?>" name="product_dealer_price" placeholder="请输入经销商产品价格" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
     </tr>
     <tr>
         <td>
             输入直销商产品价格：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_direct_price : '';?>" name="product_direct_price" placeholder="请输入直销商产品价格" pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_direct_price : '';?>" name="product_direct_price" placeholder="请输入直销商产品价格" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
     </tr>
     <tr>
@@ -854,12 +854,13 @@ function xuanqi_add_hotel_callback() {
             <input class="regular-text" type="text" value="" id="date" name="date" required></input>
         </td>
     </tr>
-    <?php }?>
+    <?php }
+	?>
     <tr>
         <td>
             输入价格：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->price : '';?>" name="price" placeholder="请输入价格"  pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->price : '';?>" name="price" placeholder="请输入价格"  pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
     </tr>
     <tr>
@@ -1281,7 +1282,8 @@ function xuanqi_add_airport_callback() {
             <input class="regular-text" type="text" value="" id="airport_iata" name="airport_iata" required></input>
         </td>
     </tr>
-    <?php }?>
+    <?php }
+	?>
     <tr>
         <td>
             输入机场名称：
@@ -1321,7 +1323,7 @@ function xuanqi_add_airport_callback() {
         <td>
             输入到香港的往返机票价格：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->hongkong_price : '';?>" name="hongkong_price"  pattern="^[1-9]\d*$" title="请输入不带小数点的正数" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($array) ? $array[0]->hongkong_price : '';?>" name="hongkong_price"  pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
     </tr>
     <tr>
