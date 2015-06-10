@@ -7,9 +7,8 @@
  */
 
 #	商户编号p1_MerId,以及密钥merchantKey 需要从易宝支付平台获得
-$p1_MerId			= "10001126856";																										#测试使用
-$merchantKey	= "69cl522AV6q613Ii4W6u8K6XuW8vM1N6bFgyv769220IuYe9u37N4y7rI4Pl";		#测试使用
-
+$p1_MerId			= "10012462492";
+$merchantKey	= "Cg909b7ho8T990715c58Uj04433802c22183Hl10WHL4Q5p1CRFyk7z7o70w";
 $logName	= "YeePay_HTML.log";
 
 ?> 

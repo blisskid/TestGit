@@ -16,7 +16,11 @@ function hideHotelAirlineDiv() {
     jQuery("#back_date").val("");
     jQuery("#start_price").val("");
     jQuery("#back_price").val("");
-    pickerEvent.remove();
+    $("#start_date").unregMod("calendar", "6.0");
+    $("#back_date").unregMod("calendar", "6.0");
+    $("#in_date").unregMod("calendar", "6.0");
+    $("#out_date").unregMod("calendar", "6.0");
+    
 }
 
 //显示酒店航线信息

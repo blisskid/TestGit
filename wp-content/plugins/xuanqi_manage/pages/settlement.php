@@ -133,7 +133,7 @@ if (0 == $user->ID) {
 
 			//结算需要显示出用户需要支付的产品价格和机票价格
 			?>
-
+<form action='<?php echo $wpurl . "/yeepay/req.php";?>'>
 <div>
 	<div>
 		您的本次预约为第<?php echo $order_index;?>次预约。
@@ -168,9 +168,18 @@ if (0 == $user->ID) {
 		<h4>费用合计：</h4>
 		总金额：<?php echo $total_price;?>元
 	</div>
-	<button>支付费用</button>
-</div>
+	<input type="submit" value="支付费用"></input>
+	<input type="hidden" name="p2_Order" id="p2_Order" />
+	<input type="hidden" name="p3_Amt" id="p3_Amt" value="<?php echo $total_price;?>" />
+	<input type="hidden" name="p5_Pid" id="p5_Pid"  value="<?php echo $wpdb->insert_id;?>"/>
+	<input type="hidden" name="p6_Pcat" id="p6_Pcat"  value="producttype"/>
+	<input type="hidden" name="p7_Pdesc" id="p7_Pdesc"  value="productdesc"/>
+	<input type="hidden" name="p8_Url" id="p8_Url" value="<?php echo $wpurl . '/yeepay/return.php;'?>" />
+	<input type="hidden" name="pa_MP" id="pa_MP"  value="userId or other"/>
+	<input type="hidden" name="pd_FrpId" />
 
+</div>
+</form>
 <?php
 
 		} else {

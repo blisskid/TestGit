@@ -7,7 +7,7 @@ include 'merchantProperties.php';
  */
  	
 	#	产品通用接口请求地址
-	#$reqURL_onLine = "https://www.yeepay.com/app-merchant-proxy/node";
+	$reqURL_onLine = "https://www.yeepay.com/app-merchant-proxy/node";
 	
 		
 	# 业务类型
