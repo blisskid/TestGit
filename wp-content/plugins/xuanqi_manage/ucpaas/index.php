@@ -1,11 +1,10 @@
 <?php
 //载入ucpass类
-require_once('lib/Ucpaas.class.php');
+require_once 'lib/Ucpaas.class.php';
 
 //初始化必填
-$options['accountsid']='a6af662d4e073274f4b13226ec96d39f';
-$options['token']='xxxx';
-
+$options['accountsid'] = 'a6af662d4e073274f4b13226ec96d39f';
+$options['token'] = '54a72f0a03c114fbc36c5fd4e87718f5';
 
 //初始化 $options必填
 $ucpass = new Ucpaas($options);
@@ -83,6 +82,6 @@ echo $ucpass->getDevinfo('xml');
 $appId = "ce7259b2939d443fa2c3d401baf29ab7";
 $to = "18101882285";
 $templateId = "7861";
-$param="0724,3";
+$param = "0724,3";
 
-echo $ucpass->templateSMS($appId,$to,$templateId,$param);
+echo $ucpass->templateSMS($appId, $to, $templateId, $param);
