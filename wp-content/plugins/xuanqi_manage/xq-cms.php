@@ -75,8 +75,7 @@ function add_scripts() {
 	wp_enqueue_script('datejs', plugins_url('js/zlDate.js', __FILE__));
 	wp_enqueue_script('cQuery_110421', plugins_url('js/cQuery_110421.js', __FILE__));
 	wp_enqueue_script('calendar', plugins_url('js/calendar.js', __FILE__));
-	wp_register_script('plugin_script', plugins_url('js/xuanqi.js', __FILE__), array('jquery'), '1.0', true);
-	wp_enqueue_script('plugin_script');
+	wp_enqueue_script('plugin_script', plugins_url('js/xuanqi.js', __FILE__));
 }
 
 add_action('init', 'add_scripts');
