@@ -6,7 +6,7 @@
  * @Author rui.xin
  */
 
-include 'yeepay/yeepayCommon.php';
+include 'yeepayCommon.php';
 
 #	只有支付成功时易宝支付才会通知商户.
 ##支付成功回调有两次，都会通知到在线支付请求参数中的p8_Url上：浏览器重定向;服务器点对点通讯.
@@ -39,5 +39,12 @@ if ($bRet) {
 } else {
 	echo "交易信息被篡改";
 }
-
+echo "<br />点击<a href='http://www.caringyou.com.cn/'>此处</a>返回首页";
 ?>
+<html>
+<head>
+<title>支付结果</title>
+</head>
+<body>
+</body>
+</html>

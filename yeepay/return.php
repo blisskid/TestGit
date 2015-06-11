@@ -39,7 +39,8 @@ if ($bRet) {
 } else {
 	echo "交易信息被篡改";
 }
-
+echo "<br />点击<a href='http://www.caringyou.com.cn/'>此处</a>返回首页";
+echo get_bloginfo('wpurl');
 ?>
 <html>
 <head>

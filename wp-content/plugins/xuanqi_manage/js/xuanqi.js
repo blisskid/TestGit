@@ -20,7 +20,7 @@ function hideHotelAirlineDiv() {
     $("#back_date").unregMod("calendar", "6.0");
     $("#in_date").unregMod("calendar", "6.0");
     $("#out_date").unregMod("calendar", "6.0");
-    
+
 }
 
 //显示酒店航线信息
@@ -44,7 +44,7 @@ function showHotelAirlineDiv(wpUrl) {
         //jQuery('#if_airplane').val("1");
         jQuery("input[type='radio'][name='if_airplane'][value='1']").attr("checked", "checked");
         //机票的时间控件
-        
+
         var url = wpUrl + "/airport-info";
         var airport_code = jQuery('#airport_code').val().split(",")[0];
         //var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
@@ -85,7 +85,7 @@ function showHotelAirlineDiv(wpUrl) {
                     onBeforeShow: function() {},
                     onChange: function() {}
                 }
-            })            
+            })
             jQuery('#hotelAirlineDiv').fadeIn(200);
         });
 
@@ -119,7 +119,7 @@ function showHotelAirlineDiv(wpUrl) {
             onBeforeShow: function() {},
             onChange: function() {}
         }
-    })    
+    })
 }
 
 //是否选择入住酒店
@@ -185,7 +185,7 @@ function deleteBadDateDiv(badDate) {
 function toSettlement() {
 
     var ifHotel = jQuery("input:radio[name='if_hotel']:checked").val();
-    var in_date= jQuery("#in_date").val();
+    var in_date = jQuery("#in_date").val();
     var out_date = jQuery("#out_date").val();
     var start_date = jQuery("#start_date").val();
     var back_date = jQuery("#back_date").val();
@@ -201,8 +201,8 @@ function toSettlement() {
         }
         if (out_date <= in_date) {
             alert("退房日期需晚于入住日期");
-            return;          
-        }       
+            return;
+        }
     }
 
     var ifAirplane = jQuery("input:radio[name='if_airplane']:checked").val();
@@ -217,18 +217,66 @@ function toSettlement() {
         }
         if (back_date <= start_date) {
             alert("返程日期需晚于出发日期");
-            return;          
+            return;
         }
         if (start_date > inject_date) {
             alert("出发日期不能晚于于疫苗注射日期");
-            return;             
-        } 
+            return;
+        }
         if (back_date < inject_date) {
             alert("返程日期不能早于疫苗注射日期");
-            return;             
-        }               
+            return;
+        }
     }
 
     jQuery("#orderForm").submit();
 
+}
+
+function mobileValidation(o) {
+    var phone = jQuery("#phone").val();
+    if ("" == phone) {
+        alert("手机号码为空");
+        return;
+    }
+    if (!/1\d{10}/.test(phone)) {
+        alert("手机号码格式不正确");
+        return;
+    }
+    var url = "http://www.caringyou.com.cn/mobile";
+    var vnumber = "";
+
+    var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+    for (var i = 0; i < 4; i++) {
+        var index = Math.floor(Math.random() * 10);
+        vnumber += random[index];
+    }
+
+    var Obj = {
+        vnumber: vnumber,
+        phone: phone
+    }
+
+    jQuery.post(url, Obj, function(data) {
+        alert(data);
+        jQuery("#revnumber").val(vnumber);
+        time(o, 120);
+    })
+}
+
+
+function time(o, wait) {
+    if (wait == 0) {
+        o.removeAttribute("disabled");
+        o.value = "获取验证码";
+        wait = 60;
+    } else {
+        o.setAttribute("disabled", true);
+        o.value = wait + "秒后重新发送";
+        wait--;
+        setTimeout(function() {
+                time(o, wait)
+            },
+            1000)
+    }
 }

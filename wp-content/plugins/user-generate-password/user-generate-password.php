@@ -31,6 +31,13 @@ function ugp_show_extra_register_fields() {
 	</label>
 	</p>
 	<p>
+	<label for="vnumber">请输入手机验证码<br/>
+	<input id="vnumber" class="input" type="text" size="25" value="" name="vnumber" required/>
+	<input id="revnumber" type="hidden" name="revnumber"/>
+	<input type="button" value="获取验证码" onclick="mobileValidation(this)"/>
+	</label>
+	</p>	
+	<p>
 	<label for="password"><?php _e('Password', 'ugp-domain');?><br/>
 	<input id="password" class="input" type="password" size="25" value="" name="password" required/>
 	</label>
