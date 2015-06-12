@@ -1,6 +1,6 @@
-[layerslider id="4"]
+[layerslider id="7"]
 <div class="xqFormPage">
-	<form name="addUserForm" action="<?php echo get_bloginfo('wpurl') . "/加盟成功";?>" method="post">
+	<form id="addUserForm" action="<?php echo get_bloginfo('wpurl') . "/加盟成功";?>" method="post">
 		<table align="center">
 		    <tr>
 		        <td>
@@ -25,6 +25,13 @@
 		    </tr>
 		    <tr>
 		        <td>
+		        	<input type="button" value="获取验证码" onclick="joinUsmobileValidation(this)"/>
+		        	<input id="revnumber" type="hidden" name="revnumber"/>
+					<input style="width:100%" id="vnumber" type="text" value="" name="vnumber" placeholder="请输入4位验证码" required/>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
 		            <input style="width:100%" type="text" id="user_city" name="user_city" placeholder="请输入加盟地区" required></input>
 		        </td>
 		    </tr>
@@ -35,7 +42,7 @@
 		    </tr>
 		    <tr>
 		        <td>
-		        	<button type="submit">加盟我们</button>
+		        	<input type="button" onclick="joinUs()" value="加盟我们"></input>
 		         </td>
 		    </tr>
 		</table>

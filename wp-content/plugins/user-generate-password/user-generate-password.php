@@ -28,15 +28,16 @@ function ugp_show_extra_register_fields() {
 	<p>
 	<label for="phone"><?php _e('Phone', 'ugp-domain');?><br/>
 	<input id="phone" class="input" type="text" pattern="1\d{10}" title="请输入正确格式的手机号码" size="25" value="" name="phone" required/>
+	<input type="button" value="获取验证码" class="button" onclick="mobileValidation(this)"/>
+	<input id="revnumber" type="hidden" name="revnumber"/>
 	</label>
 	</p>
+	<br>
 	<p>
 	<label for="vnumber">请输入手机验证码<br/>
 	<input id="vnumber" class="input" type="text" size="25" value="" name="vnumber" required/>
-	<input id="revnumber" type="hidden" name="revnumber"/>
-	<input type="button" value="获取验证码" onclick="mobileValidation(this)"/>
 	</label>
-	</p>	
+	</p>
 	<p>
 	<label for="password"><?php _e('Password', 'ugp-domain');?><br/>
 	<input id="password" class="input" type="password" size="25" value="" name="password" required/>
@@ -78,11 +79,13 @@ function ugp_show_extra_register_fields() {
 	<input id="allergy" class="input" type="text" size="25" value="" name="allergy"/>
 	</label>
 	</p>
+	<!--
 	<p>
 	<label for="are_you_human" style="font-size:12px"><?php _e('Sorry, but we must check if you are human. What is the name of website you are registering for?', 'ugp-domain');?><br/>
 	<input id="are_you_human" class="input" type="text" size="25" value="" name="are_you_human" />
 	</label>
 	</p>
+-->
 	<p>
 	<label style="font-size:12px">提示：请正确的填写联系人资料，将用于订单确认和紧急联系</label>
 	</p>
@@ -97,15 +100,23 @@ function ugp_check_extra_register_fields($login, $email, $errors) {
 	if ($_POST['password'] !== $_POST['repeat_password']) {
 		$errors->add('passwords_not_matched', __("<strong>ERROR</strong>: Passwords must match", 'ugp-domain'));
 	}
+	if ($_POST['vnumber'] == "") {
+		$errors->add('validate_not_empty', '输入的验证码为空！');
+	}
+	if ($_POST['vnumber'] !== $_POST['revnumber']) {
+		$errors->add('validate_not_right', '输入的验证码不正确！');
+	}
 	if (strlen($_POST['password']) < 8) {
 		$errors->add('password_too_short', __("<strong>ERROR</strong>: Passwords must be at least eight characters long", 'ugp-domain'));
 	}
 	if (strlen($_POST['phone']) != 11) {
 		$errors->add('phone_number_error', __("<strong>ERROR</strong>: Please input 11 phone number", 'ugp-domain'));
 	}
-	if ($_POST['are_you_human'] !== get_bloginfo('name')) {
-		$errors->add('not_human', __("<strong>ERROR</strong>: Your name is Bot? James Bot? Check bellow the form, there's a Back to [sitename] link.", 'ugp-domain'));
-	}
+	/*
+if ($_POST['are_you_human'] !== get_bloginfo('name')) {
+$errors->add('not_human', __("<strong>ERROR</strong>: Your name is Bot? James Bot? Check bellow the form, there's a Back to [sitename] link.", 'ugp-domain'));
+}
+ */
 }
 
 /*

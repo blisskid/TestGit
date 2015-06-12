@@ -71,6 +71,7 @@ add_action('init', 'add_styles');
 
 //add js
 function add_scripts() {
+	wp_enqueue_script('jquery');
 	wp_enqueue_script('angularjs', plugins_url('js/angular.min.js', __FILE__));
 	wp_enqueue_script('datejs', plugins_url('js/zlDate.js', __FILE__));
 	wp_enqueue_script('cQuery_110421', plugins_url('js/cQuery_110421.js', __FILE__));

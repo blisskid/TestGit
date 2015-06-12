@@ -258,10 +258,41 @@ function mobileValidation(o) {
     }
 
     jQuery.post(url, Obj, function(data) {
-        alert(data);
+        alert("验证码已发送，请在60秒内输入");
         jQuery("#revnumber").val(vnumber);
-        time(o, 120);
+        time(o, 60);
     })
+}
+
+function joinUsmobileValidation(o) {
+    var phone = jQuery("#user_phone").val();
+    if ("" == phone) {
+        alert("手机号码为空");
+        return;
+    }
+    if (!/1\d{10}/.test(phone)) {
+        alert("手机号码格式不正确");
+        return;
+    }
+    var url = "http://www.caringyou.com.cn/mobile";
+    var vnumber = "";
+
+    var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+    for (var i = 0; i < 4; i++) {
+        var index = Math.floor(Math.random() * 10);
+        vnumber += random[index];
+    }
+
+    var Obj = {
+        vnumber: vnumber,
+        phone: phone
+    }
+
+    jQuery.post(url, Obj, function(data) {
+        alert("验证码已发送，请在60秒内输入");
+        jQuery("#revnumber").val(vnumber);
+        time(o, 60);
+    })   
 }
 
 
@@ -279,4 +310,14 @@ function time(o, wait) {
             },
             1000)
     }
+}
+
+function joinUs() {
+    var vnumber = jQuery("#vnumber").val();
+    var revnumber = jQuery("#revnumber").val();
+    if (vnumber != revnumber) {
+        alert("验证码不正确！");
+        return;
+    }
+    jQuery("#addUserForm").submit();
 }
