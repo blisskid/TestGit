@@ -239,7 +239,7 @@ function mobileValidation(o) {
         alert("手机号码为空");
         return;
     }
-    if (!/1\d{10}/.test(phone)) {
+    if (!/^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(phone)) {
         alert("手机号码格式不正确");
         return;
     }
@@ -258,9 +258,47 @@ function mobileValidation(o) {
     }
 
     jQuery.post(url, Obj, function(data) {
+<<<<<<< HEAD
         alert("验证码已发送，请在60秒内输入");
         jQuery("#revnumber").val(vnumber);
         time(o, 60);
+=======
+        alert("验证码已发送，请在2分钟内输入");
+        jQuery("#revnumber").val(vnumber);
+        time(o, 60);
+    })
+}
+
+function joinUsmobileValidation(o) {
+    var phone = jQuery("#user_phone").val();
+    if ("" == phone) {
+        alert("手机号码为空");
+        return;
+    }
+
+    if (!/^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(phone)) {
+        alert("手机号码格式不正确");
+        return;
+    }
+    var url = "http://www.caringyou.com.cn/mobile";
+    var vnumber = "";
+
+    var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+    for (var i = 0; i < 4; i++) {
+        var index = Math.floor(Math.random() * 10);
+        vnumber += random[index];
+    }
+
+    var Obj = {
+        vnumber: vnumber,
+        phone: phone
+    }
+
+    jQuery.post(url, Obj, function(data) {
+        alert("验证码已发送，请在2分钟内输入");
+        jQuery("#revnumber").val(vnumber);
+        time(o, 60);
+>>>>>>> 9e50d21ddb503d0d8737ca650b7324ff3c64928c
     })
 }
 
@@ -313,7 +351,39 @@ function time(o, wait) {
 }
 
 function joinUs() {
+
+    if (jQuery("#user_name").val() == "") {
+        alert("请输入姓名/企业姓名");
+        return;
+    }
+
+    if (jQuery("#user_email").val() == "") {
+        alert("请输入邮箱");
+        return;
+    }
+
+    if (jQuery("#user_phone").val() == "") {
+        alert("请输入手机号");
+        return;
+    }
+
+    if (!/^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(jQuery("#user_phone").val())) {
+        alert("手机号码格式不正确");
+        return;
+    }
+
+    if (jQuery("#user_city").val() == "") {
+        alert("请输入加盟地区");
+        return;
+    }      
+
     var vnumber = jQuery("#vnumber").val();
+
+    if(vnumber == "") {
+        alert("验证码为空");
+        return;
+    }
+
     var revnumber = jQuery("#revnumber").val();
     if (vnumber != revnumber) {
         alert("验证码不正确！");
