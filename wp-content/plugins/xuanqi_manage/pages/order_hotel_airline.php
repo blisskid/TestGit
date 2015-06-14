@@ -49,7 +49,7 @@ foreach ($airportArray as $airport) {
 
 
 				<tr><td><label>请选择疫苗注射日期：</label>
-				<input type="text" id="inject_date" name="inject_date"/><tr><td>
+				<input type="text" id="inject_date" name="inject_date" autocomplete="off"/><tr><td>
 				<tr><td><input type="button" onclick="showHotelAirlineDiv('<?php echo get_bloginfo('wpurl');?>')" value="选择机票和酒店"></input><tr><td>
 			</table>
 		</div>
@@ -62,9 +62,9 @@ foreach ($airportArray as $airport) {
 				<br>
 				<div id="airplaneDateDiv">
 					<label>请选择出发日期：</label>
-					<input type="text" id="start_date" name="start_date" required/>
+					<input type="text" id="start_date" name="start_date" required autocomplete="off"/>
 					<label>请选择返程日期：</label>
-					<input type="text" id="back_date" name="back_date" required/>
+					<input type="text" id="back_date" name="back_date" required autocomplete="off"/>
 				</div>
 
 			</div>
@@ -76,9 +76,9 @@ foreach ($airportArray as $airport) {
 				<br>
 				<div id="hotelDateDiv">
 					<label>请选择酒店入住日期：</label>
-					<input type="text" id="in_date" name="in_date"/>
+					<input type="text" id="in_date" name="in_date" autocomplete="off"/>
 					<label>请选择酒店退房日期：</label>
-					<input type="text" id="out_date" name="out_date"/>
+					<input type="text" id="out_date" name="out_date" autocomplete="off"/>
 				</div>
 			</div>
 
