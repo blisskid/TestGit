@@ -119,7 +119,6 @@ if (0 == $user->ID) {
 				'%s',
 				'%s',
 				'%s',
-				'%s',
 				'%d',
 				'%d',
 				'%s',
@@ -130,7 +129,7 @@ if (0 == $user->ID) {
 		);
 
 		if (0 < $result) {
-
+			
 			//结算需要显示出用户需要支付的产品价格和机票价格
 			?>
 <form action='<?php echo $wpurl . "/yeepay/req.php";?>'>
@@ -174,7 +173,7 @@ if (0 == $user->ID) {
 	<input type="hidden" name="p5_Pid" id="p5_Pid"  value="<?php echo $wpdb->insert_id;?>"/>
 	<input type="hidden" name="p6_Pcat" id="p6_Pcat"  value="producttype"/>
 	<input type="hidden" name="p7_Pdesc" id="p7_Pdesc"  value="productdesc"/>
-	<input type="hidden" name="p8_Url" id="p8_Url" value="<?php echo $wpurl . '/return;'?>" />
+	<input type="hidden" name="p8_Url" id="p8_Url" value="<?php echo $wpurl . '/return'?>" />
 	<input type="hidden" name="pa_MP" id="pa_MP"  value="userId or other"/>
 	<input type="hidden" name="pd_FrpId" />
 

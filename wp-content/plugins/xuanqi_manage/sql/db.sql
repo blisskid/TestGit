@@ -74,9 +74,9 @@ CREATE TABLE IF NOT EXISTS `xq_orders` (
   `hotel_price` double NOT NULL DEFAULT 0 COMMENT '酒店价格',
   `total_price` double NOT NULL COMMENT '总价格',
   `order_status` int(11) NOT NULL DEFAULT 0 COMMENT '订单状态。0：未支付；1：已支付；2：已取消。',
-  `save_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单生成时间',
+  `save_time` timestamp NOT NULL COMMENT '订单生成时间',
   `reserved_text` varchar(60) DEFAULT ''
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -241,7 +241,7 @@ ALTER TABLE `xq_discount_airlines`
 -- AUTO_INCREMENT for table `xq_discount_airlines`
 --
 ALTER TABLE `xq_orders`
-  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;  
+  MODIFY `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;  
 --
 -- AUTO_INCREMENT for table `xq_products`
 --

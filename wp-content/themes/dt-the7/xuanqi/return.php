@@ -34,6 +34,10 @@ if ($bRet) {
 			echo "<br />交易成功";
 			echo "<br />在线支付服务器返回";
 		}
+		global $wpdb;
+		$sql = "update xq_orders set order_status=1 where ID=" . $r5_Pid;
+		//var_dump($sql);
+		$wpdb->query($sql);
 	}
 
 } else {

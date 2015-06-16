@@ -1,19 +1,40 @@
 <?php
-$txt = "hello";
+	global $wpdb;
+	$saveArray = array(
+		'user_login' => "xuanqi",
+		'product_name' => "广东出发",
+		'inject_date' => "2015-06-30",
+		'product_price' => "2700",
+		'if_airplane' => "0",
+		'start_airport_name' => NULL,
+		'start_date' => "",
+		'back_date' => "",
+		'airline_price' => "0",
+		'if_hotel' => "0",
+		'in_date' => "",
+		'out_date' => "",
+		'hotel_price' => 0,
+		'total_price' => 2700,
+		'order_status' => 0);
 
-// 以下的邮箱地址改成你的
-$mail = '172542114@qq.com';
-
-// 发送邮件
-//var_dump(mail($mail, "My subject", $txt));
-
-//echo 'message was sent!';
-
-$to = '172542114@qq.com';
-$subject = 'php mail test';
-$message = 'hello';
-//$headers = 'From: webmaster@example.com' . "\r\n" . 'Reply-To: webmaster@example.com' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
-
-$res = mail($to, $subject, $message);
-var_dump($res);
+	$result = $wpdb->insert(
+		'xq_orders',
+		$saveArray,
+		array(
+			'%s',
+			'%s',
+			'%s',
+			'%d',
+			'%d',
+			'%s',
+			'%s',
+			'%s',
+			'%d',
+			'%d',
+			'%s',
+			'%s',
+			'%d',
+			'%d',
+			'%s')
+	);
 ?>
