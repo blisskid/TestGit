@@ -258,11 +258,6 @@ function mobileValidation(o) {
     }
 
     jQuery.post(url, Obj, function(data) {
-<<<<<<< HEAD
-        alert("验证码已发送，请在60秒内输入");
-        jQuery("#revnumber").val(vnumber);
-        time(o, 60);
-=======
         alert("验证码已发送，请在2分钟内输入");
         jQuery("#revnumber").val(vnumber);
         time(o, 60);
@@ -298,39 +293,7 @@ function joinUsmobileValidation(o) {
         alert("验证码已发送，请在2分钟内输入");
         jQuery("#revnumber").val(vnumber);
         time(o, 60);
->>>>>>> 9e50d21ddb503d0d8737ca650b7324ff3c64928c
     })
-}
-
-function joinUsmobileValidation(o) {
-    var phone = jQuery("#user_phone").val();
-    if ("" == phone) {
-        alert("手机号码为空");
-        return;
-    }
-    if (!/1\d{10}/.test(phone)) {
-        alert("手机号码格式不正确");
-        return;
-    }
-    var url = "http://www.caringyou.com.cn/mobile";
-    var vnumber = "";
-
-    var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-    for (var i = 0; i < 4; i++) {
-        var index = Math.floor(Math.random() * 10);
-        vnumber += random[index];
-    }
-
-    var Obj = {
-        vnumber: vnumber,
-        phone: phone
-    }
-
-    jQuery.post(url, Obj, function(data) {
-        alert("验证码已发送，请在60秒内输入");
-        jQuery("#revnumber").val(vnumber);
-        time(o, 60);
-    })   
 }
 
 
@@ -375,11 +338,11 @@ function joinUs() {
     if (jQuery("#user_city").val() == "") {
         alert("请输入加盟地区");
         return;
-    }      
+    }
 
     var vnumber = jQuery("#vnumber").val();
 
-    if(vnumber == "") {
+    if (vnumber == "") {
         alert("验证码为空");
         return;
     }
@@ -390,4 +353,29 @@ function joinUs() {
         return;
     }
     jQuery("#addUserForm").submit();
+}
+
+
+function toPay(product_name, inject_date, product_price, if_airplane, start_airport_name, start_date, back_date, airline_price, if_hotel, in_date, out_date, hotel_price, total_price) {
+    var url = "http://www.caringyou.com.cn/save-order";
+    var Obj = {
+        product_name: product_name,
+        inject_date: inject_date,
+        product_price: product_price,
+        if_airplane: if_airplane,
+        start_airport_name: start_airport_name,
+        start_date: start_date,
+        back_date: back_date,
+        airline_price: airline_price,
+        if_hotel: if_hotel,
+        in_date: in_date,
+        out_date: out_date,
+        hotel_price: hotel_price,
+        total_price: total_price
+    }
+
+    jQuery.post(url, Obj, function(data) {
+        jQuery("#p5_Pid").val(data);
+        jQuery("#payForm").submit();
+    });
 }

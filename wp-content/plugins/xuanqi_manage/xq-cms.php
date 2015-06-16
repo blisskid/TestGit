@@ -499,7 +499,7 @@ function xuanqi_add_product_callback() {
         <td>
             输入产品价格：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_price : '';?>" name="product_price" placeholder="请输入产品价格" title="请输入不带小数点的数字" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_price : '';?>" name="product_price" placeholder="请输入产品价格" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
     </tr>
     <tr>

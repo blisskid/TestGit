@@ -88,51 +88,9 @@ if (0 == $user->ID) {
 
 		$total_price = $hotel_price + $product_price + $airline_price;
 
-		$saveArray = array(
-			'user_login' => $user->user_login,
-			'product_name' => $product->product_name,
-			'inject_date' => $inject_date,
-			'product_price' => $product_price,
-			'if_airplane' => $if_airplane,
-			'start_airport_name' => $airport->airport_name,
-			'start_date' => $start_date,
-			'back_date' => $back_date,
-			'airline_price' => $airline_price,
-			'if_hotel' => $if_hotel,
-			'in_date' => $in_date,
-			'out_date' => $out_date,
-			'hotel_price' => $hotel_price,
-			'total_price' => $total_price,
-			'order_status' => 0);
-
-		//var_dump($saveArray);
-
-		$result = $wpdb->insert(
-			'xq_orders',
-			$saveArray,
-			array(
-				'%s',
-				'%s',
-				'%s',
-				'%d',
-				'%d',
-				'%s',
-				'%s',
-				'%s',
-				'%d',
-				'%d',
-				'%s',
-				'%s',
-				'%d',
-				'%d',
-				'%s')
-		);
-
-		if (0 < $result) {
-			
-			//结算需要显示出用户需要支付的产品价格和机票价格
-			?>
-<form action='<?php echo $wpurl . "/yeepay/req.php";?>'>
+		//结算需要显示出用户需要支付的产品价格和机票价格
+		?>
+<form id='payForm' action='<?php echo $wpurl . "/yeepay/req.php";?>'>
 <div>
 	<div>
 		您的本次预约为第<?php echo $order_index;?>次预约。
@@ -142,7 +100,7 @@ if (0 == $user->ID) {
 		注射时间：<?php echo $inject_date;?>
 	</div>
 <?php if ("1" == $if_airplane) {
-				?>
+			?>
 	<div>
 		<h4>航线信息：</h4>
 		出发时间：<?php echo $start_date;?>
@@ -152,9 +110,9 @@ if (0 == $user->ID) {
 		返回时间：<?php echo $back_date;?>
 	</div>
 	<?php }
-			?>
+		?>
 <?php if ("1" == $if_hotel) {
-				?>
+			?>
 	<div>
 		<h4>住宿信息：</h4>
 		入住时间：<?php echo $in_date;?>
@@ -162,15 +120,15 @@ if (0 == $user->ID) {
 		离店时间：<?php echo $out_date;?>
 	</div>
 	<?php }
-			?>
+		?>
 	<div>
 		<h4>费用合计：</h4>
 		总金额：<?php echo $total_price;?>元
 	</div>
-	<input type="submit" value="支付费用"></input>
+	<input type="button" onclick="toPay('<?php echo $product->product_name;?>','<?php echo $inject_date;?>','<?php echo $product_price;?>','<?php echo $if_airplane;?>','<?php echo isset($airport->airport_name) ? $airport->airport_name : "";?>','<?php echo isset($start_date) ? $start_date : "";?>','<?php echo isset($back_date) ? $back_date : "";?>','<?php echo $airline_price;?>','<?php echo $if_hotel;?>','<?php echo isset($in_date) ? $in_date : "";?>','<?php echo isset($out_date) ? $out_date : "";?>','<?php echo $hotel_price;?>','<?php echo $total_price;?>')" value="支付费用"></input>
 	<input type="hidden" name="p2_Order" id="p2_Order" />
 	<input type="hidden" name="p3_Amt" id="p3_Amt" value="<?php echo $total_price;?>" />
-	<input type="hidden" name="p5_Pid" id="p5_Pid"  value="<?php echo $wpdb->insert_id;?>"/>
+	<input type="hidden" name="p5_Pid" id="p5_Pid"/>
 	<input type="hidden" name="p6_Pcat" id="p6_Pcat"  value="producttype"/>
 	<input type="hidden" name="p7_Pdesc" id="p7_Pdesc"  value="productdesc"/>
 	<input type="hidden" name="p8_Url" id="p8_Url" value="<?php echo $wpurl . '/return'?>" />
@@ -181,9 +139,6 @@ if (0 == $user->ID) {
 </form>
 <?php
 
-		} else {
-			echo "<font color='red'>数据插入错误，信息为："+$result+"</font><br><br>";
-		}
 	} else {
 		echo "<font color='red'>输入参数有误！</font>";
 	}
