@@ -78,7 +78,7 @@ foreach ($airportArray as $airport) {
 					<label>请选择酒店入住日期：</label>
 					<input type="text" id="in_date" name="in_date" autocomplete="off"/>
 					<label>请选择酒店退房日期：</label>
-					<input type="text" id="out_date" name="out_date" autocomplete="off"/>
+					<input type="text" id="out_date" name="out_date" autocomplete="off"/><br/><br/>
 				</div>
 			</div>
 

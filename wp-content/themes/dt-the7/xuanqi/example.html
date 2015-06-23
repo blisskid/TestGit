@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+    var url = "http://www.caringyou.com.cn/i-airport-info";
+    //var twoAirport = fromAirport < toAirport ? fromAirport + "|" + toAirport : toAirport + "|" + fromAirport;
+    var Obj = {
+    	//沈阳出发的机场代码
+        airport_code: 'ZYTX|SHE'
+    }
+
+    jQuery.post(url, Obj, function(data) {
+    	//获得可以选择的日期
+        document.writeln(data.records[0].date);
+    })
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
