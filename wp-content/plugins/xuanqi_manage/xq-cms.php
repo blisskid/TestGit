@@ -97,7 +97,7 @@ function register_my_custom_menu_page() {
 	add_menu_page('出发机场配置', '出发机场配置', 'manage_options', 'xuanqi_airport_config', 'xuanqi_airport_config_callback', '', 9);
 	add_submenu_page('xuanqi_airport_config', '新增出发机场', '新增出发机场', 'manage_options', 'xuanqi_add_airport', 'xuanqi_add_airport_callback');
 
-	add_menu_page('订单查询', '订单查询', 'manage_options', 'xuanqi_order_config', 'xuanqi_order_config_callback', '', 10);
+	add_menu_page('订单查询', '订单查询', 'manage_options', 'xuanqi_order_config', 'xuanqi_order_config_callback', '', 3);
 
 }
 
