@@ -21,12 +21,6 @@ function write_copyright() {
 }
 add_action('wp_footer', 'write_copyright');
 
-//增加百度统计的代码
-function baidu_status() {
-	echo '<script> var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?6fa51441703eea54652a7a01de80cde6";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>';
-}
-add_action('wp_head', 'baidu_status');
-
 //重定向模板
 function templateRedirect() {
 	$basename = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);

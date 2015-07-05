@@ -355,6 +355,55 @@ function joinUs() {
     jQuery("#addUserForm").submit();
 }
 
+function xqRegister() {
+
+    if (jQuery("#user_name").val() == "") {
+        alert("请输入用户名");
+        return;
+    }
+
+    if (jQuery("#user_email").val() == "") {
+        alert("请输入邮箱");
+        return;
+    }
+
+    if (!/^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/.test(jQuery("#user_email").val())) {
+        alert("邮箱格式不正确");
+        return;
+    }    
+
+    if (jQuery("#user_pass").val() == "") {
+        alert("请输入密码");
+        return;
+    }
+
+    if (jQuery("#repeat_pass").val() == "") {
+        alert("请再次输入密码");
+        return;
+    }
+
+    if (jQuery("#repeat_pass").val() != jQuery("#user_pass").val()) {
+        alert("两次输入的密码不一致");
+        return;
+    }
+
+    var url = "http://www.caringyou.com.cn/save-user";
+
+    var Obj = {
+        user_name: jQuery("#user_name").val(),
+        user_email: jQuery("#user_email").val(),
+        user_pass: jQuery("#user_pass").val(),
+        repeat_pass: jQuery("#repeat_pass").val()
+    }
+
+    jQuery.post(url, Obj, function(data) {
+        if (data.flag == 0) {
+            jQuery("#xqRegisterForm").submit();
+        } else {
+            alert(data.error);
+        }
+    });    
+}
 
 function toPay(product_name, inject_date, product_price, if_airplane, start_airport_name, start_date, back_date, airline_price, if_hotel, in_date, out_date, hotel_price, total_price) {
     var url = "http://www.caringyou.com.cn/save-order";

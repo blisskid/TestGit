@@ -15,6 +15,8 @@
 
 // ** MySQL 设置 - 具体信息来自您正在使用的主机 ** //
 /** WordPress数据库的名称 */
+define('WP_CACHE', true); //Added by WP-Cache Manager
+define('WPCACHEHOME', '/data/home/qxu1539360108/htdocs/wp-content/plugins/wp-super-cache/'); //Added by WP-Cache Manager
 define('DB_NAME', 'qdm155063659_db');
 
 /** MySQL数据库用户名 */
@@ -42,14 +44,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         't+,K,m?V&5cDmcRb6xfrH%K@O;b29R*T$kJ6w!!u/3|>%<pORBP|a bF/k.Ex&kU');
-define('SECURE_AUTH_KEY',  '+9$s5GL(Y(%UI$.lQFCA$iF(&TN8SMPM{h}?:O,pJ+fu7W3)wIHWFh:A[C=+( kz');
-define('LOGGED_IN_KEY',    'Y*l^1`W3zOux_HH4vUMa1eh]J(TwWxO8[HPyMFTr)|d`|Osf@ `Y,<Uzi<(hsRN$');
-define('NONCE_KEY',        'w]_B+KXw#{B,6[w731{*12y|b5L@f@0QTTz2x$%nQ@KCR:-J&NZ+wAvvA3-%#Wv}');
-define('AUTH_SALT',        '+{!,W;cy35V9iY_!K-SAvI1n:GOQyjq3+.hV,x;*;wX{IDcx/K[|jRwQT@-A-;YY');
+define('AUTH_KEY', 't+,K,m?V&5cDmcRb6xfrH%K@O;b29R*T$kJ6w!!u/3|>%<pORBP|a bF/k.Ex&kU');
+define('SECURE_AUTH_KEY', '+9$s5GL(Y(%UI$.lQFCA$iF(&TN8SMPM{h}?:O,pJ+fu7W3)wIHWFh:A[C=+( kz');
+define('LOGGED_IN_KEY', 'Y*l^1`W3zOux_HH4vUMa1eh]J(TwWxO8[HPyMFTr)|d`|Osf@ `Y,<Uzi<(hsRN$');
+define('NONCE_KEY', 'w]_B+KXw#{B,6[w731{*12y|b5L@f@0QTTz2x$%nQ@KCR:-J&NZ+wAvvA3-%#Wv}');
+define('AUTH_SALT', '+{!,W;cy35V9iY_!K-SAvI1n:GOQyjq3+.hV,x;*;wX{IDcx/K[|jRwQT@-A-;YY');
 define('SECURE_AUTH_SALT', 'p+ZsNg}0feXL#dw5-voB1rIePyavWO=O4P#.*0vn6#C!* }OrO;nNekf7+B25~ K');
-define('LOGGED_IN_SALT',   'e!j6w0iE|(SroU1:N({GC/zwdQnzFIS}RCaJ2CtKuRI:+)7yW?9*wniyB} ;.8MY');
-define('NONCE_SALT',       'H*IO>rIrd+zn^fm uq6gxNQY>4saAFrb1-Ro3FGwEZ;3^zazIc.RZ_R[VQN75nBh');
+define('LOGGED_IN_SALT', 'e!j6w0iE|(SroU1:N({GC/zwdQnzFIS}RCaJ2CtKuRI:+)7yW?9*wniyB} ;.8MY');
+define('NONCE_SALT', 'H*IO>rIrd+zn^fm uq6gxNQY>4saAFrb1-Ro3FGwEZ;3^zazIc.RZ_R[VQN75nBh');
 
 /**#@-*/
 
@@ -59,7 +61,7 @@ define('NONCE_SALT',       'H*IO>rIrd+zn^fm uq6gxNQY>4saAFrb1-Ro3FGwEZ;3^zazIc.R
  * 如果您有在同一数据库内安装多个WordPress的需求，请为每个WordPress设置
  * 不同的数据表前缀。前缀名只能为数字、字母加下划线。
  */
-$table_prefix  = 'wp_';
+$table_prefix = 'wp_';
 
 /**
  * 开发者专用：WordPress调试模式。
@@ -80,8 +82,9 @@ define('WP_ZH_CN_ICP_NUM', true);
 /* 好了！请不要再继续编辑。请保存本文件。使用愉快！ */
 
 /** WordPress目录的绝对路径。 */
-if ( !defined('ABSPATH') )
+if (!defined('ABSPATH')) {
 	define('ABSPATH', dirname(__FILE__) . '/');
+}
 
 /** 设置WordPress变量和包含文件。 */
-require_once(ABSPATH . 'wp-settings.php');
+require_once ABSPATH . 'wp-settings.php';
