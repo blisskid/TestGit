@@ -15,11 +15,12 @@
 .xqFormHat {
     margin-top: 20px;
     width: 600px;
-    padding: 2px 25px 2px 20px;
+    padding: 2px 15px 2px 25px;
     border:1px solid #3da7eb;
     background-color: #3da7eb;
     font-weight: bold;
     color: white;
+    font-size: 18px;
 }
 
 .xqFormPage {
