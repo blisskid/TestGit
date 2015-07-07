@@ -1,4 +1,4 @@
-[layerslider id="7"]
+<div class="xqFormHat">用户注册</div>
 <div class="xqFormPage">
 	<form id="xqRegisterForm" action="<?php echo get_bloginfo('wpurl') . "/wp-login.php";?>" method="post">
 		<table align="center">

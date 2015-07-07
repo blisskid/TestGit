@@ -934,7 +934,8 @@ default:
 <p id="nav">
 <?php if ( ! isset( $_GET['checkemail'] ) || ! in_array( $_GET['checkemail'], array( 'confirm', 'newpass' ) ) ) :
 	if ( get_option( 'users_can_register' ) ) :
-		$registration_url = sprintf( '<a href="%s">%s</a>', esc_url( wp_registration_url() ), __( 'Register' ) );
+		//$registration_url = sprintf( '<a href="%s">%s</a>', esc_url( wp_registration_url() ), __( 'Register' ) );
+		$registration_url = sprintf( '<a href="%s">%s</a>', "http://www.caringyou.com.cn/?p=1158", __( 'Register' ) );
 
 		/** This filter is documented in wp-includes/general-template.php */
 		echo apply_filters( 'register', $registration_url ) . ' | ';

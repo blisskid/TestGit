@@ -12,9 +12,20 @@
 }
 */
 
+.xqFormHat {
+    margin-top: 20px;
+    width: 600px;
+    padding: 2px 25px 2px 20px;
+    border:1px solid #3da7eb;
+    background-color: #3da7eb;
+    font-weight: bold;
+    color: white;
+}
+
 .xqFormPage {
-    margin-top: 80px;
-    width: 826px;
+    width: 600px;
+    padding: 20px;
+    border:1px solid #3da7eb;
 }
 
 .xqFormPage tr {
