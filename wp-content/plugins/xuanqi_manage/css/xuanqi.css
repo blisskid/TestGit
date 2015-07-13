@@ -13,17 +13,18 @@
 */
 
 .xqFormHat {
-    width: 600px;
+    /*width: 600px;*/
     padding: 2px 15px 2px 25px;
     border:1px solid #3da7eb;
     background-color: #3da7eb;
     font-weight: bold;
     color: white;
     font-size: 18px;
+    border:1px solid #3da7eb;
 }
 
 .xqFormPage {
-    width: 600px;
+    /*width: 600px;*/
     padding: 20px;
     border:1px solid #3da7eb;
 }
