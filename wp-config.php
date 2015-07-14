@@ -16,7 +16,7 @@
 // ** MySQL 设置 - 具体信息来自您正在使用的主机 ** //
 /** WordPress数据库的名称 */
 define('WP_CACHE', true); //Added by WP-Cache Manager
-define('WPCACHEHOME', '/data/home/qxu1539360108/htdocs/wp-content/plugins/wp-super-cache/'); //Added by WP-Cache Manager
+define( 'WPCACHEHOME', '/data/home/qyu1616550001/htdocs/wp-content/plugins/wp-super-cache/' ); //Added by WP-Cache Manager
 define('DB_NAME', 'qdm155063659_db');
 
 /** MySQL数据库用户名 */

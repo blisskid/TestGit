@@ -405,6 +405,44 @@ function xqRegister() {
     });    
 }
 
+
+function xqLogin() {
+
+    if (jQuery("#user_name").val() == "") {
+        alert("请输入用户名");
+        return;
+    }    
+
+    if (jQuery("#user_pass").val() == "") {
+        alert("请输入密码");
+        return;
+    }
+
+    var remember = "0";
+    if (jQuery("#remember").attr("checked")) {
+        remember = "1";
+    }
+
+    var url = "http://www.caringyou.com.cn/check-user";
+
+    var Obj = {
+        user_name: jQuery("#user_name").val(),
+        user_pass: jQuery("#user_pass").val(),
+        remember:  remember
+    }
+
+    jQuery.post(url, Obj, function(data) {
+        //alert(data);
+        if (data.flag == 0) {
+            jQuery("#xqLoginForm").submit();
+        } else {
+            //alert(data.error);
+            jQuery("#hintDiv").innerHTML = data.error;
+            jQuery("#hintDiv").show();
+        }
+    });    
+}
+
 function toPay(product_name, inject_date, product_price, if_airplane, start_airport_name, start_date, back_date, airline_price, if_hotel, in_date, out_date, hotel_price, total_price) {
     var url = "http://www.caringyou.com.cn/save-order";
     var Obj = {
