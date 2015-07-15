@@ -437,7 +437,7 @@ function xqLogin() {
             jQuery("#xqLoginForm").submit();
         } else {
             //alert(data.error);
-            jQuery("#hintDiv").innerHTML = data.error;
+            jQuery("#hintDiv").html(data.error);
             jQuery("#hintDiv").show();
         }
     });    

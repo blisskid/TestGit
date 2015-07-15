@@ -48,7 +48,7 @@ function add_login_out_item_to_menu($items, $args) {
 	if (is_user_logged_in()) {
 		$link = '<a href="' . wp_logout_url($redirect) . '" title="' . __('Logout') . '">' . "注销" . '</a>';
 	} else {
-		$link = '<a href="' . wp_login_url($redirect) . '" title="' . __('Login') . '">' . "登录/注册" . '</a>';
+		$link = '<a href="http://www.caringyou.com.cn/?p=1181" title="' . __('Login') . '">' . "登录/注册" . '</a>';
 	}
 
 	return $items .= '<li id="log-in-out-link" class="menu-item menu-type-link">' . $link . '</li>';
