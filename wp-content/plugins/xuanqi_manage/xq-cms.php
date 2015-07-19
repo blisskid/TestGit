@@ -18,6 +18,7 @@ function write_copyright() {
 	echo "<div style='width:100%;margin-left:auto;margin-right:auto;margin-bottom:40px;margin-top:80px;padding:20px;text-align:center;border-top:1px dashed grey'>";
 	echo "广州轩祺健康管理有限公司<img src='http://www.caringyou.com.cn/wp-content/uploads/2015/05/7CCA2550-6734-4479-B118-F42A571CE032.png'/>";
 	echo "版权所有    粤ICP备15030554号</div>";
+	echo '<div style="display:none;"><a href="http://www.live800.com">live800Link.websitechat</a></div><script language="javascript" src="http://chat16.live800.com/live800/chatClient/floatButton.js?jid=9857636380&companyID=517576&configID=67442&codeType=custom"></script><div style="display:none;"><a href="http://en.live800.com">live chat</a></div>';
 }
 add_action('wp_footer', 'write_copyright');
 

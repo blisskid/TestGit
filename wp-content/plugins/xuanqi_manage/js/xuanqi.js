@@ -355,6 +355,37 @@ function joinUs() {
     jQuery("#addUserForm").submit();
 }
 
+function xqFindPassword() {
+    if (jQuery("#user_name").val() == "") {
+        alert("请输入用户名");
+        return;
+    }
+
+    if (jQuery("#user_phone").val() == "") {
+        alert("请输入手机号");
+        return;
+    }
+
+    if (!/^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(jQuery("#user_phone").val())) {
+        alert("手机号码格式不正确");
+        return;
+    }
+
+    var vnumber = jQuery("#vnumber").val();
+
+    if (vnumber == "") {
+        alert("验证码为空");
+        return;
+    }
+
+    var revnumber = jQuery("#revnumber").val();
+    if (vnumber != revnumber) {
+        alert("验证码不正确！");
+        return;
+    }
+    jQuery("#xqFindPasswordForm").submit();       
+}
+
 function xqRegister() {
 
     if (jQuery("#user_name").val() == "") {
@@ -362,15 +393,28 @@ function xqRegister() {
         return;
     }
 
-    if (jQuery("#user_email").val() == "") {
-        alert("请输入邮箱");
+    if (jQuery("#user_phone").val() == "") {
+        alert("请输入手机号");
         return;
     }
 
-    if (!/^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/.test(jQuery("#user_email").val())) {
-        alert("邮箱格式不正确");
+    if (!/^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(jQuery("#user_phone").val())) {
+        alert("手机号码格式不正确");
         return;
-    }    
+    }
+
+    var vnumber = jQuery("#vnumber").val();
+
+    if (vnumber == "") {
+        alert("验证码为空");
+        return;
+    }
+
+    var revnumber = jQuery("#revnumber").val();
+    if (vnumber != revnumber) {
+        alert("验证码不正确！");
+        return;
+    }       
 
     if (jQuery("#user_pass").val() == "") {
         alert("请输入密码");
@@ -391,7 +435,7 @@ function xqRegister() {
 
     var Obj = {
         user_name: jQuery("#user_name").val(),
-        user_email: jQuery("#user_email").val(),
+        user_phone: jQuery("#user_phone").val(),
         user_pass: jQuery("#user_pass").val(),
         repeat_pass: jQuery("#repeat_pass").val()
     }
@@ -403,6 +447,46 @@ function xqRegister() {
             alert(data.error);
         }
     });    
+}
+
+function xqResetPassword() {
+    if (jQuery("#user_name").val() == "") {
+        alert("请输入用户名");
+        return;
+    }
+      
+
+    if (jQuery("#user_pass").val() == "") {
+        alert("请输入密码");
+        return;
+    }
+
+    if (jQuery("#repeat_pass").val() == "") {
+        alert("请再次输入密码");
+        return;
+    }
+
+    if (jQuery("#repeat_pass").val() != jQuery("#user_pass").val()) {
+        alert("两次输入的密码不一致");
+        return;
+    }
+
+    var url = "http://www.caringyou.com.cn/reset-pass";
+
+    var Obj = {
+        user_name: jQuery("#user_name").val(),
+        user_pass: jQuery("#user_pass").val(),
+        repeat_pass: jQuery("#repeat_pass").val()
+    }
+
+    jQuery.post(url, Obj, function(data) {
+        if (data.flag == 0) {
+            alert("修改密码成功！");
+            jQuery("#xqResetForm").submit();
+        } else {
+            alert(data.error);
+        }
+    });      
 }
 
 
@@ -437,7 +521,9 @@ function xqLogin() {
             jQuery("#xqLoginForm").submit();
         } else {
             //alert(data.error);
-            jQuery("#hintDiv").html(data.error);
+            //替换忘记密码的链接
+            //jQuery("#hintDiv").html(data.error.replace(/<a href=\"xuanqi\">忘记了密码？/, "<a href=\"http://www.caringyou.com.cn/?p=1214\">忘记了密码？"));
+            jQuery("#hintDiv").html(data.error.replace(/<a href=.*忘记了密码？/, "<a href=\"http://www.caringyou.com.cn/?p=1214\">忘记了密码？"));
             jQuery("#hintDiv").show();
         }
     });    

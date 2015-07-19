@@ -1,6 +1,6 @@
 <div class="xqFormHat">用户注册</div>
 <div class="xqFormPage">
-	<form id="xqRegisterForm" action="<?php echo get_bloginfo('wpurl') . "/wp-login.php";?>" method="post">
+	<form id="xqRegisterForm" action="<?php echo get_bloginfo('wpurl') . "/login/";?>" method="post">
 		<table align="center">
 		    <tr>
 		        <td>
@@ -10,8 +10,14 @@
 		    </tr>
 		    <tr>
 		        <td>
-		        	<label for="user_email">请输入邮箱：</label>
-		            <input style="width:100%" type="email" id="user_email" name="user_email" placeholder="请输入邮箱" required></input>
+		            <input style="width:100%" type="text" pattern="[0-9]{11}" title="请输入11位手机号码" id="user_phone" name="user_phone" placeholder="请输入11位手机号码" required></input>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		        	<input type="button" value="获取验证码" onclick="joinUsmobileValidation(this)"/>
+		        	<input id="revnumber" type="hidden" name="revnumber"/>
+					<input style="width:100%" id="vnumber" type="text" value="" name="vnumber" placeholder="请输入4位验证码" required/>
 		        </td>
 		    </tr>
 		    <tr>
