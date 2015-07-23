@@ -87,13 +87,14 @@ DROP TABLE IF EXISTS `xq_products`;
 CREATE TABLE IF NOT EXISTS `xq_products` (
   `ID` bigint(20) unsigned NOT NULL,
   `product_name` varchar(60) NOT NULL DEFAULT '' COMMENT '产品名称',
-  `product_price` double NOT NULL COMMENT '产品价格（元）',
-  `product_dealer_price` double NOT NULL COMMENT '经销商产品价格',
-  `product_direct_price` double NOT NULL COMMENT '直销商产品价格',
+  `product_price` double NOT NULL DEFAULT 0 COMMENT '产品价格（元）',
+  `product_dealer_price` double NOT NULL DEFAULT 0 COMMENT '经销商产品价格',
+  `product_direct_price` double NOT NULL DEFAULT 0 COMMENT '直销商产品价格',
+  `product_origin_price` double NOT NULL DEFAULT 0 COMMENT '产品原价（元）',
   `product_type` int(11) NOT NULL DEFAULT '0' COMMENT '产品类别。0：疫苗类产品；1:其他。',
-  `product_paytype` int(11) NOT NULL DEFAULT '0' COMMENT '0:对应流程一，1:对应流程2',
-  `product_show` int(11) NOT NULL DEFAULT '1' COMMENT '0:不在首页显示，1:在首页显示',
-  `product_description` longtext NOT NULL COMMENT '产品描述',
+  `product_description` longtext COMMENT '产品描述',
+  `product_introduction` text COMMENT '产品简介',
+  `bad_date` varchar(500) DEFAULT '' COMMENT '不可选的日期列表，用逗号隔开',
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
