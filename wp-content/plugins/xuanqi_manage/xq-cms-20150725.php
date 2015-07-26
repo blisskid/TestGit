@@ -209,7 +209,7 @@ function xuanqi_update_product() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["product_id"]) && isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"]) && isset($_POST["bad_date"])) {
+		if (isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"] && isset($_POST["bad_date"])) {
 
 			if ("" == trim($_POST["product_price"])) {
 				echo "<font color='red'>产品价格不能为空</font>";
@@ -226,11 +226,6 @@ function xuanqi_update_product() {
 				return;
 			}
 
-			if ("" == trim($_POST["product_id"])) {
-				echo "<font color='red'>产品ID不能为空</font>";
-				return;
-			}
-
 			global $wpdb;
 			$product_id = trim($_POST["product_id"]);
 			$product_name = trim($_POST["product_name"]);
@@ -239,10 +234,19 @@ function xuanqi_update_product() {
 			$product_direct_price = trim($_POST["product_direct_price"]);
 			$product_origin_price = trim($_POST["product_origin_price"]);
 			$product_description = trim($_POST["product_description"]);
-			$bad_date = trim($_POST["bad_date"]);
 			$product_introduction = trim($_POST["product_introduction"]);
+			$bad_date = trim($_POST["bad_date"]);
 
-			$sql = "UPDATE `xq_products` SET `product_name`='$product_name',`product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_origin_price`=$product_origin_price,`product_description`='$product_description',`product_introduction`='$product_introduction',`bad_date`='$bad_date' WHERE ID=$product_id";
+			$sql = "UPDATE `xq_products` SET 
+			`product_name`='$product_name',
+			`product_price`=$product_price,
+			`product_dealer_price`=$product_dealer_price,
+			`product_direct_price`=$product_direct_price,
+			`product_origin_price`=$product_origin_price,
+			`product_description`='$product_description' 
+			`product_introduction`='$product_introduction' 
+			`bad_date`='$bad_date' 
+			WHERE ID=$product_id";
 			//var_dump($sql);
 			$result = $wpdb->query($sql);
 			//var_dump($result);
@@ -267,9 +271,9 @@ function xuanqi_save_product() {
 
 	} else {
 
-		//var_dump($_POST);
+		var_dump($_POST);
 
-		if (isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"]) && isset($_POST["bad_date"])) {
+		if (isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"] && isset($_POST["bad_date"])) {
 
 			if ("" == trim($_POST["product_price"])) {
 				echo "<font color='red'>产品价格不能为空</font>";
@@ -297,10 +301,11 @@ function xuanqi_save_product() {
 			$bad_date = trim($_POST["bad_date"]);
 
 			//$sql = "UPDATE `xq_products` SET `product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_description`='$product_description' WHERE ID=$product_id";
-			$sql = "insert into `xq_products` (`product_name`,`product_price`,`product_dealer_price`,`product_direct_price`,`product_origin_price`,`product_description`,`product_introduction`,`bad_date`) values('$product_name',$product_price,$product_dealer_price,$product_direct_price,$product_origin_price,'$product_description','$product_introduction','$bad_date')";
-			//var_dump($sql);
+			$sql = "insert into `xq_products` (`product_name`,`product_price`,`product_dealer_price`,`product_direct_price`,`product_origin_price`,`product_description`,`product_introduction`,`bad_date`) 
+			values('$product_name',$product_price,$product_dealer_price,$product_direct_price,$product_origin_price,'$product_description','$product_introduction', '$bad_date')";
+			var_dump($sql);
 			$result = $wpdb->query($sql);
-			//var_dump($result);
+			var_dump($result);
 			if (0 < $result) {
 				//echo "Success! Insert " . $result . " rows";
 			} else {
@@ -355,7 +360,7 @@ function xuanqi_products_config_callback() {
             <td ng-bind="x.product_price"></td>
             <td ng-bind="x.product_dealer_price"></td>
             <td ng-bind="x.product_direct_price"></td>
-            <td ng-bind="x.product_origin_price"></td>
+            <td ng-bind="x.product_original_price"></td>
             <td ng-bind="x.bad_date"></td>
         </tr>
     </table>
@@ -522,10 +527,9 @@ function xuanqi_add_product_callback() {
     <tr>
         <td>
             输入产品简介：
-            <br>
-            <textarea style="width:100%;height: 100px" name="product_introduction" id="product_introduction"><?php echo isset($productArray) ? $productArray[0]->product_introduction : '';?></textarea>
+            <?php wp_editor(isset($productArray) ? $productArray[0]->product_introduction : "请输入产品简介", "product_introduction");?>
         </td>
-    </tr>  
+    </tr>    
     <tr>
         <td>
             输入产品价格：
@@ -551,7 +555,7 @@ function xuanqi_add_product_callback() {
         <td>
             输入产品原价：
             <br>
-            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_origin_price : '';?>" name="product_origin_price" placeholder="请输入产品原价" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_original_price : '';?>" name="product_original_price" placeholder="请输入产品原价" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
     </tr>    
     <tr>
@@ -578,7 +582,7 @@ function xuanqi_add_product_callback() {
         <td>
         	<button type="submit">保存产品</button>
         	<input type="hidden" value="<?php echo isset($productArray) ? $productArray[0]->ID : '';?>" name="product_id"></input>
-        	<input type="hidden" id="bad_date" name="bad_date" value="<?php echo isset($productArray) ? $productArray[0]->bad_date : '';?>"></input>
+        	<input type="hidden" id="bad_date" name="bad_date" value="<?php echo isset($array) ? $array[0]->bad_date : '';?>"></input>
          </td>
     </tr>
 </table>

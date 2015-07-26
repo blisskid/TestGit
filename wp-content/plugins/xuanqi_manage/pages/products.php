@@ -10,25 +10,28 @@ foreach ($productArray as $product) {
 		<tr>
 			<td>
 				<div class="xqFormHat"><?php echo $product->product_name; ?></div>
-				<div class="xqFormPage">
-					<div style="width: 660px;border:1px dashed #3da7eb;float: left;padding:10px;">
-						插入图片
-						插入图片
-						插入图片
+				<div class="xqFormPage" style="height: 300px">
+					<img style="width: 680px;float: left;" src="http://www.caringyou.com.cn/wp-content/uploads/2015/07/53d49a932d6bb.jpg" />
+					<!--
+					<div style="width: 680px;border:1px dashed #3da7eb;float: left;padding:10px;background-image: http://www.caringyou.com.cn/wp-content/uploads/2015/07/53d49a932d6bb.jpg;">
 					</div>
-					<div style="width: 440px;border:1px dashed #3da7eb;margin-left: 700px;padding:10px;">
+				-->
+					<div style="width: 300px;margin-left: 700px;padding:10px;">
 						<table>
 							<tr>
-								<td>价格：<?php echo $product->product_price; ?></td>
+								<td><label for="product_product_name">产品名称：</label><span id="product_product_name"><?php echo $product->product_name; ?></span></td>
+							</tr>								
+							<tr>
+								<td><label for="product_introduction">产品简介：</label><span id="product_introduction"><?php echo $product->product_introduction; ?></span></td>
 							</tr>
 							<tr>
-								<td>经销商价格：<?php echo $product->product_dealer_price; ?></td>
-							</tr>						
+								<td><label for="product_origin_price">产品原价：</label><span id="product_origin_price" style="text-decoration:line-through;color:red;">￥<?php echo $product->product_origin_price; ?>元</span></td>
+							</tr>														
 							<tr>
-								<td>直销商价格：<?php echo $product->product_direct_price; ?></td>
+								<td><label for="product_price">产品现价：</label><span style="color:blue" id="product_price">￥<?php echo $product->product_price; ?>元</span></td>
 							</tr>
 							<tr>
-								<td><input type="button" value="查看详细" style="float: right"></input></td>
+								<td><input type="button" value="查看详细" style="float: right" onclick="checkProductDetail('<?php echo $product->ID; ?>')"></input></td>
 							</tr>
 						</table>
 					</div>

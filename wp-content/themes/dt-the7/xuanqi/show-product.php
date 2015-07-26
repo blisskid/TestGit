@@ -12,7 +12,8 @@ if (0 == $current_user->ID) {
 
 	global $wpdb;
 
-	$searchSql = "SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_type`, `product_paytype`, `product_show`, `reserved_text` FROM `xq_products`";
+	$searchSql = "SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_origin_price`, `product_type`, `product_introduction`, `bad_date`, `reserved_text` FROM `xq_products`";
+
 	$countSql = "SELECT COUNT(*) FROM `xq_products`";
 	$conditionStr = "";
 	if (count($_POST) > 1) {
@@ -60,28 +61,20 @@ if (0 == $current_user->ID) {
 			}
 			$conditionFlag = true;
 		}
+		if (isset($_POST["product_origin_price"])) {
+			if ($conditionFlag) {
+				$conditionStr .= " AND `product_origin_price`=" . $_POST["product_origin_price"];
+			} else {
+				$conditionStr .= " `product_origin_price`=" . $_POST["product_origin_price"];
+			}
+			$conditionFlag = true;
+		}		
 		if (isset($_POST["product_type"])) {
 			if ($conditionFlag) {
 				$conditionStr .= " AND `product_type`='" . $_POST["product_type"] . "'";
 			} else {
 				$conditionStr .= " `product_type`='" . $_POST["product_type"] . "'";
 
-			}
-			$conditionFlag = true;
-		}
-		if (isset($_POST["product_paytype"])) {
-			if ($conditionFlag) {
-				$conditionStr .= " AND `product_paytype`='" . $_POST["product_paytype"] . "'";
-			} else {
-				$conditionStr .= " `product_paytype`='" . $_POST["product_paytype"] . "'";
-			}
-			$conditionFlag = true;
-		}
-		if (isset($_POST["product_show"])) {
-			if ($conditionFlag) {
-				$conditionStr .= " AND `product_show`='" . $_POST["product_show"] . "'";
-			} else {
-				$conditionStr .= " `product_show`='" . $_POST["product_show"] . "'";
 			}
 			$conditionFlag = true;
 		}
@@ -103,7 +96,7 @@ if (0 == $current_user->ID) {
 	}
 
 	$count = $wpdb->get_var($countSql);
-
+	//var_dump($searchSql);
 	$productArray = $wpdb->get_results($searchSql);
 	$outp = "";
 	foreach ($productArray as $product) {
@@ -113,23 +106,14 @@ if (0 == $current_user->ID) {
 		$outp .= '"product_price":"' . $product->product_price . '",';
 		$outp .= '"product_dealer_price":"' . $product->product_dealer_price . '",';
 		$outp .= '"product_direct_price":"' . $product->product_direct_price . '",';
+		$outp .= '"product_origin_price":"' . $product->product_origin_price . '",';
+		$outp .= '"product_introduction":"' . $product->product_introduction . '",';
+		$outp .= '"bad_date":"' . $product->bad_date . '",';
 
 		if ("0" == $product->product_type) {
-			$outp .= '"product_type":"疫苗类产品",';
+			$outp .= '"product_type":"疫苗类产品"}';
 		} else if ("1" == $product->product_type) {
-			$outp .= '"product_type":"其他",';
-		}
-
-		if ("0" == $product->product_paytype) {
-			$outp .= '"product_paytype":"支付流程一",';
-		} else if ("1" == $product->product_paytype) {
-			$outp .= '"product_paytype":"支付流程二",';
-		}
-
-		if ("0" == $product->product_show) {
-			$outp .= '"product_show":"不在首页显示"}';
-		} else if ("1" == $product->product_show) {
-			$outp .= '"product_show":"在首页显示"}';
+			$outp .= '"product_type":"其他"}';
 		}
 	}
 

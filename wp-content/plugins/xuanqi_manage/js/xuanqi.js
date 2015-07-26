@@ -552,3 +552,7 @@ function toPay(product_name, inject_date, product_price, if_airplane, start_airp
         jQuery("#payForm").submit();
     });
 }
+
+function checkProductDetail(productId) {
+    window.location.href="http://www.caringyou.com.cn/?p=1369&id=" + productId;
+}
