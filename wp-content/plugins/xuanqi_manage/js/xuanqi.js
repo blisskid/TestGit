@@ -556,3 +556,12 @@ function toPay(product_name, inject_date, product_price, if_airplane, start_airp
 function checkProductDetail(productId) {
     window.location.href="http://www.caringyou.com.cn/?p=1369&id=" + productId;
 }
+
+function gotoOrder(product_id) {
+    if (jQuery("#order_date").val() == "") {
+        alert("请输入预约日期！");
+        return;
+    }
+
+    window.location.href="http://www.caringyou.com.cn/?p=1387&id=" + product_id + "&orderDate=" + jQuery("#order_date").val();
+}

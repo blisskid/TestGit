@@ -29,10 +29,9 @@ if (0 == $current_user->ID) {
                 <div style="width: 300px;margin-left: 700px;padding:10px;">
                     <table>
                         <tr><td><label for="product_name">产品名称：</label><span id="product_name"><?php echo $productArray[0]->product_name;?></span></td></tr>
-                        <tr><td><label for="product_introduction">产品简介：</label><span id="product_introduction"><?php echo $productArray[0]->product_introduction;?></span></td></tr>
                         <tr><td><label for="product_price">产品价格：</label><span style="color:blue" id="product_price"><?php echo $productArray[0]->product_price;?></span></td></tr>
-                        <tr><td><label for="product_price">预约日期：</label><input type="text" id="order_date" name="order_date" autocomplete="off"/></td></tr>
-                        <tr><td><input type="button" value="马上预约" style="float: right" onclick="checkProductDetail('<?php echo $product->ID; ?>')"></input></td></tr>
+                        <tr><td><label for="order_date">预约日期：</label><input type="text" id="order_date" name="order_date" autocomplete="off"/></td></tr>
+                        <tr><td><input type="button" value="马上预约" style="float: right" onclick="gotoOrder('<?php echo $productArray[0]->ID; ?>')"></input></td></tr>
                     </table>
                 </div>
             </div>
@@ -44,7 +43,7 @@ if (0 == $current_user->ID) {
             <div class="xqFormPage">
                 <table>
                     <tr><td><?php echo $productArray[0]->product_description;?></td></tr>
-                <table>
+                </table>
             </div>
         </td>
     </tr>
