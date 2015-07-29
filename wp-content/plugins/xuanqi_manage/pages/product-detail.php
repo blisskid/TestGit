@@ -25,7 +25,7 @@ if (0 == $current_user->ID) {
         <td>
             <div class="xqFormHat"><?php echo $productArray[0]->product_name; ?></div>
             <div class="xqFormPage" style="height: 300px">
-                <img style="width: 680px;float: left;" src="http://www.caringyou.com.cn/wp-content/uploads/2015/07/53d49a932d6bb.jpg" />
+                <img style="width: 680px;float: left;" src="http://www.caringyou.com.cn/wp-content/uploads/2015/06/滑块图片-150602-01.jpg" />
                 <div style="width: 300px;margin-left: 700px;padding:10px;">
                     <table>
                         <tr><td><label for="product_name">产品名称：</label><span id="product_name"><?php echo $productArray[0]->product_name;?></span></td></tr>

@@ -23,11 +23,11 @@ if (0 == $current_user->ID) {
 
 <div class="xqFormHat"><?php echo $productArray[0]->product_name; ?></div>
 <div class="xqFormPage">
-    <table>
+    <table id="order_table">
         <tr><td><label for="product_name">产品名称：</label><span id="product_name"><?php echo $productArray[0]->product_name;?></span></td></tr>
-        <tr><td><label for="product_price">产品价格：</label><span style="color:blue" id="product_price"><?php echo $productArray[0]->product_price;?></span></td></tr>
+        <tr><td><label for="product_per_price">产品单价：</label><span style="color:blue" id="product_per_price"><?php echo $productArray[0]->product_price;?></span></td></tr>
         <tr><td><label for="order_date">预约日期：</label><span id="order_date"><?php echo trim($_GET["orderDate"]);?></span></td></tr>
-        <tr>
+        <tr id="customer_1">
             <td colspan="2">
                 <div class="xqFormHat">顾客1</div>
                 <div class="xqFormPage">
@@ -65,20 +65,27 @@ if (0 == $current_user->ID) {
                 </div>
             </td>
         </tr>                   
-        <tr><td colspan="2"><input type="button" value="添加顾客" style="float: right" onclick="addCustomer()"></input></td></tr>
+        <tr><td colspan="2"><input id="customer_button" type="button" value="添加顾客" style="float: right" onclick="addCustomer('<?php echo $productArray[0]->product_origin_price;?>', '<?php echo $productArray[0]->product_price;?>')"></input></td></tr>
         <tr>
             <td>
                 <div style="background-color: #f2dede;width: 500px;height: 100px;text-align: center;line-height: 100px;font-weight: 30px;color: red;">
-                    总价：<?php echo $productArray[0]->product_price;?>
+                    原价：<span id="product_origin_price" style="text-decoration:line-through;"><?php echo $productArray[0]->product_origin_price;?></span>
                 </div>
             </td>
             <td>
                 <div style="background-color: #d9edf7;width: 500px;height: 100px;line-height: 100px;text-align: center;font-weight: 30px;color: red;">
-                    总价：<?php echo $productArray[0]->product_price;?>
+                    总价：<span id="product_price"><?php echo $productArray[0]->product_price;?></span>
                 </div>
             </td>            
         </tr>
-        <tr><td><input type="button" value="返回" style="float: left" onclick="addCustomer()"></input></td><td><input type="button" value="立即预约" style="float: right" onclick="addCustomer()"></input></td></tr>
+        <tr>
+            <td>
+                <input type="button" value="返回" style="float: left" onclick="backToProductDetail('<?php echo $productArray[0]->ID;?>')"></input>
+            </td>
+            <td>
+                <input type="button" style="float: right" onclick="toOnlinePay('<?php echo $productArray[0]->product_name;?>','<?php echo trim($_GET["orderDate"]);?>')" value="支付费用"></input>
+            </td>
+        </tr>
     </table>
 </div>
 <?php        
