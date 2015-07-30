@@ -6,7 +6,7 @@ $wpurl = get_bloginfo('wpurl');
 
 if (0 == $current_user->ID) {
 
-	echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+	echo "请 <a href=\"" . $wpurl . "/login\">登录</a>.";
 	return;
 
 } else {

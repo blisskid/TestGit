@@ -5,7 +5,7 @@ $wpurl = get_bloginfo('wpurl');
 
 if (0 == $current_user->ID) {
 
-	echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+	echo "请 <a href=\"" . $wpurl . "/login\">登录</a>.";
 	return;
 
 } else {
@@ -24,7 +24,7 @@ if (0 == $current_user->ID) {
     <tr>
         <td>
             <div class="xqFormHat"><?php echo $productArray[0]->product_name; ?></div>
-            <div class="xqFormPage" style="height: 300px">
+            <div class="xqFormPage" style="height: 275px">
                 <img style="width: 680px;float: left;" src="http://www.caringyou.com.cn/wp-content/uploads/2015/06/滑块图片-150602-01.jpg" />
                 <div style="width: 300px;margin-left: 700px;padding:10px;">
                     <table>

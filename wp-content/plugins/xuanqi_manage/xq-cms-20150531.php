@@ -118,7 +118,7 @@ function xuanqi_save_product() {
 
 	if (0 == $current_user->ID) {
 
-		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+		echo "请 <a href=\"" . $wpurl . "/login\">登录</a>.";
 		return;
 
 	} else {
@@ -179,7 +179,7 @@ function xuanqi_update_product() {
 
 	if (0 == $current_user->ID) {
 
-		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+		echo "请 <a href=\"" . $wpurl . "/login\">登录</a>.";
 		return;
 
 	} else {
@@ -353,7 +353,7 @@ function xuanqi_add_product_callback() {
 
 	if (0 == $current_user->ID) {
 
-		echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+		echo "请 <a href=\"" . $wpurl . "/login\">登录</a>.";
 		return;
 
 	} else {

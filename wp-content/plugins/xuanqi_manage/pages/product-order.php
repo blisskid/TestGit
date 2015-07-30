@@ -5,7 +5,7 @@ $wpurl = get_bloginfo('wpurl');
 
 if (0 == $current_user->ID) {
 
-	echo "请 <a href=\"" . $wpurl . "/wp-login.php\">登录</a>.";
+	echo "请 <a href=\"" . $wpurl . "/login\">登录</a>.";
 	return;
 
 } else {
@@ -50,7 +50,7 @@ if (0 == $current_user->ID) {
                         </tr>
                         <tr>
                             <td>
-                                <label for="age_1">邮箱：</label><input type="text" id="age_1" name="age_1" placeholder="18"/>
+                                <label for="email_1">邮箱：</label><input type="text" id="email_1" name="email_1" placeholder="zhangxx@163.com"/>
                             </td>
                             <td>
                                 <label for="tel_1">电话：</label><input type="text" id="tel_1" name="tel_1" placeholder="请填写联系方式"/>
