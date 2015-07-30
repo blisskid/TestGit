@@ -566,21 +566,24 @@ function gotoOrder(product_id) {
     window.location.href="http://www.caringyou.com.cn/?p=1387&id=" + product_id + "&orderDate=" + jQuery("#order_date").val();
 }
 
-function addCustomer(product_origin_price, product_price) {
+function addCustomer(index, product_origin_price, product_price) {
     var now_origin_price = parseInt(jQuery("#product_origin_price").html());
     var now_product_price = parseInt(jQuery("#product_price").html());
     var origin_price = parseInt(product_origin_price);
     var price = parseInt(product_price);
-    var index = now_origin_price / origin_price;
+    //var index = now_origin_price / origin_price;
     var nextIndex = index + 1;
     var str =   '<tr id="customer_' + nextIndex + '"><td colspan="2"><div class="xqFormHat">顾客' + nextIndex + '</div><div class="xqFormPage"><table><tr><td><label for="name_' + nextIndex + '">姓名：</label><input type="text" id="name_' + nextIndex + '" name="name_' + nextIndex + '" placeholder="张三"/></td><td><label>性别：</label><input type="radio" value="女" name="sex_' + nextIndex + '" checked/>女<input type="radio" value="男" name="sex_' + nextIndex + '" />男</td></tr>' + 
                 '<tr><td><label for="age_' + nextIndex + '">年龄：</label><input type="text" id="age_' + nextIndex + '" name="age_' + nextIndex + '" placeholder="18"/></td><td><label for="job_' + nextIndex + '">职业：</label><input type="text" id="job_' + nextIndex + '" name="job_' + nextIndex + '" placeholder="学生"/></td></tr>' + 
-                '<tr><td><label for="age_' + nextIndex + '">邮箱：</label><input type="text" id="age_' + nextIndex + '" name="age_' + nextIndex + '" placeholder="18"/></td><td><label for="tel_' + nextIndex + '">电话：</label><input type="text" id="tel_' + nextIndex + '" name="tel_' + nextIndex + '" placeholder="请填写联系方式"/></td></tr>' + 
+                '<tr><td><label for="age_' + nextIndex + '">邮箱：</label><input type="text" id="email_' + nextIndex + '" name="email_' + nextIndex + '" placeholder="zhangxx@163.com"/></td><td><label for="tel_' + nextIndex + '">电话：</label><input type="text" id="tel_' + nextIndex + '" name="tel_' + nextIndex + '" placeholder="请填写联系方式"/></td></tr>' + 
                 '<tr><td><label for="allergy_' + nextIndex + '">过敏：</label><input type="text" id="allergy_' + nextIndex + '" name="allergy_' + nextIndex + '" placeholder="请填写过敏药物名称"/></td></tr>' +                                                                          
                 '</table></div></td></tr>';
     jQuery("#order_table #customer_" + index).after(str);
-    jQuery("#customer_button").val("移除顾客");
-    jQuery("#customer_button").attr("onclick", "removeCustomer('" + nextIndex + "', '" + product_origin_price + "', '" + product_price + "');");
+    jQuery("#del_customer_button").attr("disabled", false);
+    //jQuery("#del_customer_button").removeAttribute("disabled");
+    jQuery("#del_customer_button").attr("onclick", "removeCustomer(" + nextIndex + ", '" + product_origin_price + "', '" + product_price + "');");
+    jQuery("#add_customer_button").attr("onclick", "addCustomer(" + nextIndex + ", '" + product_origin_price + "', '" + product_price + "');");
+    jQuery("#pay_button").attr("onclick", "toOnlinePay(" + nextIndex + ");");
     //价格乘以2
     var add_origin_price = now_origin_price + origin_price;
     var add_product_price = now_product_price + price;
@@ -592,16 +595,60 @@ function removeCustomer(index, product_origin_price, product_price) {
     var now_origin_price = parseInt(jQuery("#product_origin_price").html());
     var now_product_price = parseInt(jQuery("#product_price").html());
     var origin_price = parseInt(product_origin_price);
-    var price = parseInt(product_price);    
+    var price = parseInt(product_price);
+    var nextIndex = index - 1;    
     jQuery("#order_table #customer_" + index).remove();
-    jQuery("#customer_button").val("添加顾客");
-    jQuery("#customer_button").attr("onclick", "addCustomer('" + product_origin_price + "', '" + product_price + "');");
+    //jQuery("#customer_button").val("添加顾客");
+    if (nextIndex == 1) {
+        jQuery("#del_customer_button").attr("disabled", true);
+    }
+
+    jQuery("#del_customer_button").attr("onclick", "removeCustomer(" + nextIndex + ", '" + product_origin_price + "', '" + product_price + "');");
+    jQuery("#add_customer_button").attr("onclick", "addCustomer(" + nextIndex + ", '" + product_origin_price + "', '" + product_price + "');");
+    jQuery("#pay_button").attr("onclick", "toOnlinePay(" + nextIndex + ");");
+
+
     var sub_origin_price = now_origin_price - origin_price;
     var sub_product_price = now_product_price - price;
     jQuery("#product_origin_price").html(sub_origin_price);
-    jQuery("#product_price").html(sub_product_price);    
+    jQuery("#product_price").html(sub_product_price);  
 }
 
-function toOnlinePay(product_name, order_date) {
+function toOnlinePay(index) {
 
+    //校验所有的输入是否正确
+    for (i = 1; i <= index; i++) {
+        if (jQuery("#name_" + i).val() == "") {
+            alert("顾客" + i + "的姓名为空！");
+            return;
+        }
+
+        if (!/^[\u4e00-\u9fa5]{2,4}$/.test(jQuery("#name_" + i).val())) {
+            alert("顾客" + i + "的姓名不正确！");
+            return;
+        }        
+              
+        if (jQuery("#age_" + i).val() == "") {
+            alert("顾客" + i + "的年龄为空！");
+            return;
+        }
+
+        var age = parseInt(jQuery("#age_" + i).val());
+        if (age < 1 || age >= 120) {
+            alert("顾客" + i + "的年龄不正确！");
+            return;
+        }
+
+    }
+
+    var product_name = jQuery("#product_name").html();
+    var product_price = jQuery("#product_price").html();
+    //需要增加插入订单的逻辑
+    jQuery("#p5_Pid").val("1");
+    jQuery("#p3_Amt").val(product_price);
+    jQuery("#payForm").submit();    
+}
+
+function backToProductDetail(product_id) {
+    window.location.href="http://www.caringyou.com.cn/?p=1369&id=" + product_id;
 }

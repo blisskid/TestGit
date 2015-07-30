@@ -53,19 +53,21 @@ if (0 == $current_user->ID) {
                                 <label for="email_1">邮箱：</label><input type="text" id="email_1" name="email_1" placeholder="zhangxx@163.com"/>
                             </td>
                             <td>
-                                <label for="tel_1">电话：</label><input type="text" id="tel_1" name="tel_1" placeholder="请填写联系方式"/>
-                            </td>                            
-                        </tr>
-                        <tr>
-                            <td>
                                 <label for="allergy_1">过敏：</label><input type="text" id="allergy_1" name="allergy_1" placeholder="请填写过敏药物名称"/>
                             </td>                            
-                        </tr>                                                                         
+                        </tr>                                                                        
                     </table>
                 </div>
             </td>
         </tr>                   
-        <tr><td colspan="2"><input id="customer_button" type="button" value="添加顾客" style="float: right" onclick="addCustomer('<?php echo $productArray[0]->product_origin_price;?>', '<?php echo $productArray[0]->product_price;?>')"></input></td></tr>
+        <tr>
+            <td>
+                <input id="del_customer_button" type="button" value="移除顾客" style="float: left" disabled="disabled"></input>
+            </td>            
+            <td>
+                <input id="add_customer_button" type="button" value="添加顾客" style="float: right" onclick="addCustomer(1, '<?php echo $productArray[0]->product_origin_price;?>', '<?php echo $productArray[0]->product_price;?>')"></input>
+            </td>
+        </tr>
         <tr>
             <td>
                 <div style="background-color: #f2dede;width: 500px;height: 100px;text-align: center;line-height: 100px;font-weight: 30px;color: red;">
@@ -83,11 +85,21 @@ if (0 == $current_user->ID) {
                 <input type="button" value="返回" style="float: left" onclick="backToProductDetail('<?php echo $productArray[0]->ID;?>')"></input>
             </td>
             <td>
-                <input type="button" style="float: right" onclick="toOnlinePay('<?php echo $productArray[0]->product_name;?>','<?php echo trim($_GET["orderDate"]);?>')" value="支付费用"></input>
+                <input type="button" id="pay_button" style="float: right" onclick="toOnlinePay(1)" value="支付费用"></input>
             </td>
         </tr>
     </table>
 </div>
+<form id='payForm' action='<?php echo $wpurl . "/yeepay/req.php";?>'>
+    <input type="hidden" name="p2_Order" id="p2_Order"/>
+    <input type="hidden" name="p3_Amt" id="p3_Amt"/>
+    <input type="hidden" name="p5_Pid" id="p5_Pid"/>
+    <input type="hidden" name="p6_Pcat" id="p6_Pcat"  value="producttype"/>
+    <input type="hidden" name="p7_Pdesc" id="p7_Pdesc"  value="productdesc"/>
+    <input type="hidden" name="p8_Url" id="p8_Url" value="<?php echo $wpurl . '/return'?>" />
+    <input type="hidden" name="pa_MP" id="pa_MP"  value="userId or other"/>
+    <input type="hidden" name="pd_FrpId" />
+</form>
 <?php        
 	}
 }
