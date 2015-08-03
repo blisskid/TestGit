@@ -1,6 +1,6 @@
 <?php
 global $wpdb;
-$searchSql = "SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_origin_price`, `product_type`, `product_introduction`, `bad_date`, `reserved_text` FROM `xq_products`";
+$searchSql = "SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_origin_price`, `product_type`, `product_introduction`, `bad_date`, `img_url`, `reserved_text` FROM `xq_products`";
 $productArray = $wpdb->get_results($searchSql);
 
 foreach ($productArray as $product) {
@@ -11,7 +11,7 @@ foreach ($productArray as $product) {
 			<td>
 				<div class="xqFormHat"><?php echo $product->product_name; ?></div>
 				<div class="xqFormPage" style="height: 275px">
-					<img style="width: 680px;float: left;" src="http://www.caringyou.com.cn/wp-content/uploads/2015/06/滑块图片-150602-01.jpg" />
+					<img style="width: 680px;float: left;" src="<?php echo $product->img_url; ?>" />
 					<!--
 					<div style="width: 680px;border:1px dashed #3da7eb;float: left;padding:10px;background-image: http://www.caringyou.com.cn/wp-content/uploads/2015/07/53d49a932d6bb.jpg;">
 					</div>

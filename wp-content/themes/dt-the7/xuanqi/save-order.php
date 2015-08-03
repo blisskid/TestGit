@@ -10,31 +10,20 @@ if (0 == $user->ID) {
 
 	global $wpdb;
 
-	if (isset($_POST["product_name"]) && isset($_POST["inject_date"]) && isset($_POST["product_price"])
-		&& isset($_POST["if_airplane"]) && isset($_POST["start_airport_name"]) && isset($_POST["start_date"])
-		&& isset($_POST["back_date"]) && isset($_POST["airline_price"]) && isset($_POST["if_hotel"])
-		&& isset($_POST["in_date"]) && isset($_POST["out_date"]) && isset($_POST["hotel_price"])
-		&& isset($_POST["total_price"])) {
+	if (isset($_POST["product_name"]) && isset($_POST["order_date"]) && isset($_POST["product_price"]) && isset($_POST["customer_array"])) {
 
 		$saveArray = array(
 			'user_login' => $user->user_login,
 			'product_name' => $_POST["product_name"],
-			'inject_date' => $_POST["inject_date"],
+			'order_date' => $_POST["order_date"],
 			'product_price' => $_POST["product_price"],
-			'if_airplane' => $_POST["if_airplane"],
-			'start_airport_name' => $_POST["start_airport_name"],
-			'start_date' => $_POST["start_date"],
-			'back_date' => $_POST["back_date"],
-			'airline_price' => $_POST["airline_price"],
-			'if_hotel' => $_POST["if_hotel"],
-			'in_date' => $_POST["in_date"],
-			'out_date' => $_POST["out_date"],
-			'hotel_price' => $_POST["hotel_price"],
-			'total_price' => $_POST["total_price"],
+			// 'customer_array' => stripslashes($_POST["customer_array"]),
+			'customer_array' => $_POST["customer_array"],
 			'order_status' => 0);
 
-		//var_dump($saveArray);
+		// var_dump($saveArray);
 
+		
 		$result = $wpdb->insert(
 			'xq_orders',
 			$saveArray,
@@ -43,19 +32,10 @@ if (0 == $user->ID) {
 				'%s',
 				'%s',
 				'%d',
-				'%d',
 				'%s',
-				'%s',
-				'%s',
-				'%d',
-				'%d',
-				'%s',
-				'%s',
-				'%d',
-				'%d',
-				'%s')
+				'%d')
 		);
-
+		
 		if (0 < $result) {
 			echo $wpdb->insert_id;
 		} else {

@@ -37,7 +37,7 @@ if (0 == $current_user->ID) {
                                 <label for="name_1">姓名：</label><input type="text" id="name_1" name="name_1" placeholder="张三"/>
                             </td>
                             <td>
-                                <label>性别：</label><input type="radio" value="女" name="sex_1" checked/>女<input type="radio" value="男" name="sex_1" />男
+                                <label>性别：</label><input type="radio" value="女" name="sex_1" checked/>女&nbsp;&nbsp;<input type="radio" value="男" name="sex_1" />男
                             </td>                            
                         </tr>
                         <tr>
@@ -55,7 +55,12 @@ if (0 == $current_user->ID) {
                             <td>
                                 <label for="allergy_1">过敏：</label><input type="text" id="allergy_1" name="allergy_1" placeholder="请填写过敏药物名称"/>
                             </td>                            
-                        </tr>                                                                        
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="tel_1">电话：</label><input type="text" id="tel_1" name="tel_1"  value="<?php echo get_usermeta($current_user->ID, 'phone');?>" readonly/>
+                            </td>                           
+                        </tr>
                     </table>
                 </div>
             </td>

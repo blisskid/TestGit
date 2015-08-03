@@ -60,19 +60,9 @@ CREATE TABLE IF NOT EXISTS `xq_orders` (
   `ID` bigint(20) unsigned NOT NULL,
   `user_login` varchar(60) NOT NULL,
   `product_name` varchar(60) NOT NULL DEFAULT '' COMMENT '产品名称',
-  `inject_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '注射日期',
+  `order_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '预约日期',
   `product_price` double NOT NULL COMMENT '产品价格',
-  `if_airplane` int(11) NOT NULL DEFAULT 1 COMMENT '是否乘坐飞机。1：是；0：否。',
-  `start_airport_name` varchar(100) NOT NULL DEFAULT '' COMMENT '出发航站楼名称',
-  `arrive_airport_name` varchar(100) NOT NULL DEFAULT '' COMMENT '到达航站楼名称',
-  `start_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '出发日期',
-  `back_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '返回日期', 
-  `airline_price` double NOT NULL DEFAULT 0 COMMENT '往返机票价格',
-  `if_hotel` int(11) NOT NULL DEFAULT 1 COMMENT '是否住酒店。1：是；0：否。',
-  `in_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '入住日期',
-  `out_date` date NOT NULL DEFAULT '0000-00-00' COMMENT '退房日期', 
-  `hotel_price` double NOT NULL DEFAULT 0 COMMENT '酒店价格',
-  `total_price` double NOT NULL COMMENT '总价格',
+  `customer_array` text NOT NULL COMMENT '联系人列表信息',
   `order_status` int(11) NOT NULL DEFAULT 0 COMMENT '订单状态。0：未支付；1：已支付；2：已取消。',
   `save_time` timestamp NOT NULL COMMENT '订单生成时间',
   `reserved_text` varchar(60) DEFAULT ''
@@ -95,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `xq_products` (
   `product_description` longtext COMMENT '产品描述',
   `product_introduction` text COMMENT '产品简介',
   `bad_date` varchar(500) DEFAULT '' COMMENT '不可选的日期列表，用逗号隔开',
+  `img_url` varchar(500) DEFAULT '' COMMENT '图像地址',
   `reserved_text` varchar(60) DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 

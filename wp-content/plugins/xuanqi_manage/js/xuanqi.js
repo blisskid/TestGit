@@ -383,7 +383,7 @@ function xqFindPassword() {
         alert("验证码不正确！");
         return;
     }
-    jQuery("#xqFindPasswordForm").submit();       
+    jQuery("#xqFindPasswordForm").submit();
 }
 
 function xqRegister() {
@@ -414,7 +414,7 @@ function xqRegister() {
     if (vnumber != revnumber) {
         alert("验证码不正确！");
         return;
-    }       
+    }
 
     if (jQuery("#user_pass").val() == "") {
         alert("请输入密码");
@@ -446,7 +446,7 @@ function xqRegister() {
         } else {
             alert(data.error);
         }
-    });    
+    });
 }
 
 function xqResetPassword() {
@@ -454,7 +454,7 @@ function xqResetPassword() {
         alert("请输入用户名");
         return;
     }
-      
+
 
     if (jQuery("#user_pass").val() == "") {
         alert("请输入密码");
@@ -486,7 +486,7 @@ function xqResetPassword() {
         } else {
             alert(data.error);
         }
-    });      
+    });
 }
 
 
@@ -495,7 +495,7 @@ function xqLogin() {
     if (jQuery("#user_name").val() == "") {
         alert("请输入用户名");
         return;
-    }    
+    }
 
     if (jQuery("#user_pass").val() == "") {
         alert("请输入密码");
@@ -512,7 +512,7 @@ function xqLogin() {
     var Obj = {
         user_name: jQuery("#user_name").val(),
         user_pass: jQuery("#user_pass").val(),
-        remember:  remember
+        remember: remember
     }
 
     jQuery.post(url, Obj, function(data) {
@@ -526,7 +526,7 @@ function xqLogin() {
             jQuery("#hintDiv").html(data.error.replace(/<a href=.*忘记了密码？/, "<a href=\"http://www.caringyou.com.cn/?p=1214\">忘记了密码？"));
             jQuery("#hintDiv").show();
         }
-    });    
+    });
 }
 
 function toPay(product_name, inject_date, product_price, if_airplane, start_airport_name, start_date, back_date, airline_price, if_hotel, in_date, out_date, hotel_price, total_price) {
@@ -554,7 +554,7 @@ function toPay(product_name, inject_date, product_price, if_airplane, start_airp
 }
 
 function checkProductDetail(productId) {
-    window.location.href="http://www.caringyou.com.cn/?p=1369&id=" + productId;
+    window.location.href = "http://www.caringyou.com.cn/?p=1369&id=" + productId;
 }
 
 function gotoOrder(product_id) {
@@ -563,7 +563,7 @@ function gotoOrder(product_id) {
         return;
     }
 
-    window.location.href="http://www.caringyou.com.cn/?p=1387&id=" + product_id + "&orderDate=" + jQuery("#order_date").val();
+    window.location.href = "http://www.caringyou.com.cn/?p=1387&id=" + product_id + "&orderDate=" + jQuery("#order_date").val();
 }
 
 function addCustomer(index, product_origin_price, product_price) {
@@ -573,11 +573,11 @@ function addCustomer(index, product_origin_price, product_price) {
     var price = parseInt(product_price);
     //var index = now_origin_price / origin_price;
     var nextIndex = index + 1;
-    var str =   '<tr id="customer_' + nextIndex + '"><td colspan="2"><div class="xqFormHat">顾客' + nextIndex + '</div><div class="xqFormPage"><table><tr><td><label for="name_' + nextIndex + '">姓名：</label><input type="text" id="name_' + nextIndex + '" name="name_' + nextIndex + '" placeholder="张三"/></td><td><label>性别：</label><input type="radio" value="女" name="sex_' + nextIndex + '" checked/>女<input type="radio" value="男" name="sex_' + nextIndex + '" />男</td></tr>' + 
-                '<tr><td><label for="age_' + nextIndex + '">年龄：</label><input type="text" id="age_' + nextIndex + '" name="age_' + nextIndex + '" placeholder="18"/></td><td><label for="job_' + nextIndex + '">职业：</label><input type="text" id="job_' + nextIndex + '" name="job_' + nextIndex + '" placeholder="学生"/></td></tr>' + 
-                '<tr><td><label for="age_' + nextIndex + '">邮箱：</label><input type="text" id="email_' + nextIndex + '" name="email_' + nextIndex + '" placeholder="zhangxx@163.com"/></td><td><label for="tel_' + nextIndex + '">电话：</label><input type="text" id="tel_' + nextIndex + '" name="tel_' + nextIndex + '" placeholder="请填写联系方式"/></td></tr>' + 
-                '<tr><td><label for="allergy_' + nextIndex + '">过敏：</label><input type="text" id="allergy_' + nextIndex + '" name="allergy_' + nextIndex + '" placeholder="请填写过敏药物名称"/></td></tr>' +                                                                          
-                '</table></div></td></tr>';
+    var str = '<tr id="customer_' + nextIndex + '"><td colspan="2"><div class="xqFormHat">顾客' + nextIndex + '</div><div class="xqFormPage"><table><tr><td><label for="name_' + nextIndex + '">姓名：</label><input type="text" id="name_' + nextIndex + '" name="name_' + nextIndex + '" placeholder="张三"/></td><td><label>性别：</label><input type="radio" value="女" name="sex_' + nextIndex + '" checked/>女&nbsp;&nbsp;<input type="radio" value="男" name="sex_' + nextIndex + '" />男</td></tr>' +
+        '<tr><td><label for="age_' + nextIndex + '">年龄：</label><input type="text" id="age_' + nextIndex + '" name="age_' + nextIndex + '" placeholder="18"/></td><td><label for="job_' + nextIndex + '">职业：</label><input type="text" id="job_' + nextIndex + '" name="job_' + nextIndex + '" placeholder="学生"/></td></tr>' +
+        '<tr><td><label for="age_' + nextIndex + '">邮箱：</label><input type="text" id="email_' + nextIndex + '" name="email_' + nextIndex + '" placeholder="zhangxx@163.com"/></td><td><label for="tel_' + nextIndex + '">电话：</label><input type="text" id="tel_' + nextIndex + '" name="tel_' + nextIndex + '" placeholder="请填写联系方式"/></td></tr>' +
+        '<tr><td><label for="allergy_' + nextIndex + '">过敏：</label><input type="text" id="allergy_' + nextIndex + '" name="allergy_' + nextIndex + '" placeholder="请填写过敏药物名称"/></td></tr>' +
+        '</table></div></td></tr>';
     jQuery("#order_table #customer_" + index).after(str);
     jQuery("#del_customer_button").attr("disabled", false);
     //jQuery("#del_customer_button").removeAttribute("disabled");
@@ -596,7 +596,7 @@ function removeCustomer(index, product_origin_price, product_price) {
     var now_product_price = parseInt(jQuery("#product_price").html());
     var origin_price = parseInt(product_origin_price);
     var price = parseInt(product_price);
-    var nextIndex = index - 1;    
+    var nextIndex = index - 1;
     jQuery("#order_table #customer_" + index).remove();
     //jQuery("#customer_button").val("添加顾客");
     if (nextIndex == 1) {
@@ -611,12 +611,13 @@ function removeCustomer(index, product_origin_price, product_price) {
     var sub_origin_price = now_origin_price - origin_price;
     var sub_product_price = now_product_price - price;
     jQuery("#product_origin_price").html(sub_origin_price);
-    jQuery("#product_price").html(sub_product_price);  
+    jQuery("#product_price").html(sub_product_price);
 }
 
 function toOnlinePay(index) {
 
     //校验所有的输入是否正确
+    var customerArray = new Array();
     for (i = 1; i <= index; i++) {
         if (jQuery("#name_" + i).val() == "") {
             alert("顾客" + i + "的姓名为空！");
@@ -626,8 +627,8 @@ function toOnlinePay(index) {
         if (!/^[\u4e00-\u9fa5]{2,4}$/.test(jQuery("#name_" + i).val())) {
             alert("顾客" + i + "的姓名不正确！");
             return;
-        }        
-              
+        }
+
         if (jQuery("#age_" + i).val() == "") {
             alert("顾客" + i + "的年龄为空！");
             return;
@@ -639,16 +640,99 @@ function toOnlinePay(index) {
             return;
         }
 
+        customer = {
+            'name': jQuery("#name_" + i).val(),
+            'sex': jQuery("input:radio[name='sex_" + i + "']:checked").val(),
+            'age': jQuery("#age_" + i).val(),
+            'job': jQuery("#job_" + i).val(),
+            'email': jQuery("#email_" + i).val(),
+            'allergy': jQuery("#allergy_" + i).val(),
+            'tel': jQuery("#tel_" + i).val()
+        };
+
+        customerArray.push(customer);
     }
 
     var product_name = jQuery("#product_name").html();
     var product_price = jQuery("#product_price").html();
+    var order_date = jQuery("#order_date").html();
     //需要增加插入订单的逻辑
-    jQuery("#p5_Pid").val("1");
-    jQuery("#p3_Amt").val(product_price);
-    jQuery("#payForm").submit();    
+    var url = "http://www.caringyou.com.cn/save-order";
+    var obj = {
+        'product_name': product_name,
+        'order_date': order_date,
+        'product_price': product_price,
+        'customer_array': JSON.stringify(customerArray)
+    };
+
+    jQuery.post(url, obj, function(data) {
+        jQuery("#p5_Pid").val(data);
+        jQuery("#p3_Amt").val(product_price);
+        jQuery("#payForm").submit();
+    });
 }
 
 function backToProductDetail(product_id) {
-    window.location.href="http://www.caringyou.com.cn/?p=1369&id=" + product_id;
+    window.location.href = "http://www.caringyou.com.cn/?p=1369&id=" + product_id;
+}
+
+function sAlert(str) {
+    var msgw, msgh, bordercolor;
+    msgw = 800; //提示窗口的宽度
+    msgh = 400; //提示窗口的高度
+    bordercolor = "#336699"; //提示窗口的边框颜色
+    titlecolor = "#99CCFF"; //提示窗口的标题颜色
+
+    var sWidth, sHeight;
+    sWidth = document.body.offsetWidth;
+    sHeight = document.body.offsetHeight;
+
+    var bgObj = document.createElement("div");
+    bgObj.setAttribute('id', 'bgDiv');
+    bgObj.style.position = "absolute";
+    bgObj.style.top = "0";
+    bgObj.style.background = "#777";
+    bgObj.style.filter = "progid:DXImageTransform.Microsoft.Alpha (style = 3, opacity = 25, finishOpacity = 75 ";
+    bgObj.style.opacity = "0.6"; 
+    bgObj.style.left = "0"; 
+    bgObj.style.width = sWidth + "px"; 
+    bgObj.style.height = sHeight + "px"; 
+    document.body.appendChild(bgObj);
+    var msgObj = document.createElement("div")
+    msgObj.setAttribute("id", "msgDiv"); 
+    msgObj.setAttribute("align", "center"); 
+    msgObj.style.position = "absolute"; 
+    msgObj.style.background = "white"; 
+    msgObj.style.font = "12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif"; 
+    msgObj.style.border = "1px solid " + bordercolor; 
+    msgObj.style.width = msgw + "px"; 
+    msgObj.style.height = msgh + "px"; 
+    msgObj.style.top = (document.documentElement.scrollTop + (sHeight - msgh) / 2) + "px"; 
+    msgObj.style.left = (sWidth - msgw) / 2 + "px";
+    var title = document.createElement("h4"); 
+    title.setAttribute("id", "msgTitle"); 
+    title.setAttribute("align", "right"); 
+    title.style.margin = "0"; 
+    title.style.padding = "3px"; 
+    title.style.background = bordercolor; 
+    title.style.filter = "progid:DXImageTransform.Microsoft.Alpha(startX=20, startY=20,finishX = 100, finishY = 100, style = 1, opacity = 75, finishOpacity = 100);";
+    title.style.opacity = "0.75";
+    title.style.border = "1px solid " + bordercolor;
+    title.style.height = "18px";
+    title.style.font = "12px Verdana, Geneva, Arial, Helvetica, sans-serif";
+    title.style.color = "white";
+    title.style.cursor = "pointer";
+    title.innerHTML = "关闭";
+    title.onclick = function() {
+        document.body.removeChild(bgObj);
+        document.getElementById("msgDiv").removeChild(title);
+        document.body.removeChild(msgObj);
+    }
+    document.body.appendChild(msgObj);
+    document.getElementById("msgDiv").appendChild(title);
+    var txt = document.createElement("p");
+    txt.style.margin = "1em 0"
+    txt.setAttribute("id", "msgTxt");
+    txt.innerHTML = str;
+    document.getElementById("msgDiv").appendChild(txt);
 }

@@ -11,7 +11,8 @@ if (0 == $current_user->ID) {
 	header("Content-Type: application/json; charset=UTF-8");
 
 	global $wpdb;
-	$searchSql = "SELECT `ID`,`user_login`,`product_name`,`product_price`,`inject_date`,`if_airplane`,`start_airport_name`,`arrive_airport_name`,`start_date`,`back_date`,`airline_price`,`if_hotel`,`in_date`,`out_date`,`hotel_price`,`total_price`,`order_status`,`save_time`,`reserved_text` FROM `xq_orders`";
+
+	$searchSql = "SELECT `ID`,`user_login`,`product_name`,`product_price`,`order_date`,`customer_array`,`order_status`,`save_time`,`reserved_text` FROM `xq_orders`";
 	$countSql = "SELECT COUNT(*) FROM `xq_orders`";
 	$conditionStr = "";
 	if (count($_GET) > 1) {
@@ -52,26 +53,8 @@ if (0 == $current_user->ID) {
 		$outp .= '"user_login":"' . $item->user_login . '",';
 		$outp .= '"product_name":"' . $item->product_name . '",';
 		$outp .= '"product_price":"' . $item->product_price . '",';
-		$outp .= '"inject_date":"' . $item->inject_date . '",';
-		if ("0" == $item->if_airplane) {
-			$outp .= '"if_airplane":"否",';
-		} else if ("1" == $item->if_airplane) {
-			$outp .= '"if_airplane":"是",';
-		}
-		$outp .= '"start_airport_name":"' . $item->start_airport_name . '",';
-		$outp .= '"arrive_airport_name":"' . $item->arrive_airport_name . '",';
-		$outp .= '"start_date":"' . $item->start_date . '",';
-		$outp .= '"back_date":"' . $item->back_date . '",';
-		$outp .= '"airline_price":"' . $item->airline_price . '",';
-		if ("0" == $item->if_hotel) {
-			$outp .= '"if_hotel":"否",';
-		} else if ("1" == $item->if_hotel) {
-			$outp .= '"if_hotel":"是",';
-		}
-		$outp .= '"in_date":"' . $item->in_date . '",';
-		$outp .= '"out_date":"' . $item->out_date . '",';
-		$outp .= '"hotel_price":"' . $item->hotel_price . '",';
-		$outp .= '"total_price":"' . $item->total_price . '",';
+		$outp .= '"order_date":"' . $item->order_date . '",';
+		$outp .= '"customer_array":"' . $item->customer_array . '",';
 		if ("0" == $item->order_status) {
 			$outp .= '"order_status":"未支付",';
 		} else if ("1" == $item->order_status) {

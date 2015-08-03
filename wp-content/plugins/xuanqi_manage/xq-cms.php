@@ -20,7 +20,7 @@ function write_copyright() {
 	echo "版权所有    粤ICP备15030554号</div>";
 	echo '<div style="display:none;"><a href="http://www.live800.com">live800Link.websitechat</a></div><script language="javascript" src="http://chat16.live800.com/live800/chatClient/floatButton.js?jid=9857636380&companyID=517576&configID=67442&codeType=custom"></script><div style="display:none;"><a href="http://en.live800.com">live chat</a></div>';
 }
-add_action('wp_footer', 'write_copyright');
+// add_action('wp_footer', 'write_copyright');
 
 //增加百度统计的代码
 function baidu_status() {
@@ -57,6 +57,8 @@ function add_login_out_item_to_menu($items, $args) {
 
 add_filter('wp_nav_menu_items', 'add_login_out_item_to_menu', 50, 2);
 //Add login/logout link to naviagation menu
+
+add_filter( 'show_admin_bar', '__return_false' );
 
 //add menu
 add_action('admin_menu', 'register_my_custom_menu_page');
@@ -209,7 +211,7 @@ function xuanqi_update_product() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["product_id"]) && isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"]) && isset($_POST["bad_date"])) {
+		if (isset($_POST["product_id"]) && isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"]) && isset($_POST["bad_date"]) && isset($_POST["img_url"])) {
 
 			if ("" == trim($_POST["product_price"])) {
 				echo "<font color='red'>产品价格不能为空</font>";
@@ -231,6 +233,11 @@ function xuanqi_update_product() {
 				return;
 			}
 
+			if ("" == trim($_POST["img_url"])) {
+				echo "<font color='red'>图像地址不能为空</font>";
+				return; 
+			}
+
 			global $wpdb;
 			$product_id = trim($_POST["product_id"]);
 			$product_name = trim($_POST["product_name"]);
@@ -241,8 +248,9 @@ function xuanqi_update_product() {
 			$product_description = trim($_POST["product_description"]);
 			$bad_date = trim($_POST["bad_date"]);
 			$product_introduction = trim($_POST["product_introduction"]);
+			$img_url = trim($_POST["img_url"]);
 
-			$sql = "UPDATE `xq_products` SET `product_name`='$product_name',`product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_origin_price`=$product_origin_price,`product_description`='$product_description',`product_introduction`='$product_introduction',`bad_date`='$bad_date' WHERE ID=$product_id";
+			$sql = "UPDATE `xq_products` SET `product_name`='$product_name',`product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_origin_price`=$product_origin_price,`product_description`='$product_description',`product_introduction`='$product_introduction',`bad_date`='$bad_date', `img_url`='$img_url' WHERE ID=$product_id";
 			//var_dump($sql);
 			$result = $wpdb->query($sql);
 			//var_dump($result);
@@ -269,7 +277,7 @@ function xuanqi_save_product() {
 
 		//var_dump($_POST);
 
-		if (isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"]) && isset($_POST["bad_date"])) {
+		if (isset($_POST["product_name"]) && isset($_POST["product_price"]) && isset($_POST["product_dealer_price"]) && isset($_POST["product_direct_price"]) && isset($_POST["product_origin_price"]) && isset($_POST["product_description"]) && isset($_POST["product_introduction"]) && isset($_POST["bad_date"]) && isset($_POST["img_url"])) {
 
 			if ("" == trim($_POST["product_price"])) {
 				echo "<font color='red'>产品价格不能为空</font>";
@@ -286,6 +294,11 @@ function xuanqi_save_product() {
 				return;
 			}
 
+			if ("" == trim($_POST["img_url"])) {
+				echo "<font color='red'>图像地址不能为空</font>";
+				return; 
+			}			
+
 			global $wpdb;
 			$product_name = trim($_POST["product_name"]);
 			$product_price = trim($_POST["product_price"]);
@@ -295,9 +308,10 @@ function xuanqi_save_product() {
 			$product_description = trim($_POST["product_description"]);
 			$product_introduction = trim($_POST["product_introduction"]);
 			$bad_date = trim($_POST["bad_date"]);
+			$img_url = trim($_POST["img_url"]);
 
 			//$sql = "UPDATE `xq_products` SET `product_price`=$product_price,`product_dealer_price`=$product_dealer_price,`product_direct_price`=$product_direct_price,`product_description`='$product_description' WHERE ID=$product_id";
-			$sql = "insert into `xq_products` (`product_name`,`product_price`,`product_dealer_price`,`product_direct_price`,`product_origin_price`,`product_description`,`product_introduction`,`bad_date`) values('$product_name',$product_price,$product_dealer_price,$product_direct_price,$product_origin_price,'$product_description','$product_introduction','$bad_date')";
+			$sql = "insert into `xq_products` (`product_name`,`product_price`,`product_dealer_price`,`product_direct_price`,`product_origin_price`,`product_description`,`product_introduction`,`bad_date`,`img_url`) values('$product_name',$product_price,$product_dealer_price,$product_direct_price,$product_origin_price,'$product_description','$product_introduction','$bad_date','$img_url')";
 			//var_dump($sql);
 			$result = $wpdb->query($sql);
 			//var_dump($result);
@@ -500,7 +514,7 @@ function xuanqi_add_product_callback() {
 
 			global $wpdb;
 
-			$productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_origin_price`, `product_description`, `product_introduction`, `bad_date` FROM `xq_products` WHERE ID=" . trim($_GET["id"]));
+			$productArray = $wpdb->get_results("SELECT `ID`, `product_name`, `product_price`, `product_dealer_price`, `product_direct_price`, `product_origin_price`, `product_description`, `product_introduction`, `bad_date`, `img_url` FROM `xq_products` WHERE ID=" . trim($_GET["id"]));
 			//var_dump($productArray);
 		}
 	}
@@ -553,7 +567,14 @@ function xuanqi_add_product_callback() {
             <br>
             <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->product_origin_price : '';?>" name="product_origin_price" placeholder="请输入产品原价" pattern="^([1-9]\d*)|(0)$" title="请输入不带小数点的数字" required>（元）</input>
         </td>
-    </tr>    
+    </tr>
+    <tr>
+        <td>
+            输入图像地址：
+            <br>
+            <input class="regular-text" type="text" value="<?php echo isset($productArray) ? $productArray[0]->img_url : '';?>" name="img_url" placeholder="请输入图像地址" required></input>
+        </td>
+    </tr>         
     <tr>
         <td>
             输入产品描述：
@@ -1480,38 +1501,18 @@ function xuanqi_order_config_callback() {
         <th>用户名</th>
         <th>产品名称</th>
         <th>产品价格</th>
-        <th>注射日期</th>
-        <th>是否乘坐飞机</th>
-        <th>出发机场</th>
-        <th>到达机场</th>
-        <th>出发日期</th>
-        <th>返回日期</th>
-        <th>往返机票价格</th>
-        <th>是否入住酒店</th>
-        <th>入住日期</th>
-        <th>退房日期</th>
-        <th>酒店价格</th>
-        <th>总价格</th>
+        <th>预约日期</th>
         <th>订单状态</th>
         <th>生成时间</th>
+        <th>查看人员列表</th>
         <tr ng-repeat="x in names">
             <td ng-bind="x.user_login"></td>
             <td ng-bind="x.product_name"></td>
             <td ng-bind="x.product_price"></td>
-            <td ng-bind="x.inject_date"></td>
-            <td ng-bind="x.if_airplane"></td>
-            <td ng-bind="x.start_airport_name"></td>
-            <td ng-bind="x.arrive_airport_name"></td>
-            <td ng-bind="x.start_date"></td>
-            <td ng-bind="x.back_date"></td>
-            <td ng-bind="x.airline_price"></td>
-            <td ng-bind="x.if_hotel"></td>
-            <td ng-bind="x.in_date"></td>
-            <td ng-bind="x.out_date"></td>
-            <td ng-bind="x.hotel_price"></td>
-            <td ng-bind="x.total_price"></td>
+            <td ng-bind="x.order_date"></td>
             <td ng-bind="x.order_status"></td>
             <td ng-bind="x.save_time"></td>
+            <td><input type="button" value="查看" ng-click="personDetails(x.customer_array)"></input></td>
         </tr>
     </table>
 </div>
@@ -1592,6 +1593,24 @@ app.controller('showCtrl', function($scope, $http) {
 
 		var page_num = jQuery('#page_num').val();
 		refresh(page_num);
+    }
+
+    $scope.personDetails = function(customer_array) {
+    	customers = JSON.parse(customer_array);
+    	var str = "<table><th style='width:50px;'>序号</th><th style='width:100px;'>姓名</th><th style='width:50px;'>性别</th><th style='width:100px;'>年龄</th><th style='width:100px;'>职业</th><th style='width:100px;'>邮箱</th><th style='width:200px;'>过敏</th><th style='width:100px;'>联系方式</th>";
+    	for (i = 0; i < customers.length; i++) {
+    		j = i + 1;
+    		str += "<tr><td style='width:50px;text-align:center;'>" + j + "</td>";
+    		str += "<td style='width:100px;text-align:center;'>" + customers[i].name + "</td>";
+    		str += "<td style='width:50px;text-align:center;'>" + customers[i].sex + "</td>";;
+    		str += "<td style='width:100px;text-align:center;'>" + customers[i].age + "</td>";;
+    		str += "<td style='width:100px;text-align:center;'>" + customers[i].job + "</td>";;
+    		str += "<td style='width:100px;text-align:center;'>" + customers[i].email + "</td>";;
+    		str += "<td style='width:200px;text-align:center;'>" + customers[i].allergy + "</td>";;
+    		str += "<td style='width:100px;text-align:center;'>" + customers[i].tel + "</td></tr>";;
+    	}
+    	str += "</table>";
+    	sAlert(str);
     }
 
 });
